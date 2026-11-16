@@ -37,7 +37,7 @@
   --r-pill: 999px;
 
   /* Voile de lisibilité au-dessus du fond (§8.1) */
-  --veil: linear-gradient(180deg, rgba(251,244,241,.74) 0%, rgba(251,244,241,.44) 36%, rgba(251,244,241,.40) 68%, rgba(251,244,241,.62) 100%);
+  --veil: linear-gradient(180deg, rgba(251,244,241,.74) 0%, rgba(251,244,241,.50) 36%, rgba(251,244,241,.46) 68%, rgba(251,244,241,.64) 100%);
 
   /* Zones système (encoche, barre de gestes) */
   --safe-top: env(safe-area-inset-top, 0px);

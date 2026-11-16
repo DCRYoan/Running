@@ -372,3 +372,33 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; min-heigh
 .rule-t { font-size: 15px; font-weight: 900; }
 .rule-d { font-size: 14px; line-height: 1.35; color: var(--ink-2); font-weight: 700; }
 .safety { border-radius: 20px; padding: 14px 16px; font-size: 14px; line-height: 1.45; font-weight: 800; color: #3A2E5E; }
+
+/* =====================================================================
+   M4 — carte anecdote (§7.6) et cartes de motivation (§8.3)
+   ===================================================================== */
+.anecdote {
+  position: relative; overflow: hidden; width: 100%; flex: none;
+  border-radius: 26px; border: 1px solid rgba(255,255,255,.8);
+  box-shadow: 0 10px 30px rgba(110,70,100,.16);
+  background: var(--cream);
+}
+.anecdote-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.anecdote-veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.82) 55%, rgba(255,255,255,0) 100%);
+}
+.anecdote-body { position: relative; max-width: 72%; padding: 16px; }
+.anecdote-label { color: var(--ink-3); margin-bottom: 6px; }
+.anecdote-text { font-size: 15px; line-height: 1.42; font-weight: 800; }
+.anecdote-place {
+  position: absolute; right: 12px; bottom: 12px; max-width: 60%;
+  display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px;
+  border-radius: 999px; font-size: 14px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.anecdote-place svg { flex: none; }
+.motivation {
+  display: block; width: 100%; height: auto; flex: none;
+  border-radius: 24px; border: 1.5px solid #FFFFFF;
+  box-shadow: 0 10px 30px rgba(110,70,100,.16);
+  background: #FCEFE6;
+}

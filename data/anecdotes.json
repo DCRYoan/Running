@@ -1,0 +1,965 @@
+{
+  "version": 1,
+  "verifiedAt": "2026-11-16",
+  "note": "Distances vérifiées (sources dans « source »). « à vol d'oiseau » est précisé quand la distance est en ligne droite. Jamais de comparaison « X fois ».",
+  "fit": {
+    "presqueFrom": 0.85,
+    "plusFrom": 1.08,
+    "bienPlusFrom": 1.4
+  },
+  "comparisons": {
+    "presque": [
+      "c'est presque {text}"
+    ],
+    "pile": [
+      "c'est comme {text}"
+    ],
+    "plus": [
+      "c'est comme {text}, et même un peu plus loin",
+      "c'est comme {text}, avec un petit bonus"
+    ],
+    "bienPlus": [
+      "c'est déjà plus {que_text}"
+    ]
+  },
+  "comparisonsSobre": {
+    "presque": [
+      "soit presque l'équivalent {de_text}"
+    ],
+    "pile": [
+      "soit l'équivalent {de_text}"
+    ],
+    "plus": [
+      "soit un peu plus que la distance pour {text}"
+    ],
+    "bienPlus": [
+      "soit plus que la distance pour {text}"
+    ]
+  },
+  "templates": {
+    "encourageant": [
+      "{total} km depuis ta première séance : {comp}. Continue !",
+      "Déjà {total} km parcourus : {comp}. Bravo, continue !",
+      "{total} km depuis le début : {comp}. Tu peux être fière de toi !"
+    ],
+    "humour": [
+      "{total} km au compteur… {comp}, sans les embouteillages.",
+      "{total} km dans les jambes : {comp}. Et tout ça sans GPS !",
+      "{total} km au compteur : {comp}. Tes baskets n'en reviennent pas."
+    ],
+    "sobre": [
+      "{total} km depuis ta première séance, {compSobre}.",
+      "Distance cumulée : {total} km, {compSobre}."
+    ]
+  },
+  "firstTarget": "Ton premier objectif : {text}, encore {x} km.",
+  "nextStep": "Prochaine étape : {text}, encore {x} km.",
+  "city": {
+    "every": 3,
+    "text": "aller de {ville} {a_destination}, à vol d'oiseau",
+    "image": "assets/anecdotes/generic-route.svg"
+  },
+  "genericImage": "assets/anecdotes/generic-route.svg",
+  "anecdotes": [
+    {
+      "id": "plage-lecques",
+      "kind": "fixed",
+      "km": 1.4,
+      "verified": true,
+      "zone": "Var",
+      "text": "longer toute la plage des Lecques, pieds dans le sable",
+      "place": "Les Lecques",
+      "image": "assets/anecdotes/plage-lecques.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Longueur de la plage : 1,4 km (surf-report.com, plages.tv ; la Région cite « près de 2 km » promenade comprise)"
+    },
+    {
+      "id": "pont-brooklyn",
+      "kind": "fixed",
+      "km": 1.8,
+      "verified": true,
+      "zone": "monde",
+      "text": "traverser le pont de Brooklyn d'un bout à l'autre",
+      "place": "New York",
+      "image": "assets/anecdotes/pont-brooklyn.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Longueur totale du pont : 1 825 m (Wikipédia)"
+    },
+    {
+      "id": "champs-elysees",
+      "kind": "fixed",
+      "km": 1.9,
+      "verified": true,
+      "zone": "monde",
+      "text": "descendre l'avenue des Champs-Élysées, de l'Arc de Triomphe à la Concorde",
+      "place": "Paris",
+      "image": "assets/anecdotes/champs-elysees.svg",
+      "tones": [
+        "sobre",
+        "humour"
+      ],
+      "source": "Longueur de l'avenue : 1 910 m (Wikipédia)"
+    },
+    {
+      "id": "toulon-mourillon",
+      "kind": "fixed",
+      "km": 2.4,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller du port de Toulon à la plage du Mourillon",
+      "place": "Toulon",
+      "image": "assets/anecdotes/toulon-mourillon.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 2,4 km (quai Cronstadt → plages du Mourillon)"
+    },
+    {
+      "id": "golden-gate",
+      "kind": "fixed",
+      "km": 2.7,
+      "verified": true,
+      "zone": "monde",
+      "text": "traverser le Golden Gate Bridge",
+      "place": "San Francisco",
+      "image": "assets/anecdotes/golden-gate.svg",
+      "tones": [
+        "humour",
+        "encourageant"
+      ],
+      "source": "Longueur totale du pont : 2 737 m (Wikipédia)"
+    },
+    {
+      "id": "corniche-kennedy",
+      "kind": "fixed",
+      "km": 3.7,
+      "verified": true,
+      "zone": "13",
+      "text": "longer la Corniche Kennedy, face à la mer, à Marseille",
+      "place": "Marseille",
+      "image": "assets/anecdotes/corniche-kennedy.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Longueur de la route : 3,7 km (Wikipédia ; l'Office de tourisme cite 5 km)"
+    },
+    {
+      "id": "grand-canal",
+      "kind": "fixed",
+      "km": 3.8,
+      "verified": true,
+      "zone": "monde",
+      "text": "suivre le Grand Canal de Venise d'un bout à l'autre",
+      "place": "Venise",
+      "image": "assets/anecdotes/grand-canal.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Longueur du canal : 3,8 km (Wikipédia)"
+    },
+    {
+      "id": "copacabana",
+      "kind": "fixed",
+      "km": 4,
+      "verified": true,
+      "zone": "monde",
+      "text": "longer toute la plage de Copacabana",
+      "place": "Rio",
+      "image": "assets/anecdotes/copacabana.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Longueur de la plage : 4 km (Lonely Planet ; sources entre 3 et 4,5 km)"
+    },
+    {
+      "id": "saint-cyr-cadiere",
+      "kind": "fixed",
+      "km": 4.7,
+      "verified": true,
+      "zone": "Var",
+      "text": "monter de Saint-Cyr-sur-Mer jusqu'au village perché de La Cadière-d'Azur",
+      "place": "La Cadière-d'Azur",
+      "image": "assets/anecdotes/saint-cyr-cadiere.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 4,7 km (mairie → mairie)"
+    },
+    {
+      "id": "sanary-six-fours",
+      "kind": "fixed",
+      "km": 5,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller du port de Sanary-sur-Mer au centre de Six-Fours-les-Plages",
+      "place": "Six-Fours",
+      "image": "assets/anecdotes/sanary-six-fours.svg",
+      "tones": [
+        "sobre",
+        "humour"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 5,0 km"
+    },
+    {
+      "id": "lecques-port-alon",
+      "kind": "fixed",
+      "km": 5.2,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller de la plage des Lecques jusqu'à la calanque de Port d'Alon",
+      "place": "Port d'Alon",
+      "image": "assets/anecdotes/lecques-port-alon.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 5,2 km"
+    },
+    {
+      "id": "toulon-faron",
+      "kind": "fixed",
+      "km": 5.2,
+      "verified": true,
+      "zone": "Var",
+      "text": "monter du port de Toulon jusqu'au sommet du mont Faron",
+      "place": "Mont Faron",
+      "image": "assets/anecdotes/toulon-faron.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 5,2 km (quai Cronstadt → sommet)"
+    },
+    {
+      "id": "sanary-bandol",
+      "kind": "fixed",
+      "km": 5.8,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller du port de Sanary-sur-Mer au port de Bandol",
+      "place": "Bandol",
+      "image": "assets/anecdotes/sanary-bandol.svg",
+      "tones": [
+        "sobre",
+        "humour"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 5,8 km"
+    },
+    {
+      "id": "sanary-brusc",
+      "kind": "fixed",
+      "km": 6,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller du port de Sanary-sur-Mer au petit port du Brusc",
+      "place": "Le Brusc",
+      "image": "assets/anecdotes/sanary-brusc.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 6,0 km"
+    },
+    {
+      "id": "porquerolles",
+      "kind": "fixed",
+      "km": 7,
+      "verified": true,
+      "zone": "Var",
+      "text": "traverser l'île de Porquerolles d'un bout à l'autre",
+      "place": "Porquerolles",
+      "image": "assets/anecdotes/porquerolles.svg",
+      "tones": [
+        "humour",
+        "encourageant"
+      ],
+      "source": "Longueur de l'île : 7 km (office de tourisme du Lavandou)"
+    },
+    {
+      "id": "saint-cyr-castellet",
+      "kind": "fixed",
+      "km": 7.7,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller de Saint-Cyr-sur-Mer au village du Castellet",
+      "place": "Le Castellet",
+      "image": "assets/anecdotes/saint-cyr-castellet.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 7,7 km"
+    },
+    {
+      "id": "saint-cyr-bandol",
+      "kind": "fixed",
+      "km": 8.3,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller de Saint-Cyr-sur-Mer à Bandol",
+      "place": "Bandol",
+      "image": "assets/anecdotes/saint-cyr-bandol.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 8,3 km (mairie → port)"
+    },
+    {
+      "id": "central-park",
+      "kind": "fixed",
+      "km": 9.8,
+      "verified": true,
+      "zone": "monde",
+      "text": "faire le tour complet de Central Park",
+      "place": "New York",
+      "image": "assets/anecdotes/central-park.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Grande boucle du parc : 6,1 miles soit 9,8 km (Citi Bike, guides de course)"
+    },
+    {
+      "id": "saint-cyr-la-ciotat",
+      "kind": "fixed",
+      "km": 11,
+      "verified": true,
+      "zone": "13",
+      "text": "aller de Saint-Cyr-sur-Mer au vieux port de La Ciotat",
+      "place": "La Ciotat",
+      "image": "assets/anecdotes/saint-cyr-la-ciotat.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 11,0 km"
+    },
+    {
+      "id": "giens",
+      "kind": "fixed",
+      "km": 12,
+      "verified": true,
+      "zone": "Var",
+      "text": "faire le tour de la presqu'île de Giens par le sentier du littoral",
+      "place": "Giens",
+      "image": "assets/anecdotes/giens.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Boucle du sentier du littoral : environ 12 km selon le tracé (Komoot 11,7 km, Visorando)"
+    },
+    {
+      "id": "manhattan-harlem",
+      "kind": "fixed",
+      "km": 13.6,
+      "verified": true,
+      "zone": "monde",
+      "text": "traverser Manhattan, de Battery Park jusqu'à Harlem",
+      "place": "New York",
+      "image": "assets/anecdotes/manhattan-harlem.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 13,6 km (Battery Park → Apollo Theater)"
+    },
+    {
+      "id": "lecques-sanary",
+      "kind": "fixed",
+      "km": 14.3,
+      "verified": true,
+      "zone": "Var",
+      "text": "longer la côte des Lecques jusqu'à Sanary-sur-Mer",
+      "place": "Sanary",
+      "image": "assets/anecdotes/lecques-sanary.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 14,3 km"
+    },
+    {
+      "id": "toulon-bandol",
+      "kind": "fixed",
+      "km": 18.4,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller du port de Toulon jusqu'à Bandol",
+      "place": "Toulon",
+      "image": "assets/anecdotes/toulon-bandol.svg",
+      "tones": [
+        "humour",
+        "encourageant"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 18,4 km"
+    },
+    {
+      "id": "marseille-aubagne",
+      "kind": "fixed",
+      "km": 18.8,
+      "verified": true,
+      "zone": "13",
+      "text": "aller du Vieux-Port de Marseille jusqu'à Aubagne",
+      "place": "Marseille",
+      "image": "assets/anecdotes/marseille-aubagne.svg",
+      "tones": [
+        "sobre",
+        "humour"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 18,8 km"
+    },
+    {
+      "id": "toulon-hyeres",
+      "kind": "fixed",
+      "km": 18.9,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller de Toulon à Hyères",
+      "place": "Hyères",
+      "image": "assets/anecdotes/toulon-hyeres.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 18,9 km"
+    },
+    {
+      "id": "versailles",
+      "kind": "fixed",
+      "km": 19.6,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Notre-Dame au château de Versailles",
+      "place": "Paris",
+      "image": "assets/anecdotes/versailles.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 19,6 km (17,7 km à vol d'oiseau)"
+    },
+    {
+      "id": "semi-marathon",
+      "kind": "fixed",
+      "km": 21.1,
+      "verified": true,
+      "zone": "monde",
+      "text": "courir un semi-marathon",
+      "place": "Semi-marathon",
+      "image": "assets/anecdotes/semi-marathon.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Distance officielle : 21,0975 km"
+    },
+    {
+      "id": "manhattan-total",
+      "kind": "fixed",
+      "km": 21.6,
+      "verified": true,
+      "zone": "monde",
+      "text": "traverser Manhattan d'un bout à l'autre",
+      "place": "New York",
+      "image": "assets/anecdotes/manhattan-total.svg",
+      "tones": [
+        "sobre",
+        "humour"
+      ],
+      "source": "Longueur de l'île : 21,6 km (Wikipédia)"
+    },
+    {
+      "id": "saint-cyr-toulon",
+      "kind": "fixed",
+      "km": 25.4,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller de Saint-Cyr-sur-Mer à Toulon",
+      "place": "Toulon",
+      "image": "assets/anecdotes/saint-cyr-toulon.svg",
+      "tones": [
+        "humour",
+        "encourageant"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 25,4 km"
+    },
+    {
+      "id": "saint-cyr-marseille",
+      "kind": "fixed",
+      "km": 39.5,
+      "verified": true,
+      "zone": "13",
+      "text": "aller de Saint-Cyr-sur-Mer au Vieux-Port de Marseille",
+      "place": "Marseille",
+      "image": "assets/anecdotes/saint-cyr-marseille.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 39,5 km"
+    },
+    {
+      "id": "toulon-cassis",
+      "kind": "fixed",
+      "km": 41.7,
+      "verified": true,
+      "zone": "13",
+      "text": "aller de Toulon à Cassis",
+      "place": "Cassis",
+      "image": "assets/anecdotes/toulon-cassis.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 41,7 km"
+    },
+    {
+      "id": "marathon",
+      "kind": "fixed",
+      "km": 42.2,
+      "verified": true,
+      "zone": "monde",
+      "text": "courir un marathon complet",
+      "place": "Marathon",
+      "image": "assets/anecdotes/marathon.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Distance officielle : 42,195 km"
+    },
+    {
+      "id": "saint-cyr-aix",
+      "kind": "fixed",
+      "km": 56,
+      "verified": true,
+      "zone": "13",
+      "text": "aller de Saint-Cyr-sur-Mer à Aix-en-Provence",
+      "place": "Aix",
+      "image": "assets/anecdotes/saint-cyr-aix.svg",
+      "tones": [
+        "sobre",
+        "humour"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 55,9 km"
+    },
+    {
+      "id": "toulon-saint-tropez",
+      "kind": "fixed",
+      "km": 75,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller de Toulon à Saint-Tropez",
+      "place": "Saint-Tropez",
+      "image": "assets/anecdotes/toulon-saint-tropez.svg",
+      "tones": [
+        "humour",
+        "encourageant"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 75,2 km"
+    },
+    {
+      "id": "marseille-avignon",
+      "kind": "fixed",
+      "km": 86,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Marseille à Avignon, à vol d'oiseau",
+      "place": "Avignon",
+      "image": "assets/anecdotes/marseille-avignon.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 86 km"
+    },
+    {
+      "id": "marseille-montpellier",
+      "kind": "fixed",
+      "km": 126,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Marseille à Montpellier, à vol d'oiseau",
+      "place": "Montpellier",
+      "image": "assets/anecdotes/marseille-montpellier.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 126 km"
+    },
+    {
+      "id": "toulon-cannes",
+      "kind": "fixed",
+      "km": 135,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller de Toulon à Cannes",
+      "place": "Cannes",
+      "image": "assets/anecdotes/toulon-cannes.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 135,4 km"
+    },
+    {
+      "id": "tour-mont-blanc",
+      "kind": "fixed",
+      "km": 170,
+      "verified": true,
+      "zone": "monde",
+      "text": "faire le tour du Mont-Blanc",
+      "place": "Mont-Blanc",
+      "image": "assets/anecdotes/tour-mont-blanc.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Tour du Mont-Blanc : environ 170 km (Wikipédia)"
+    },
+    {
+      "id": "saint-cyr-nice",
+      "kind": "fixed",
+      "km": 174,
+      "verified": true,
+      "zone": "Var",
+      "text": "aller de Saint-Cyr-sur-Mer à Nice",
+      "place": "Nice",
+      "image": "assets/anecdotes/saint-cyr-nice.svg",
+      "tones": [
+        "sobre",
+        "humour"
+      ],
+      "source": "Itinéraire à pied OpenStreetMap (routing.openstreetmap.de, FOSSGIS) : 173,8 km"
+    },
+    {
+      "id": "gr20",
+      "kind": "fixed",
+      "km": 180,
+      "verified": true,
+      "zone": "monde",
+      "text": "parcourir le GR20 en Corse",
+      "place": "Corse",
+      "image": "assets/anecdotes/gr20.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "GR20 : environ 180 km (Wikipédia, Parc naturel régional de Corse)"
+    },
+    {
+      "id": "marseille-lyon",
+      "kind": "fixed",
+      "km": 278,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Marseille à Lyon, à vol d'oiseau",
+      "place": "Lyon",
+      "image": "assets/anecdotes/marseille-lyon.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 278 km"
+    },
+    {
+      "id": "paris-londres",
+      "kind": "fixed",
+      "km": 344,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris à Londres, à vol d'oiseau",
+      "place": "Londres",
+      "image": "assets/anecdotes/paris-londres.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 344 km"
+    },
+    {
+      "id": "paris-lyon",
+      "kind": "fixed",
+      "km": 391,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris à Lyon, à vol d'oiseau",
+      "place": "Lyon",
+      "image": "assets/anecdotes/paris-lyon.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 391 km"
+    },
+    {
+      "id": "saint-cyr-paris",
+      "kind": "fixed",
+      "km": 682,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Saint-Cyr-sur-Mer à Paris, à vol d'oiseau",
+      "place": "Paris",
+      "image": "assets/anecdotes/saint-cyr-paris.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 682 km"
+    },
+    {
+      "id": "camino",
+      "kind": "fixed",
+      "km": 773,
+      "verified": true,
+      "zone": "monde",
+      "text": "marcher le chemin de Saint-Jacques, de Saint-Jean-Pied-de-Port à Compostelle",
+      "place": "Compostelle",
+      "image": "assets/anecdotes/camino.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Camino francés : 773 km (Ville de Pampelune ; guides entre 773 et 790 km)"
+    },
+    {
+      "id": "paris-berlin",
+      "kind": "fixed",
+      "km": 877,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris à Berlin, à vol d'oiseau",
+      "place": "Berlin",
+      "image": "assets/anecdotes/paris-berlin.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 877 km"
+    },
+    {
+      "id": "paris-rome",
+      "kind": "fixed",
+      "km": 1105,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris à Rome, à vol d'oiseau",
+      "place": "Rome",
+      "image": "assets/anecdotes/paris-rome.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 1 105 km"
+    },
+    {
+      "id": "paris-lisbonne",
+      "kind": "fixed",
+      "km": 1453,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris à Lisbonne, à vol d'oiseau",
+      "place": "Lisbonne",
+      "image": "assets/anecdotes/paris-lisbonne.svg",
+      "tones": [
+        "sobre",
+        "encourageant"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 1 453 km"
+    },
+    {
+      "id": "paris-athenes",
+      "kind": "fixed",
+      "km": 2096,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris à Athènes, à vol d'oiseau",
+      "place": "Athènes",
+      "image": "assets/anecdotes/paris-athenes.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 2 096 km"
+    },
+    {
+      "id": "paris-moscou",
+      "kind": "fixed",
+      "km": 2486,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris à Moscou, à vol d'oiseau",
+      "place": "Moscou",
+      "image": "assets/anecdotes/paris-moscou.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 2 486 km"
+    },
+    {
+      "id": "paris-le-caire",
+      "kind": "fixed",
+      "km": 3210,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris au Caire, à vol d'oiseau",
+      "place": "Le Caire",
+      "image": "assets/anecdotes/paris-le-caire.svg",
+      "tones": [
+        "humour",
+        "encourageant"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 3 210 km"
+    },
+    {
+      "id": "route-66",
+      "kind": "fixed",
+      "km": 3940,
+      "verified": true,
+      "zone": "monde",
+      "text": "parcourir toute la Route 66, de Chicago à Santa Monica",
+      "place": "Route 66",
+      "image": "assets/anecdotes/route-66.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Route 66 : 2 448 miles soit 3 940 km (Wikipédia)"
+    },
+    {
+      "id": "paris-new-york",
+      "kind": "fixed",
+      "km": 5837,
+      "verified": true,
+      "zone": "monde",
+      "text": "traverser l'Atlantique, de Paris à New York, à vol d'oiseau",
+      "place": "New York",
+      "image": "assets/anecdotes/paris-new-york.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 5 837 km"
+    },
+    {
+      "id": "paris-tokyo",
+      "kind": "fixed",
+      "km": 9712,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris à Tokyo, à vol d'oiseau",
+      "place": "Tokyo",
+      "image": "assets/anecdotes/paris-tokyo.svg",
+      "tones": [
+        "humour",
+        "encourageant"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 9 712 km"
+    },
+    {
+      "id": "paris-sydney",
+      "kind": "fixed",
+      "km": 16961,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de Paris à Sydney, à vol d'oiseau",
+      "place": "Sydney",
+      "image": "assets/anecdotes/paris-sydney.svg",
+      "tones": [
+        "sobre",
+        "humour"
+      ],
+      "source": "Calcul à vol d'oiseau (haversine) entre les centres-villes : 16 961 km"
+    },
+    {
+      "id": "grande-muraille",
+      "kind": "fixed",
+      "km": 21196,
+      "verified": true,
+      "zone": "monde",
+      "text": "longer toute la Grande Muraille de Chine",
+      "place": "Chine",
+      "image": "assets/anecdotes/grande-muraille.svg",
+      "tones": [
+        "encourageant",
+        "sobre"
+      ],
+      "source": "Grande Muraille : 21 196 km (relevé officiel chinois de 2012)"
+    },
+    {
+      "id": "tour-du-monde",
+      "kind": "fixed",
+      "km": 40075,
+      "verified": true,
+      "zone": "monde",
+      "text": "faire le tour de la Terre par l'équateur",
+      "place": "Terre",
+      "image": "assets/anecdotes/tour-du-monde.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Circonférence équatoriale : 40 075 km"
+    },
+    {
+      "id": "terre-lune",
+      "kind": "fixed",
+      "km": 384400,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de la Terre à la Lune",
+      "place": "Lune",
+      "image": "assets/anecdotes/terre-lune.svg",
+      "tones": [
+        "humour",
+        "sobre"
+      ],
+      "source": "Distance moyenne Terre–Lune : 384 400 km"
+    },
+    {
+      "id": "aller-retour-lune",
+      "kind": "fixed",
+      "km": 768800,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller sur la Lune et en revenir",
+      "place": "Lune",
+      "image": "assets/anecdotes/aller-retour-lune.svg",
+      "tones": [
+        "encourageant",
+        "humour"
+      ],
+      "source": "Aller-retour à la distance moyenne : 768 800 km"
+    },
+    {
+      "id": "terre-soleil",
+      "kind": "fixed",
+      "km": 149600000,
+      "verified": true,
+      "zone": "monde",
+      "text": "aller de la Terre au Soleil",
+      "place": "Soleil",
+      "image": "assets/anecdotes/terre-soleil.svg",
+      "tones": [
+        "sobre",
+        "humour"
+      ],
+      "source": "Unité astronomique : 149 597 871 km"
+    }
+  ]
+}

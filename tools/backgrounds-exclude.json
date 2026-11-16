@@ -1,0 +1,6 @@
+{
+  "_note": "Sources volontairement écartées (§8.2 : pas de texte, logo ni marque sur les fonds).",
+  "exclude": {
+    "FOND 23.png": "panneau « Bandol / Saint Cyr sur Mer / Sanary sur Mer » : contient du texte (§8.4)"
+  }
+}

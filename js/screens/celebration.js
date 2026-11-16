@@ -1,6 +1,6 @@
 // Séance validée — maquette Celebration (§5.4). Jalon franchi : version renforcée (§4.7).
 // L'anecdote illustrée arrive au jalon M4.
-import { esc, triplet, milestoneBar, roundBadge, confetti, CHECK_SVG } from '../ui.js';
+import { esc, triplet, milestoneBar, roundBadge, confetti, CHECK_SVG, anecdoteCard } from '../ui.js';
 import { fmtKm1, fmtKm2, fmtDuration, fmtPace, paceSec } from '../format.js';
 import { fill } from '../messages.js';
 
@@ -32,8 +32,10 @@ export default {
       <h1 class="h1-xl" style="margin:20px 0 8px;font-size:36px;letter-spacing:-0.8px">Bravo ${esc(name)} !</h1>
       <div class="lgb pill">Séance ${n} validée</div>
       ${triplet([[fmtKm2(s.distanceKm), 'km'], [fmtDuration(s.durationSec), 'temps'], [fmtPace(paceSec(s.durationSec, s.distanceKm)), 'min / km']])}
-      <div class="lg card fact" style="text-align:left;margin-bottom:12px">
-        <p class="fact-text">${esc(ctx.encouragement)} ${fmtKm1(ctx.totalKm)} km depuis ta première séance.</p>
+      <div style="width:100%;text-align:left;margin-bottom:12px">
+        ${ctx.anecdote?.kind === 'anecdote'
+          ? anecdoteCard({ text: `${ctx.encouragement} ${ctx.anecdote.short}`, image: ctx.anecdote.anecdote.image, height: 140, textWidth: 250 })
+          : anecdoteCard({ text: `${ctx.encouragement} ${fmtKm1(ctx.totalKm)} km depuis ta première séance. ${ctx.anecdote?.text ?? ''}`, image: ctx.anecdote?.anecdote.image ?? 'assets/anecdotes/generic-route.svg', height: 140, textWidth: 250 })}
       </div>
       ${milestoneBlock(app, ctx)}
       <div class="spacer"></div>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
+<rect width="346" height="176" fill="#FDE4D8"/>
+<circle cx="70" cy="96" r="39" fill="#FFE8D2" opacity="0.85"/><circle cx="70" cy="96" r="26" fill="#FFD3AE"/>
+<g fill="#FFFFFF" opacity="0.85"><circle cx="158" cy="30" r="8"/><circle cx="170" cy="23" r="11"/><circle cx="184" cy="29" r="8"/><rect x="150" y="28" width="42" height="9" rx="4.5"/></g>
+<rect x="188" y="112" width="22" height="30" fill="#E3DAF2"/><rect x="210" y="98" width="22" height="44" fill="#D9D0EE"/><rect x="232" y="82" width="22" height="60" fill="#F0CFD8"/><rect x="254" y="62" width="22" height="80" fill="#E3DAF2"/><rect x="276" y="46" width="22" height="96" fill="#D9D0EE"/><rect x="298" y="72" width="22" height="70" fill="#F0CFD8"/><rect x="320" y="92" width="22" height="50" fill="#E3DAF2"/><rect x="342" y="108" width="22" height="34" fill="#D9D0EE"/>
+<g fill="#C9BCE6"><rect x="270" y="30" width="8" height="18"/><rect x="273" y="20" width="2" height="12"/></g>
+<rect x="0" y="140" width="346" height="36" fill="#A6DDE2"/><path d="M0 156 Q22 149 44 156 T88 156 T132 156 T176 156 T220 156 T264 156 T308 156 T352 156 V176 H0 Z" fill="#92D5DC"/>
+<g transform="translate(220,156) scale(0.8)"><polygon points="0,-26 0,-2 17,-2" fill="#FFFFFF"/><path d="M-10 -1 H24 L19 6 H-5 Z" fill="#F6D3DA"/></g>
+</svg>

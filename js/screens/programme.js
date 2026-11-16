@@ -1,6 +1,6 @@
 // Mon programme — maquette Programme (§5.14).
 // Paliers terminés, palier en cours, puis 4 paliers projetés avec les réglages actuels.
-import { esc } from '../ui.js';
+import { esc, motivationCard } from '../ui.js';
 import { fmtKmShort, fmtStep, plural } from '../format.js';
 import { projectPaliers } from '../plan.js';
 import { backButton } from './profil.js';
@@ -67,6 +67,7 @@ export default {
       <div class="lg t-peche rules">
         ${plan.rules.map((x) => `<div class="rule"><span class="rule-dot"></span><div><div class="rule-t">${esc(x.t)}</div><div class="rule-d">${esc(x.d)}</div></div></div>`).join('')}
       </div>
-      <div class="lg t-lavande safety">${esc(plan.safetyNote)}</div>`;
+      <div class="lg t-lavande safety">${esc(plan.safetyNote)}</div>
+      ${motivationCard('liste')}`;
   },
 };

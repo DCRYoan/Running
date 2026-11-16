@@ -19,14 +19,34 @@ export async function loadBackgroundList() {
   }
 }
 
+function showSecours(el) {
+  el.classList.add('bg-secours');
+  el.style.backgroundImage = '';
+  el.style.backgroundPosition = '';
+}
+
+/**
+ * Affiche le fond une fois l'image chargée. Si elle est introuvable (tout premier
+ * lancement hors ligne, image pas encore en cache) : fond de secours (§8.1).
+ */
 export function applyBackground(el, bg) {
-  if (!bg) {
-    el.classList.add('bg-secours');
-    el.style.backgroundImage = '';
-    el.style.backgroundPosition = '';
-    return;
-  }
-  el.classList.remove('bg-secours');
-  el.style.backgroundImage = `url("${bg.file}")`;
-  el.style.backgroundPosition = bg.position || '50% 50%';
+  if (!bg) { showSecours(el); return Promise.resolve(false); }
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      el.classList.remove('bg-secours');
+      el.style.backgroundImage = `url("${bg.file}")`;
+      el.style.backgroundPosition = bg.position || '50% 50%';
+      resolve(true);
+    };
+    img.onerror = () => { showSecours(el); resolve(false); };
+    img.src = bg.file;
+  });
+}
+
+/** Précharge un fond probable pour la prochaine ouverture (mis en cache par le service worker). */
+export function preloadNext(list, currentId, rnd = Math.random) {
+  const next = pickBackground(list, currentId, rnd);
+  if (next) { const img = new Image(); img.src = next.file; }
+  return next;
 }

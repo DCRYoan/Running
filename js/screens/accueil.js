@@ -1,8 +1,6 @@
 // Accueil — maquettes Accueil* (§5.2) et Accueil sans séance (§5.6).
-// La carte anecdote illustrée arrive au jalon M4 ; d'ici là, carte « prochain jalon ».
-import { brand, esc } from '../ui.js';
-import { fmtKm1 } from '../format.js';
-import { plural } from '../format.js';
+import { brand, esc, anecdoteCard } from '../ui.js';
+import { fmtKm1, plural } from '../format.js';
 
 export default {
   nav: false,
@@ -10,10 +8,8 @@ export default {
   render(app) {
     const name = app.state.profile?.firstName ?? '';
     const hello = new Date().getHours() >= 18 ? 'Bonsoir' : 'Bonjour';
-    const d = app.derived();
-    const t = d.totals;
-    const m = d.milestone;
-    const first = t.count === 0;
+    const t = app.derived().totals;
+    const a = app.getAnecdote();
     return `
       ${brand()}
       <h1 class="h1-xl" style="margin:34px 0 8px">${hello} ${esc(name)},</h1>
@@ -30,13 +26,12 @@ export default {
         </div>
       </div>
 
-      <div class="lg card fact">
-        <div class="label" style="margin-bottom:6px;color:var(--ink-3)">${first ? 'Ton premier objectif' : 'Le savais-tu ?'}</div>
-        <p class="fact-text">${first
-          ? `Ton premier jalon : ${m.next} km cumulés. Chaque sortie t'en rapproche.`
-          : `${fmtKm1(t.km)} km depuis ta première séance. Prochain jalon : ${m.next} km, encore ${fmtKm1(m.remaining)} km.`}</p>
-        <div class="bar" style="margin-top:12px"><div class="bar-fill" style="width:${Math.max(3, Math.round(m.progress * 100))}%"></div></div>
-      </div>
+      ${anecdoteCard({
+        label: a.kind === 'first' ? 'Ton premier objectif' : 'Le savais-tu ?',
+        text: a.kind === 'first' ? a.text.replace(/^Ton premier objectif : /, '') : a.text,
+        image: a.anecdote.image,
+        place: a.anecdote.place,
+      })}
 
       <div class="spacer"></div>
       <button class="lgb btn btn-primary" type="button" data-open>Voir ma séance</button>`;

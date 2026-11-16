@@ -6,9 +6,10 @@ import { loadState, saveState, requestPersist, newId, withSession, withDecision,
 import { replay, totals, buildSession, editSession, makeDecision, crossedMilestone, isWeekDone, sessionsInWeek, milestoneProgress } from './plan.js';
 import { toLocalIso } from './format.js';
 import { welcomeContext, pickWelcome, pickVariant } from './messages.js';
+import { pickAnecdote } from './anecdotes.js';
 import { resolveCity, isResolved } from './geo.js';
 import { staticGlassChecks, measureFps, decideGlass, applyGlass } from './glass.js';
-import { pickBackground, loadBackgroundList, applyBackground } from './backgrounds.js';
+import { pickBackground, loadBackgroundList, applyBackground, preloadNext } from './backgrounds.js';
 import { TABS, icon, frenchSpacing } from './ui.js';
 
 import bienvenue from './screens/bienvenue.js';
@@ -92,6 +93,33 @@ export const app = {
     return this.welcome;
   },
 
+  /**
+   * Nouvelle anecdote (§7.4) : jamais la même deux fois de suite, tons qui alternent,
+   * une sur trois depuis la ville. Mémorise le tirage dans ui.
+   */
+  drawAnecdote(total) {
+    const ui = this.state.ui;
+    const res = pickAnecdote({
+      total,
+      data: this.data.anecdotes,
+      communes: this.data.communes,
+      city: this.state.profile?.city,
+      lastId: ui.lastAnecdoteId,
+      lastTone: ui.lastTone,
+      count: ui.anecdoteCount || 0,
+    });
+    if (res.kind === 'anecdote') {
+      this.set(withUi(this.state, { lastAnecdoteId: res.anecdote.id, lastTone: res.tone, anecdoteCount: (ui.anecdoteCount || 0) + 1 }));
+    }
+    return res;
+  },
+
+  /** Anecdote de l'Accueil : tirée une fois par ouverture. */
+  getAnecdote() {
+    if (!this.anecdote) this.anecdote = this.drawAnecdote(this.derived().totals.km);
+    return this.anecdote;
+  },
+
   /** Bouton « Séance » / « Voir ma séance » : Repos si la semaine est faite (§4.6). */
   openSession() { this.go('seance'); },
 
@@ -131,7 +159,9 @@ export const app = {
     if (session.pain) steps.push('douleur');
     steps.push(session.status === 'complete' ? 'celebration' : 'incomplete');
     if (this.derived().result.state === 'awaiting_decision') steps.push('fin-palier');
-    this.flow = { steps, i: 0, ctx: { sessionId: session.id, crossed, totalKm: after, encouragement } };
+    const anecdote = session.status === 'complete' ? this.drawAnecdote(after) : null;
+    this.anecdote = null; // l'Accueil en tirera une nouvelle
+    this.flow = { steps, i: 0, ctx: { sessionId: session.id, crossed, totalKm: after, encouragement, anecdote } };
     this.go(steps[0]);
   },
 
@@ -265,9 +295,10 @@ async function onOpening({ cold }) {
   if (!app.backgrounds.length) app.backgrounds = await loadBackgroundList();
   app.background = pickBackground(app.backgrounds, app.state.ui.lastBackground);
   if (app.background) app.state.ui.lastBackground = app.background.id;
-  applyBackground($bg, app.background);
+  applyBackground($bg, app.background).then(() => preloadNext(app.backgrounds, app.background?.id));
 
   app.welcome = null; // retiré au prochain affichage de l'Accueil
+  app.anecdote = null;
   app.save();
 
   // Une mise à jour de l'app attend ? On l'applique maintenant (aucune saisie en cours).
@@ -326,7 +357,12 @@ async function loadJson(path) {
 async function start() {
   app.glass.reasons = staticGlassChecks();
   refreshGlass();
-  [app.data.plan, app.data.messages] = await Promise.all([loadJson('data/plan.json'), loadJson('data/messages.json')]);
+  [app.data.plan, app.data.messages, app.data.anecdotes] = await Promise.all([
+    loadJson('data/plan.json'), loadJson('data/messages.json'), loadJson('data/anecdotes.json'),
+  ]);
+  // Communes de référence : seulement utiles aux anecdotes « depuis ta ville ».
+  app.data.communes = [];
+  loadJson('data/communes-ref.json').then((j) => { app.data.communes = j.communes; }).catch(() => {});
   await registerServiceWorker();
   await onOpening({ cold: true });
   requestPersist();

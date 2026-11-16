@@ -1,1 +1,143 @@
-{ "version": 1, "backgrounds": [] }
+{
+  "version": 1,
+  "backgrounds": [
+    {
+      "id": "fond-01",
+      "file": "assets/backgrounds/fond-01.webp",
+      "position": "50% 50%",
+      "source": "FOND 1.png"
+    },
+    {
+      "id": "fond-02",
+      "file": "assets/backgrounds/fond-02.webp",
+      "position": "50% 50%",
+      "source": "FOND 2.png"
+    },
+    {
+      "id": "fond-03",
+      "file": "assets/backgrounds/fond-03.webp",
+      "position": "50% 50%",
+      "source": "FOND 3.png"
+    },
+    {
+      "id": "fond-04",
+      "file": "assets/backgrounds/fond-04.webp",
+      "position": "50% 50%",
+      "source": "FOND 4.png"
+    },
+    {
+      "id": "fond-05",
+      "file": "assets/backgrounds/fond-05.webp",
+      "position": "50% 50%",
+      "source": "FOND 5.png"
+    },
+    {
+      "id": "fond-06",
+      "file": "assets/backgrounds/fond-06.webp",
+      "position": "50% 50%",
+      "source": "FOND 6.png"
+    },
+    {
+      "id": "fond-07",
+      "file": "assets/backgrounds/fond-07.webp",
+      "position": "50% 50%",
+      "source": "FOND 7.png"
+    },
+    {
+      "id": "fond-08",
+      "file": "assets/backgrounds/fond-08.webp",
+      "position": "50% 50%",
+      "source": "FOND 8.png"
+    },
+    {
+      "id": "fond-09",
+      "file": "assets/backgrounds/fond-09.webp",
+      "position": "50% 50%",
+      "source": "FOND 9.png"
+    },
+    {
+      "id": "fond-10",
+      "file": "assets/backgrounds/fond-10.webp",
+      "position": "50% 50%",
+      "source": "FOND 10.png"
+    },
+    {
+      "id": "fond-11",
+      "file": "assets/backgrounds/fond-11.webp",
+      "position": "50% 50%",
+      "source": "FOND 11.png"
+    },
+    {
+      "id": "fond-12",
+      "file": "assets/backgrounds/fond-12.webp",
+      "position": "50% 50%",
+      "source": "FOND 12.png"
+    },
+    {
+      "id": "fond-13",
+      "file": "assets/backgrounds/fond-13.webp",
+      "position": "50% 50%",
+      "source": "FOND 13.png"
+    },
+    {
+      "id": "fond-14",
+      "file": "assets/backgrounds/fond-14.webp",
+      "position": "50% 50%",
+      "source": "FOND 14.png"
+    },
+    {
+      "id": "fond-15",
+      "file": "assets/backgrounds/fond-15.webp",
+      "position": "50% 50%",
+      "source": "FOND 15.png"
+    },
+    {
+      "id": "fond-16",
+      "file": "assets/backgrounds/fond-16.webp",
+      "position": "50% 50%",
+      "source": "FOND 16.png"
+    },
+    {
+      "id": "fond-17",
+      "file": "assets/backgrounds/fond-17.webp",
+      "position": "50% 50%",
+      "source": "FOND 17.png"
+    },
+    {
+      "id": "fond-18",
+      "file": "assets/backgrounds/fond-18.webp",
+      "position": "50% 50%",
+      "source": "FOND 18.png"
+    },
+    {
+      "id": "fond-19",
+      "file": "assets/backgrounds/fond-19.webp",
+      "position": "50% 50%",
+      "source": "FOND 19.png"
+    },
+    {
+      "id": "fond-20",
+      "file": "assets/backgrounds/fond-20.webp",
+      "position": "50% 50%",
+      "source": "FOND 20.png"
+    },
+    {
+      "id": "fond-21",
+      "file": "assets/backgrounds/fond-21.webp",
+      "position": "50% 50%",
+      "source": "FOND 21.png"
+    },
+    {
+      "id": "fond-22",
+      "file": "assets/backgrounds/fond-22.webp",
+      "position": "50% 50%",
+      "source": "FOND 26.png"
+    },
+    {
+      "id": "fond-23",
+      "file": "assets/backgrounds/fond-23.webp",
+      "position": "50% 50%",
+      "source": "FOND 27.png"
+    }
+  ]
+}

@@ -71,6 +71,33 @@ export const HEART_SVG = '<svg width="50" height="50" viewBox="0 0 24 24" fill="
 export const CHECK_SVG = '<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#3A2E3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 export const MOON_SVG = '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#3A2E3F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>';
 
+// ---------- Carte anecdote (§7.6) : image en fond, voile blanc à gauche, pastille de lieu ----------
+const PIN_PATH = 'M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z';
+export function anecdoteCard({ label = '', text, image, place, height = 166, textWidth = 236 }) {
+  return `
+    <div class="anecdote" style="min-height:${height}px">
+      <img class="anecdote-img" src="${esc(image)}" alt="" onerror="this.onerror=null;this.src='assets/anecdotes/generic-route.svg'">
+      <div class="anecdote-veil"></div>
+      <div class="anecdote-body" style="width:${textWidth}px">
+        ${label ? `<div class="label anecdote-label">${esc(label)}</div>` : ''}
+        <p class="anecdote-text">${esc(text)}</p>
+      </div>
+      ${place ? `<div class="lg anecdote-place"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B02A52" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${PIN_PATH}"/><circle cx="12" cy="10" r="2.4"/></svg>${esc(place)}</div>` : ''}
+    </div>`;
+}
+
+// ---------- Cartes de motivation (§8.3) : images avec texte, ne tournent pas ----------
+export const MOTIVATION = {
+  progresses: { src: 'assets/cards/motivation-tu-progresses.webp', alt: 'Tu progresses, même quand les résultats ne se voient pas encore. Continue, tu es sur la bonne voie.', w: 941, h: 920 },
+  continue: { src: 'assets/cards/motivation-continue.webp', alt: 'Continue, tu es plus forte que tu ne le penses.', w: 941, h: 660 },
+  liste: { src: 'assets/cards/motivation-liste.webp', alt: 'Motivation : bouger, progresser, rester régulière, se dépasser, atteindre mes objectifs.', w: 941, h: 1069 },
+  coeur: { src: 'assets/cards/motivation-coeur.webp', alt: '', w: 941, h: 820 },
+};
+export const motivationCard = (key, extra = '') => {
+  const c = MOTIVATION[key];
+  return `<img class="motivation" src="${c.src}" alt="${esc(c.alt)}" width="${c.w}" height="${c.h}" loading="lazy" style="${extra}">`;
+};
+
 // ---------- Confettis (CSS, coupés si prefers-reduced-motion) ----------
 const CONFETTI_COLORS = ['#FF7A59', '#7C5CFF', '#FFC94D', '#34C3A8', '#D63A66'];
 
