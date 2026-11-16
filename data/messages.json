@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "welcome": {
+    "first": [
+      "Prête pour ta première sortie ? On y va tout doucement.",
+      "Ta toute première sortie t'attend. On y va tout doucement, à ton rythme."
+    ],
+    "today": [
+      "Tu es déjà sortie aujourd'hui : bravo !",
+      "Belle sortie aujourd'hui. Ton corps te dit merci !"
+    ],
+    "weekDone": [
+      "Tes 2 sorties de la semaine sont faites : bravo !",
+      "Semaine bouclée : tes 2 sorties sont faites. Profite du repos !"
+    ],
+    "milestoneClose": [
+      "Plus que {x} km avant ton prochain jalon !",
+      "Ton prochain jalon est tout proche : plus que {x} km !"
+    ],
+    "recent": [
+      "Contente de te retrouver. Ta dernière sortie date {quand} : bravo !",
+      "Ta dernière sortie date {quand} : tu es sur une belle lancée !"
+    ],
+    "longAbsence": [
+      "Contente de te retrouver. Ça fait un moment, et ce n'est pas grave : on reprend doucement.",
+      "Te revoilà ! Ça fait un moment, et ce n'est pas grave : on reprend tout doucement."
+    ],
+    "monday": [
+      "Nouvelle semaine, nouvelles sorties.",
+      "C'est lundi : une nouvelle semaine commence, à ton rythme."
+    ],
+    "days3to7": [
+      "Ta prochaine sortie t'attend, à ton rythme.",
+      "Contente de te retrouver. Ta prochaine sortie t'attend, sans pression."
+    ],
+    "default": [
+      "Contente de te retrouver.",
+      "Contente de te revoir. On continue tranquillement ?"
+    ]
+  },
+  "encouragements": [
+    "Chaque sortie est une victoire !",
+    "Tu l'as fait, et c'est ça qui compte.",
+    "Une sortie de plus dans ta poche.",
+    "Tu peux être fière de toi.",
+    "Pas à pas, tu avances.",
+    "Ton corps te remercie pour cette sortie.",
+    "Encore une belle sortie à ton actif.",
+    "Belle régularité, continue comme ça !"
+  ],
+  "milestone": "Cap des {J} km ! Regarde le chemin parcouru.",
+  "pain": "Merci de l'avoir indiqué. Une douleur inhabituelle, ça se respecte : repose-toi quelques jours. Si elle persiste ou t'inquiète, parle-en à un professionnel de santé.",
+  "staySuggestion": "Ce palier t'a paru plutôt difficile. Rester un peu à cette distance peut te faire du bien. C'est toi qui décides."
+}

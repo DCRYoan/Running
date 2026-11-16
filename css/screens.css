@@ -145,3 +145,137 @@
 .diag { font: 600 12px/1.45 ui-monospace, Consolas, monospace; color: var(--ink-3); white-space: pre-wrap; }
 .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
 .swatch { width: 36px; height: 36px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.9); }
+
+/* =====================================================================
+   M2 — écrans du parcours
+   ===================================================================== */
+
+.screen { position: relative; }
+.screen.center {
+  align-items: center;
+  text-align: center;
+  gap: 0;
+  padding-top: calc(70px + var(--safe-top));
+  padding-bottom: calc(30px + var(--safe-bottom));
+}
+.screen.center.has-nav { padding-top: calc(64px + var(--safe-top)); padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 12px); }
+.screen.center > .lg.card, .screen.center > .btn { width: 100%; }
+.screen.first-run { padding-top: calc(56px + var(--safe-top)); padding-left: 24px; padding-right: 24px; }
+
+.hint { font-size: 13px; line-height: 1.35; color: var(--ink-3); font-weight: 600; }
+.form-error {
+  margin: 0; padding: 10px 14px; border-radius: 16px;
+  background: rgba(255,240,244,.92); border: 1.5px solid rgba(214,58,102,.45);
+  color: #8E1F41; font-size: 14px; font-weight: 800; line-height: 1.35;
+}
+.text-link { display: block; text-align: center; margin-top: 14px; font-size: 15px; font-weight: 800; text-decoration: underline; color: var(--link-hover); padding: 8px 0; }
+
+/* Autocomplétion de la ville */
+.city-field { position: relative; }
+.suggestions {
+  position: absolute; z-index: 5; top: 82px; left: 0; right: 0;
+  margin: 0; padding: 6px; list-style: none; border-radius: 18px;
+  background: rgba(255,255,255,.92);
+}
+html.no-glass .suggestions { background: #fff; }
+.suggestions li {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 12px; border-radius: 12px; cursor: pointer;
+}
+.suggestions li:hover, .suggestions li:active { background: rgba(246,211,218,.6); }
+.sugg-name { font-weight: 800; }
+.sugg-cp { font-size: 13px; color: var(--ink-3); font-weight: 700; }
+
+/* Tuiles de l'Accueil */
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+.tile { border-radius: 26px; padding: 18px 16px; }
+.tile-row { display: flex; align-items: baseline; gap: 6px; }
+.tile-v { font-size: 46px; font-weight: 900; line-height: 1; letter-spacing: -1px; }
+.tile-u { font-size: 20px; font-weight: 800; }
+.tile-l { font-size: 15px; font-weight: 800; margin-top: 6px; }
+
+/* Carte « Le savais-tu ? » (provisoire avant M4) */
+.fact { border-radius: 26px; }
+.fact-text { font-size: 15px; line-height: 1.42; font-weight: 800; }
+
+/* Barres de progression */
+.bar { height: 12px; border-radius: 6px; background: rgba(255,255,255,.7); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 6px; background: var(--coral); transition: width .6s ease; }
+.milestone { width: 100%; border-radius: 24px; padding: 14px 16px; text-align: left; }
+.milestone-head { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; font-weight: 800; margin-bottom: 8px; }
+.milestone-left { color: var(--link-hover); white-space: nowrap; }
+.milestone-hit { width: 100%; border-radius: 24px; padding: 14px 16px; margin-bottom: 12px; font-size: 16px; color: var(--link-hover); }
+.milestone-hit b { font-weight: 900; }
+
+/* Séance du jour */
+.big-km { font-size: 60px; font-weight: 900; line-height: 1; letter-spacing: -1.5px; color: #C22F5A; }
+.steps { border-radius: 26px; padding: 6px 16px; }
+.step { display: flex; gap: 12px; align-items: center; padding: 10px 0; }
+.step + .step { border-top: 1px solid rgba(255,255,255,.7); }
+.step-n { flex: none; width: 30px; height: 30px; border-radius: 50%; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.step-n.lav { background: rgba(230,224,245,.9); color: var(--lavender-ink); }
+.step-n.rose { background: rgba(246,211,218,.95); color: #7A2A44; }
+.step-t { font-size: 16px; font-weight: 800; }
+.step-d { font-size: 14px; color: var(--ink-3); font-weight: 600; }
+.tip { border-radius: 22px; padding: 14px 16px; font-size: 15px; line-height: 1.4; font-weight: 600; }
+.tip b { font-weight: 900; }
+.tip a { font-weight: 800; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.input-xl { height: 56px; font-size: 22px; font-weight: 800; }
+
+/* Visages de ressenti */
+.faces { display: flex; gap: 8px; }
+.face { flex: 1; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; padding: 0; }
+.face[aria-checked="true"] { border: 2.5px solid var(--raspberry); background: rgba(255,240,244,.8); }
+.faces-legend { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: var(--ink-2); margin-top: 6px; }
+
+/* Case à cocher */
+.check { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; min-height: 44px; cursor: pointer; }
+.check input { width: 22px; height: 22px; accent-color: var(--raspberry); margin: 0; flex: none; }
+
+/* Carte 3 chiffres */
+.triplet {
+  width: 100%; border-radius: 26px; padding: 16px 8px; margin-bottom: 12px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: center;
+}
+.triplet-v { font-size: 26px; font-weight: 900; line-height: 1.1; }
+.triplet-l { font-size: 13px; font-weight: 700; color: var(--ink-3); }
+
+/* Pastilles */
+.round-badge { flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.pill { display: inline-block; color: #fff; font-weight: 800; font-size: 15px; border-radius: 999px; padding: 6px 16px; margin-bottom: 20px; }
+
+/* Semaine (Repos) */
+.week { display: flex; gap: 10px; margin-bottom: 12px; }
+.week-seg { flex: 1; height: 14px; border-radius: 7px; background: rgba(255,255,255,.75); }
+.week-seg.on { background: var(--green); }
+
+/* Confettis : tombent en place puis restent */
+.confetti { position: absolute; inset: 0 0 auto 0; height: 320px; pointer-events: none; overflow: hidden; }
+.confetto {
+  position: absolute; display: block;
+  transform: rotate(var(--r));
+  animation: confetto-fall .9s cubic-bezier(.2,.8,.3,1) both;
+}
+@keyframes confetto-fall {
+  from { opacity: 0; transform: translateY(-140px) rotate(calc(var(--r) - 180deg)); }
+  to   { opacity: 1; transform: translateY(0) rotate(var(--r)); }
+}
+
+/* Fenêtre de confirmation */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 16px 16px calc(16px + var(--safe-bottom));
+  background: rgba(58,46,63,.28);
+}
+.modal { width: 100%; max-width: 440px; border-radius: 28px; padding: 22px 18px 18px; display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,.86); }
+.modal-title { font-size: 24px; font-weight: 900; }
+.modal-text { font-size: 16px; line-height: 1.45; font-weight: 700; color: var(--ink-2); margin-bottom: 6px; }
+
+/* La carte du formulaire passe au-dessus du bouton pour que la liste des villes reste visible */
+#welcome-form { position: relative; z-index: 3; }
+
+/* Les confettis restent derrière le contenu (et se floutent joliment sous le verre) */
+.confetti { z-index: 0; }
+.screen > :not(.confetti) { position: relative; z-index: 1; }
