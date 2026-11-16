@@ -230,6 +230,25 @@ export function isWeekDone(sessions, now = new Date(), perWeek = 2) {
   return sessionsInWeek(sessions, now).length >= perWeek;
 }
 
+/**
+ * Sorties par semaine (graphique Régularité) : des `maxWeeks` dernières semaines
+ * jusqu'à la semaine en cours, sans remonter avant la première sortie.
+ * @returns {Array<{ start: Date, count: number }>}
+ */
+export function weeklyCounts(sessions, now = new Date(), maxWeeks = 8) {
+  const list = sortSessions(sessions);
+  if (!list.length) return [];
+  const first = startOfWeek(list[0].date);
+  const weeks = [];
+  let start = startOfWeek(now);
+  while (weeks.length < maxWeeks && start >= first) {
+    weeks.unshift({ start: new Date(start), count: sessionsInWeek(list, start).length });
+    start.setDate(start.getDate() - 7);
+    start = startOfWeek(start); // recale à minuit après un changement d'heure
+  }
+  return weeks;
+}
+
 // ---------- Ressenti (§4.8) ----------
 
 export const FEELINGS = ['Très difficile', 'Difficile', 'Correct', 'Bien', 'Super'];

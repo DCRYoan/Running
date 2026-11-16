@@ -2,8 +2,8 @@
 // enchaînement des écrans après une séance, effet verre (§9.3), fond (§8.1),
 // service worker (§11).
 
-import { loadState, saveState, requestPersist, newId, withSession, withProfile, withUi } from './state.js';
-import { replay, totals, buildSession, crossedMilestone, isWeekDone, sessionsInWeek, milestoneProgress } from './plan.js';
+import { loadState, saveState, requestPersist, newId, withSession, withDecision, withProfile, withSettings, withUi } from './state.js';
+import { replay, totals, buildSession, editSession, makeDecision, crossedMilestone, isWeekDone, sessionsInWeek, milestoneProgress } from './plan.js';
 import { toLocalIso } from './format.js';
 import { welcomeContext, pickWelcome, pickVariant } from './messages.js';
 import { resolveCity, isResolved } from './geo.js';
@@ -18,15 +18,18 @@ import douleur from './screens/douleur.js';
 import celebration from './screens/celebration.js';
 import incomplete from './screens/incomplete.js';
 import repos from './screens/repos.js';
+import finPalier from './screens/fin-palier.js';
 import historique from './screens/historique.js';
+import modifier from './screens/modifier.js';
 import stats from './screens/stats.js';
 import reglages from './screens/reglages.js';
+import profil from './screens/profil.js';
+import programme from './screens/programme.js';
 import { placeholder } from './screens/placeholder.js';
 
 const SCREENS = {
-  bienvenue, accueil, seance, douleur, celebration, incomplete, repos, historique, stats, reglages,
-  'fin-palier': placeholder('Fin de palier', 'Le choix de fin de palier arrive au jalon M3.', { nav: false }),
-  programme: placeholder('Mon programme', 'Le détail du programme arrive au jalon M3.', { back: 'seance' }),
+  bienvenue, accueil, seance, douleur, celebration, incomplete, repos,
+  'fin-palier': finPalier, historique, modifier, stats, reglages, profil, programme,
   restaurer: placeholder('Retrouver ma progression', 'La restauration par code arrive au jalon M5.', { back: 'bienvenue' }),
 };
 const HOME = 'accueil';
@@ -132,6 +135,36 @@ export const app = {
     this.go(steps[0]);
   },
 
+  /** Choix de fin de palier (§4.1) : les réglages actuels sont figés dans la décision. */
+  decidePalier(choice) {
+    const r = this.derived().result;
+    if (r.state !== 'awaiting_decision') return;
+    const d = makeDecision(r, choice, this.state.settings, this.state.decisions);
+    this.set(withDecision(this.state, d));
+    if (this.flow) this.nextStep();
+    else this.go('seance', { replace: true });
+  },
+
+  /** Modification d'une séance (§5.11) : statut recalculé, puis tout le plan via replay. */
+  updateSession(id, changes) {
+    const s = this.state.sessions.find((x) => x.id === id);
+    if (!s) return;
+    this.set(withSession(this.state, editSession(s, changes, this.data.plan)));
+    this.welcome = null;
+  },
+
+  updateSettings(changes) {
+    this.set(withSettings(this.state, changes));
+  },
+
+  /** Paramètres après « ? » dans le hash : #/modifier?id=… */
+  params() {
+    return new URLSearchParams(location.hash.split('?')[1] || '');
+  },
+
+  /** Écran précédent (pour les boutons « Retour »). */
+  prevRoute: null,
+
   /** Écran suivant de l'enchaînement, puis l'entrée Séance (qui affiche Repos si besoin). */
   nextStep() {
     const f = this.flow;
@@ -186,6 +219,8 @@ function guard(route) {
   if (!hasProfile && route !== 'bienvenue' && route !== 'restaurer') return 'bienvenue';
   if (hasProfile && route === 'bienvenue') return HOME;
   if (FLOW_SCREENS.has(route) && !app.flow) return HOME;
+  if (route === 'modifier' && !app.state.sessions.some((s) => s.id === app.params().get('id'))) return 'historique';
+  if (route === 'fin-palier' && app.derived().result.state !== 'awaiting_decision') return 'seance';
   if (route === 'seance' || route === 'repos') {
     const d = app.derived();
     if (d.result.state === 'awaiting_decision') return 'fin-palier';
@@ -202,10 +237,14 @@ function renderNav(active) {
     </a>`).join('');
 }
 
+let lastRendered = null;
+
 function render() {
   const asked = currentRoute();
   const route = guard(asked);
   if (route !== asked) { app.go(route, { replace: true }); return; }
+  if (lastRendered && lastRendered !== route) app.prevRoute = lastRendered;
+  lastRendered = route;
   const screen = SCREENS[route];
   const classes = ['screen', screen.nav ? 'has-nav' : '', screen.layout || ''].filter(Boolean).join(' ');
   $app.innerHTML = `<div class="${classes}" data-screen="${route}">${screen.render(app)}</div>`;
