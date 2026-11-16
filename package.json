@@ -10,7 +10,6 @@
     "sw": "node tools/build-sw.mjs",
     "build:icons": "node tools/build-icons.mjs",
     "build:backgrounds": "node tools/build-backgrounds.mjs",
-    "build:cards": "node tools/build-cards.mjs",
     "build:art": "node tools/build-anecdote-art.mjs",
     "build:communes": "node tools/build-communes.mjs"
   },

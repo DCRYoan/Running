@@ -163,9 +163,10 @@ describe('fonds d\'écran (§8)', () => {
     }
     assert.equal(seen.size, bgs.length);
   });
-  test('cartes de motivation présentes', () => {
-    for (const f of ['tu-progresses', 'continue', 'liste', 'coeur']) {
-      assert.ok(existsSync(new URL(`../assets/cards/motivation-${f}.webp`, import.meta.url)), f);
-    }
+  test('les 4 images avec texte tournent comme fonds, avec un voile renforcé', () => {
+    const texte = bgs.filter((b) => b.source.startsWith('cartes-motivation/'));
+    assert.equal(texte.length, 4);
+    assert.ok(texte.every((b) => b.veil === 'fort'));
+    assert.ok(bgs.filter((b) => !b.source.startsWith('cartes-motivation/')).every((b) => !b.veil));
   });
 });

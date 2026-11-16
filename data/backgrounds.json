@@ -138,6 +138,34 @@
       "file": "assets/backgrounds/fond-23.webp",
       "position": "50% 50%",
       "source": "FOND 27.png"
+    },
+    {
+      "id": "fond-24",
+      "file": "assets/backgrounds/fond-24.webp",
+      "position": "50% 50%",
+      "source": "cartes-motivation/Coeur.png",
+      "veil": "fort"
+    },
+    {
+      "id": "fond-25",
+      "file": "assets/backgrounds/fond-25.webp",
+      "position": "50% 50%",
+      "source": "cartes-motivation/Continue.png",
+      "veil": "fort"
+    },
+    {
+      "id": "fond-26",
+      "file": "assets/backgrounds/fond-26.webp",
+      "position": "50% 50%",
+      "source": "cartes-motivation/Liste-motivation.png",
+      "veil": "fort"
+    },
+    {
+      "id": "fond-27",
+      "file": "assets/backgrounds/fond-27.webp",
+      "position": "50% 50%",
+      "source": "cartes-motivation/Tu-progresses.png",
+      "veil": "fort"
     }
   ]
 }

@@ -20,6 +20,7 @@ export async function loadBackgroundList() {
 }
 
 function showSecours(el) {
+  el.classList.remove('veil-fort');
   el.classList.add('bg-secours');
   el.style.backgroundImage = '';
   el.style.backgroundPosition = '';
@@ -35,6 +36,7 @@ export function applyBackground(el, bg) {
     const img = new Image();
     img.onload = () => {
       el.classList.remove('bg-secours');
+      el.classList.toggle('veil-fort', bg.veil === 'fort');
       el.style.backgroundImage = `url("${bg.file}")`;
       el.style.backgroundPosition = bg.position || '50% 50%';
       resolve(true);

@@ -1,7 +1,7 @@
-// Prépare les fonds d'écran (§8.2) : backgrounds-sources/ → assets/backgrounds/fond-NN.webp
+// Prépare les fonds d'écran (§8.2) : backgrounds-sources/ et cartes-motivation/ → assets/backgrounds/fond-NN.webp
 // + data/backgrounds.json.
 //
-// Usage : node tools/build-backgrounds.mjs [dossier-sources]
+// Usage : node tools/build-backgrounds.mjs [dossier-photos] [dossier-cartes]
 //   (par défaut ../backgrounds-sources, à côté du dépôt : les sources ne sont pas publiées)
 //   Option --contact <fichier.jpg> : planche contact pour vérifier les images d'un coup d'œil.
 //
@@ -19,7 +19,12 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const args = process.argv.slice(2);
 const contactIdx = args.indexOf('--contact');
 const contactOut = contactIdx >= 0 ? args.splice(contactIdx, 2)[1] : null;
-const SRC = args[0] || join(ROOT, '..', 'backgrounds-sources');
+// Dossiers sources : les photos, puis les images avec texte (cartes de motivation),
+// qui tournent elles aussi comme fonds (décision de Yoan du 16/11/2026, remplace §8.3).
+const SOURCES = [
+  { dir: args[0] || join(ROOT, '..', 'backgrounds-sources'), prefix: '', kind: 'photo' },
+  { dir: args[1] || join(ROOT, '..', 'cartes-motivation'), prefix: 'cartes-motivation/', kind: 'texte' },
+];
 const OUT_DIR = join(ROOT, 'assets', 'backgrounds');
 const JSON_PATH = join(ROOT, 'data', 'backgrounds.json');
 const W = 1080;
@@ -56,20 +61,28 @@ async function encode(file) {
 
 async function main() {
   const excluded = JSON.parse(await readFile(join(ROOT, 'tools', 'backgrounds-exclude.json'), 'utf8')).exclude;
-  const files = (await readdir(SRC)).filter((f) => /\.(png|jpe?g)$/i.test(f) && !(f in excluded)).sort(natural);
+  const files = [];
+  for (const s of SOURCES) {
+    let names = [];
+    try { names = await readdir(s.dir); } catch { console.warn(`Dossier absent : ${s.dir}`); continue; }
+    names.filter((f) => /\.(png|jpe?g)$/i.test(f)).sort(natural).forEach((f) => {
+      const key = `${s.prefix}${f}`;
+      if (!(key in excluded)) files.push({ key, path: join(s.dir, f), kind: s.kind });
+    });
+  }
   for (const [f, why] of Object.entries(excluded)) console.log(`Écarté : ${f} (${why})`);
-  if (!files.length) throw new Error(`Aucune image dans ${SRC}`);
+  if (!files.length) throw new Error('Aucune image source');
 
   if (contactOut) {
     const tw = 180; const th = 320; const cols = 6;
     const rows = Math.ceil(files.length / cols);
     const tiles = await Promise.all(files.map(async (f, i) => ({
-      input: await (await cropToPortrait(join(SRC, f))).resize(tw, th).jpeg().toBuffer(),
+      input: await (await cropToPortrait(f.path)).resize(tw, th).jpeg().toBuffer(),
       left: (i % cols) * (tw + 8), top: Math.floor(i / cols) * (th + 8),
     })));
     await sharp({ create: { width: cols * (tw + 8), height: rows * (th + 8), channels: 3, background: '#ffffff' } })
       .composite(tiles).jpeg({ quality: 80 }).toFile(contactOut);
-    console.log(`Planche contact : ${contactOut} (ordre : ${files.join(', ')})`);
+    console.log(`Planche contact : ${contactOut} (ordre : ${files.map((f) => f.key).join(', ')})`);
     return;
   }
 
@@ -81,15 +94,18 @@ async function main() {
   await mkdir(OUT_DIR, { recursive: true });
   const list = [];
   for (const f of files) {
-    let entry = bySource.get(f);
+    let entry = bySource.get(f.key);
     if (!entry) {
       const id = `fond-${String(next).padStart(2, '0')}`;
       next += 1;
-      entry = { id, file: `assets/backgrounds/${id}.webp`, position: '50% 50%', source: f };
+      entry = { id, file: `assets/backgrounds/${id}.webp`, position: '50% 50%', source: f.key };
     }
-    const { buf, q } = await encode(join(SRC, f));
+    // Images avec texte : voile un peu plus fort pour que le texte de l'app reste lisible.
+    if (f.kind === 'texte') entry.veil = 'fort';
+    else delete entry.veil;
+    const { buf, q } = await encode(f.path);
     await writeFile(join(ROOT, entry.file), buf);
-    console.log(`${f} → ${entry.file} (${Math.round(buf.length / 1024)} Ko, q${q})`);
+    console.log(`${f.key} → ${entry.file} (${Math.round(buf.length / 1024)} Ko, q${q})`);
     list.push(entry);
   }
   // Les fonds dont la source a disparu restent publiés (on ne casse rien).

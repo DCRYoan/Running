@@ -86,18 +86,6 @@ export function anecdoteCard({ label = '', text, image, place, height = 166, tex
     </div>`;
 }
 
-// ---------- Cartes de motivation (§8.3) : images avec texte, ne tournent pas ----------
-export const MOTIVATION = {
-  progresses: { src: 'assets/cards/motivation-tu-progresses.webp', alt: 'Tu progresses, même quand les résultats ne se voient pas encore. Continue, tu es sur la bonne voie.', w: 941, h: 920 },
-  continue: { src: 'assets/cards/motivation-continue.webp', alt: 'Continue, tu es plus forte que tu ne le penses.', w: 941, h: 660 },
-  liste: { src: 'assets/cards/motivation-liste.webp', alt: 'Motivation : bouger, progresser, rester régulière, se dépasser, atteindre mes objectifs.', w: 941, h: 1069 },
-  coeur: { src: 'assets/cards/motivation-coeur.webp', alt: '', w: 941, h: 820 },
-};
-export const motivationCard = (key, extra = '') => {
-  const c = MOTIVATION[key];
-  return `<img class="motivation" src="${c.src}" alt="${esc(c.alt)}" width="${c.w}" height="${c.h}" loading="lazy" style="${extra}">`;
-};
-
 // ---------- Confettis (CSS, coupés si prefers-reduced-motion) ----------
 const CONFETTI_COLORS = ['#FF7A59', '#7C5CFF', '#FFC94D', '#34C3A8', '#D63A66'];
 

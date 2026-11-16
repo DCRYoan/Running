@@ -1,6 +1,6 @@
 // Séance incomplète — maquette Incomplete (§5.7). La même séance est reproposée.
-// La carte de motivation « Tu progresses » arrive au jalon M4.
-import { esc, triplet, roundBadge, HEART_SVG, motivationCard } from '../ui.js';
+// Les images avec texte (« Tu progresses »…) tournent désormais comme fonds d'écran.
+import { esc, triplet, roundBadge, HEART_SVG } from '../ui.js';
 import { fmtKm2, fmtDuration, fmtPace, paceSec, fmtOutAndBack } from '../format.js';
 import { sessionFromFlow } from './celebration.js';
 import { fill } from '../messages.js';
@@ -26,7 +26,6 @@ export default {
         <p style="font-size:16px;line-height:1.45;font-weight:700">On retente la séance ${r.nextN} : ${esc(fmtOutAndBack(r.palier.km))}. Aucune obligation de progresser selon le calendrier.</p>
       </div>
       ${hit}
-      ${motivationCard('progresses', 'margin-top:12px')}
       <div class="spacer"></div>
       <button class="lgb btn btn-primary" type="button" data-next>Compris</button>`;
   },

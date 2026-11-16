@@ -374,7 +374,7 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; min-heigh
 .safety { border-radius: 20px; padding: 14px 16px; font-size: 14px; line-height: 1.45; font-weight: 800; color: #3A2E5E; }
 
 /* =====================================================================
-   M4 — carte anecdote (§7.6) et cartes de motivation (§8.3)
+   M4 — carte anecdote (§7.6)
    ===================================================================== */
 .anecdote {
   position: relative; overflow: hidden; width: 100%; flex: none;
@@ -396,9 +396,6 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; min-heigh
   border-radius: 999px; font-size: 14px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .anecdote-place svg { flex: none; }
-.motivation {
-  display: block; width: 100%; height: auto; flex: none;
-  border-radius: 24px; border: 1.5px solid #FFFFFF;
-  box-shadow: 0 10px 30px rgba(110,70,100,.16);
-  background: #FCEFE6;
-}
+
+/* Fonds avec texte (anciennes cartes de motivation) : voile renforcé pour la lisibilité */
+#bg.veil-fort::after { background: var(--veil-fort); }

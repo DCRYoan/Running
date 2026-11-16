@@ -1,6 +1,6 @@
 // Repos — maquette Repos (§5.5) : 2 sorties faites cette semaine.
-// La carte de motivation « Continue » arrive au jalon M4.
-import { esc, roundBadge, MOON_SVG, motivationCard } from '../ui.js';
+// Les images avec texte (« Tu progresses »…) tournent désormais comme fonds d'écran.
+import { esc, roundBadge, MOON_SVG } from '../ui.js';
 import { fmtKmShort } from '../format.js';
 
 export default {
@@ -25,8 +25,7 @@ export default {
         <div class="week">${segs}</div>
         <p style="font-size:15px;line-height:1.4;color:var(--ink-2);font-weight:700">Ta séance ${d.result.nextN} (${fmtKmShort(d.result.palier.km)} km) t'attend dès lundi.</p>
       </div>
-      ${motivationCard('continue', 'margin-top:12px')}
-      <div class="spacer" style="min-height:16px"></div>
+      <div class="spacer"></div>
       <button class="lgg btn btn-secondary" type="button" data-extra>Faire une séance en plus</button>
       <p class="small" style="font-size:14px;margin:8px 0 2px">Laisse idéalement 48 à 72 h entre deux sorties.</p>`;
   },

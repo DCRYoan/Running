@@ -38,6 +38,8 @@
 
   /* Voile de lisibilité au-dessus du fond (§8.1) */
   --veil: linear-gradient(180deg, rgba(251,244,241,.74) 0%, rgba(251,244,241,.50) 36%, rgba(251,244,241,.46) 68%, rgba(251,244,241,.64) 100%);
+  /* Fonds qui contiennent eux-mêmes du texte : on l'estompe pour qu'il reste un décor */
+  --veil-fort: linear-gradient(180deg, rgba(251,244,241,.80) 0%, rgba(251,244,241,.68) 36%, rgba(251,244,241,.66) 68%, rgba(251,244,241,.78) 100%);
 
   /* Zones système (encoche, barre de gestes) */
   --safe-top: env(safe-area-inset-top, 0px);

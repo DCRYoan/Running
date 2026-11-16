@@ -1,13 +1,13 @@
 // Message douleur (§5.8) : après l'enregistrement si la case est cochée.
-// Image du cœur (carte de motivation, §8.3) + texte prudent + « Compris ».
-import { esc, motivationCard } from '../ui.js';
+// Icône cœur + texte prudent + « Compris » (l'image du cœur tourne désormais comme fond).
+import { esc, roundBadge, HEART_SVG } from '../ui.js';
 
 export default {
   nav: false,
   layout: 'center',
   render(app) {
     return `
-      ${motivationCard('coeur', 'max-width:260px;margin:0 auto')}
+      ${roundBadge(HEART_SVG, { size: 100 })}
       <h1 class="h1" style="margin:18px 0 10px">Prends soin de toi.</h1>
       <div class="lg card" style="width:100%;text-align:left">
         <p style="font-size:16px;line-height:1.45;font-weight:700">${esc(app.data.messages.pain)}</p>
