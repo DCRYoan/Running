@@ -100,12 +100,16 @@ export default {
           `Images/s mesurées : ${g.fps ?? 'pas encore mesuré'}`,
           `Service worker : ${navigator.serviceWorker?.controller ? 'actif' : 'pas encore actif'}`,
           `Dernière ouverture : ${app.state.ui.lastOpenAt ?? '—'}`,
+          `Version installée : ${app.build}`,
+          `Fond affiché : ${app.background?.id ?? 'secours'} (${app.backgrounds.length} fonds disponibles)`,
         ].join('\n'))}</div>
+        <button class="lgg btn btn-secondary" type="button" data-reopen style="height:46px;font-size:15px;margin-top:10px">Simuler une nouvelle ouverture</button>
       </details>
 
       <div style="text-align:center;font-size:13px;font-weight:800;color:var(--ink-2);margin-top:4px">Running · version ${app.version}</div>`;
   },
   mount(root, app) {
+    root.querySelector('[data-reopen]')?.addEventListener('click', () => app.reopen());
     root.querySelectorAll('[data-mode]').forEach((btn) => {
       btn.addEventListener('click', () => {
         app.setGlassMode(btn.dataset.mode);

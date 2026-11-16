@@ -10,6 +10,8 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PORT = Number(process.argv[2] || process.env.PORT || 8080);
+// --prod : sert le vrai service worker (précache), pour tester le hors-ligne et les mises à jour.
+const PROD = process.argv.includes('--prod');
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -34,7 +36,7 @@ createServer(async (req, res) => {
     if (!file.startsWith(normalize(ROOT)) || file.includes('node_modules')) throw new Error('interdit');
     await stat(file);
     let body = await readFile(file);
-    if (path === '/sw.js') {
+    if (path === '/sw.js' && !PROD) {
       body = body.toString('utf8').replace(
         /\/\/ <precache>[\s\S]*?\/\/ <\/precache>/,
         "const VERSION = 'dev';\nconst PRECACHE = [];",

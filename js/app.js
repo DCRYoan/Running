@@ -11,6 +11,7 @@ import { resolveCity, isResolved } from './geo.js';
 import { staticGlassChecks, measureFps, decideGlass, applyGlass } from './glass.js';
 import { pickBackground, loadBackgroundList, applyBackground, preloadNext } from './backgrounds.js';
 import { TABS, icon, frenchSpacing } from './ui.js';
+import { BUILD } from './version.js';
 
 import bienvenue from './screens/bienvenue.js';
 import accueil from './screens/accueil.js';
@@ -53,6 +54,7 @@ export const app = {
   background: null,
   swReg: null,
   version: '1',
+  build: BUILD, // empreinte de la version publiée (générée par tools/build-sw.mjs)
   welcome: null, // message d'accueil tiré pour cette ouverture
   flow: null, // écrans à enchaîner après l'enregistrement d'une séance
   extraSession: false, // « Faire une séance en plus » depuis l'écran Repos
@@ -287,6 +289,7 @@ function render() {
 
 // ---------- Ouverture de l'app ----------
 async function onOpening({ cold }) {
+  app.openedAt = Date.now();
   app.state.ui.lastOpenAt = new Date().toISOString();
   app.extraSession = false;
   app.flow = null;
@@ -344,8 +347,23 @@ async function registerServiceWorker() {
     app.swReg = await navigator.serviceWorker.register('./sw.js');
   } catch (err) {
     console.warn('[sw] enregistrement impossible', err);
+    return;
   }
+  // Nouvelle version prête juste après une ouverture, alors qu'on est encore sur
+  // l'Accueil sans rien avoir saisi : on l'applique tout de suite plutôt que
+  // d'attendre l'ouverture suivante. Sinon elle attendra (jamais au milieu d'une saisie).
+  app.swReg.addEventListener('updatefound', () => {
+    const w = app.swReg.installing;
+    w?.addEventListener('statechange', () => {
+      const fresh = Date.now() - (app.openedAt || 0) < 20000;
+      const idle = ['accueil', 'bienvenue'].includes(currentRoute()) && !app.flow;
+      if (w.state === 'installed' && fresh && idle) applyWaitingUpdate();
+    });
+  });
 }
+
+// Test (Réglages > Diagnostic) : simule une nouvelle ouverture sans attendre 30 min.
+app.reopen = () => onOpening({ cold: false });
 
 // ---------- Démarrage ----------
 async function loadJson(path) {

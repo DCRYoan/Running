@@ -46,22 +46,28 @@ export async function collectPrecache() {
 }
 
 async function main() {
+  const VERSION_FILE = 'js/version.js';
   const files = await collectPrecache();
+  const swPath = join(ROOT, 'sw.js');
+  const PRECACHE_BLOCK = /\/\/ <precache>[\s\S]*?\/\/ <\/precache>/;
+  // Empreinte : tous les fichiers précachés + la logique du service worker
+  // (sans js/version.js, qui reçoit justement cette empreinte).
   const hash = createHash('sha256');
-  for (const f of files) {
+  hash.update((await readFile(swPath, 'utf8')).replace(PRECACHE_BLOCK, ''));
+  for (const f of files.filter((x) => x !== VERSION_FILE)) {
     hash.update(f);
     hash.update(await readFile(join(ROOT, f)));
   }
   const version = hash.digest('hex').slice(0, 12);
+  await writeFile(join(ROOT, VERSION_FILE), `// Généré par tools/build-sw.mjs : empreinte de la version publiée.\nexport const BUILD = '${version}';\n`);
   const block = [
     '// <precache> — bloc généré par tools/build-sw.mjs, ne pas éditer à la main',
     `const VERSION = '${version}';`,
     `const PRECACHE = ${JSON.stringify(['./', ...files], null, 2)};`,
     '// </precache>',
   ].join('\n');
-  const swPath = join(ROOT, 'sw.js');
   const sw = await readFile(swPath, 'utf8');
-  const next = sw.replace(/\/\/ <precache>[\s\S]*?\/\/ <\/precache>/, block);
+  const next = sw.replace(PRECACHE_BLOCK, block);
   await writeFile(swPath, next);
   console.log(`sw.js : version ${version}, ${files.length + 1} fichiers précachés`);
 }

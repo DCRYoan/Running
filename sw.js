@@ -5,7 +5,7 @@
 // - Requêtes vers d'autres domaines (Supabase, geo.api.gouv.fr) : jamais mises en cache.
 
 // <precache> — bloc généré par tools/build-sw.mjs, ne pas éditer à la main
-const VERSION = 'fb336e326543';
+const VERSION = 'e56c58ae5953';
 const PRECACHE = [
   "./",
   "assets/anecdotes/aller-retour-lune.svg",
@@ -122,6 +122,7 @@ const PRECACHE = [
   "js/screens/stats.js",
   "js/state.js",
   "js/ui.js",
+  "js/version.js",
   "manifest.webmanifest"
 ];
 // </precache>
@@ -130,7 +131,10 @@ const CACHE = `running-${VERSION}`;
 const RUNTIME = 'running-runtime';
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)));
+  // cache: 'reload' : on contourne le cache HTTP du navigateur (GitHub Pages sert
+  // max-age=600) pour ne jamais figer une ancienne copie d'un fichier dans la
+  // nouvelle version.
+  event.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE.map((u) => new Request(u, { cache: 'reload' })))));
 });
 
 self.addEventListener('activate', (event) => {
