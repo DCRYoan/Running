@@ -1,5 +1,5 @@
 // Réglages (§5.13) — M0 : rubrique Apparence fonctionnelle (Effet verre) + diagnostic.
-import { esc } from '../ui.js';
+import { esc, icon } from '../ui.js';
 
 const MODES = [
   { id: 'auto', label: 'Auto' },
@@ -15,7 +15,11 @@ export default {
     const status = g.enabled ? 'Effet verre actif' : 'Effet verre désactivé';
     const why = g.why?.length ? ` (${g.why.join(', ')})` : '';
     const mem = navigator.deviceMemory ?? 'inconnue';
-    const standalone = matchMedia('(display-mode: standalone)').matches;
+    const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const installHelp = ios
+      ? `Dans Safari : bouton Partager <span style="display:inline-block;vertical-align:-3px">${icon('M12 3v12M8 7l4-4 4 4M6 11v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8', { size: 18 })}</span> puis <em>Sur l'écran d'accueil</em>.`
+      : `Dans Chrome : menu ⋮ puis <em>Installer l'application</em> (ou <em>Ajouter à l'écran d'accueil</em>).`;
     return `
       <h1 class="h1" style="margin-bottom:2px">Réglages</h1>
 
@@ -33,7 +37,7 @@ export default {
       <div class="section">
         <span class="label">Installation</span>
         <div class="lg card">
-          <p style="font-size:15px;line-height:1.4">Dans Chrome : menu ⋮ puis <em>Installer l'application</em> (ou <em>Ajouter à l'écran d'accueil</em>).</p>
+          <p style="font-size:15px;line-height:1.4">${installHelp}</p>
         </div>
       </div>
 

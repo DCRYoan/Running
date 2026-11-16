@@ -34,4 +34,10 @@ await mkdir(OUT, { recursive: true });
 await sharp(Buffer.from(anySvg)).resize(192, 192).png().toFile(`${OUT}icon-192.png`);
 await sharp(Buffer.from(anySvg)).resize(512, 512).png().toFile(`${OUT}icon-512.png`);
 await sharp(Buffer.from(maskableSvg)).resize(512, 512).png().toFile(`${OUT}icon-maskable-512.png`);
+
+// iPhone : iOS arrondit lui-même les coins et remplit la transparence en noir,
+// donc icône pleine (sans coins transparents), 180 × 180.
+const appleSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">${gradient}
+  <rect width="512" height="512" fill="url(#g)"/>${glyph(16)}</svg>`;
+await sharp(Buffer.from(appleSvg)).resize(180, 180).flatten({ background: '#D63A66' }).png().toFile(`${OUT}apple-touch-icon.png`);
 console.log('Icônes générées dans assets/icons/');

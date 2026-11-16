@@ -5,7 +5,7 @@
 // - Requêtes vers d'autres domaines (Supabase, geo.api.gouv.fr) : jamais mises en cache.
 
 // <precache> — bloc généré par tools/build-sw.mjs, ne pas éditer à la main
-const VERSION = '17825b6fc2f7';
+const VERSION = '7a4d4419b7a7';
 const PRECACHE = [
   "./",
   "assets/backgrounds/secours/bg-bottom-hero.svg",
@@ -15,6 +15,7 @@ const PRECACHE = [
   "assets/fonts/nunito-700.woff2",
   "assets/fonts/nunito-800.woff2",
   "assets/fonts/nunito-900.woff2",
+  "assets/icons/apple-touch-icon.png",
   "assets/icons/icon-192.png",
   "assets/icons/icon-512.png",
   "assets/icons/icon-maskable-512.png",
