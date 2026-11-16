@@ -1,0 +1,16 @@
+{
+  "name": "running",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PWA de suivi d'un plan d'entraînement running pour débutante",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/",
+    "serve": "node tools/serve.mjs",
+    "sw": "node tools/build-sw.mjs",
+    "build:icons": "node tools/build-icons.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}

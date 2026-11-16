@@ -1,0 +1,147 @@
+/* Running — mise en page générale et composants partagés */
+
+/* ---------- Fond (image + voile), fixe derrière tout ---------- */
+#bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--cream);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  pointer-events: none;
+}
+/* Fond de secours (§8.1) : deux SVG posés sur la crème */
+#bg.bg-secours {
+  background-image: url('../assets/backgrounds/secours/bg-top.svg'), url('../assets/backgrounds/secours/bg-bottom-hero.svg');
+  background-size: 100% auto, 100% auto;
+  background-position: top center, bottom center;
+}
+#bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--veil);
+}
+
+/* ---------- Zone d'écran ---------- */
+#app {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen {
+  flex: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: calc(34px + var(--safe-top)) 20px 20px;
+}
+.screen.has-nav { padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 12px); }
+.screen.hero { padding: calc(52px + var(--safe-top)) 22px calc(30px + var(--safe-bottom)); gap: 0; }
+
+.spacer { flex: 1; }
+
+.h1 { font-size: 32px; line-height: 1.1; font-weight: 900; letter-spacing: -0.7px; }
+.h1-xl { font-size: 38px; line-height: 1.05; font-weight: 900; letter-spacing: -0.9px; }
+.lead { font-size: 17px; line-height: 1.4; font-weight: 700; color: var(--ink-2); }
+.small { font-size: 13px; line-height: 1.4; font-weight: 700; color: var(--ink-2); }
+
+/* ---------- Logo ---------- */
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark { width: 38px; height: 38px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+.brand-name { font-size: 20px; font-weight: 900; }
+
+/* ---------- Cartes ---------- */
+.card { border-radius: var(--r-card); padding: 16px; }
+.section > .label { display: block; margin: 0 4px 8px; }
+.row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 54px;
+}
+.row + .row { border-top: 1px solid rgba(255,255,255,.7); }
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  border-radius: var(--r-pill);
+  font-weight: 800;
+  text-decoration: none;
+  padding: 0 20px;
+  -webkit-user-select: none; user-select: none;
+  transition: transform .12s ease;
+}
+.btn:active { transform: scale(.98); }
+.btn-primary { height: 58px; color: #fff; font-size: 18px; }
+.btn-primary:hover { color: #fff; }
+.btn-secondary { height: 56px; color: var(--link-hover); font-size: 17px; }
+.btn[disabled] { opacity: .5; cursor: default; transform: none; }
+
+/* ---------- Champs ---------- */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field > label { font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.input {
+  height: 54px; width: 100%;
+  border-radius: var(--r-field);
+  padding: 0 16px;
+  font: 700 18px var(--font);
+  color: var(--ink);
+  outline: none;
+}
+.input:focus { border-color: var(--raspberry); }
+
+/* ---------- Choix segmenté (Auto / Activé / Désactivé) ---------- */
+.segmented { display: flex; gap: 6px; padding: 4px; border-radius: var(--r-pill); }
+.segmented button {
+  flex: 1; min-height: 44px; border: 0; border-radius: var(--r-pill);
+  background: transparent; color: var(--ink-2); font-weight: 800; font-size: 15px;
+}
+.segmented button[aria-pressed="true"] {
+  background: rgba(255,255,255,.85); color: var(--link);
+  box-shadow: 0 4px 14px rgba(110,70,100,.18);
+}
+
+/* ---------- Barre de navigation flottante (§5.16) ---------- */
+.tabbar {
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  bottom: calc(14px + var(--safe-bottom));
+  transform: translateX(-50%);
+  width: calc(100% - 28px);
+  max-width: 452px;
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 34px;
+}
+.tabbar[hidden] { display: none; }
+.tab {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 8px 0;
+  border-radius: 26px;
+  text-decoration: none;
+  font-size: 12px; font-weight: 800;
+  color: var(--ink-2);
+  background: transparent;
+}
+.tab:hover { color: var(--ink-2); }
+.tab[aria-current="page"] {
+  background: rgba(255,255,255,.85);
+  color: var(--link);
+  box-shadow: 0 4px 14px rgba(110,70,100,.18);
+}
+
+/* ---------- Divers ---------- */
+.diag { font: 600 12px/1.45 ui-monospace, Consolas, monospace; color: var(--ink-3); white-space: pre-wrap; }
+.swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+.swatch { width: 36px; height: 36px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.9); }

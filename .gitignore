@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+# Sources lourdes et documents privés : jamais dans le dépôt public
+backgrounds-sources/
+cartes-motivation/
+references/
+CAHIER_DES_CHARGES.md
+# Sauvegardes ou exports locaux éventuels
+*.backup.json
+.env
