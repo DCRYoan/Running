@@ -2,6 +2,31 @@
 import { esc, icon } from '../ui.js';
 import { fmtStep, plural } from '../format.js';
 import { roundKm } from '../plan.js';
+import { fmtRelativeDateTime } from '../format.js';
+import { isConfigured } from '../sync.js';
+import { bindCodeButtons } from '../code-actions.js';
+
+// Rubrique Sauvegarde (§5.13, §10.3) : état, dernière synchronisation, code.
+function backupBlock(app) {
+  const b = app.state.backup;
+  let dot = 'dot';
+  let title = 'Sauvegarde automatique active';
+  if (!isConfigured()) { dot = 'dot dot-wait'; title = 'Sauvegarde en ligne non activée'; }
+  else if (b.status === 'offline' || (!navigator.onLine && b.dirty)) { dot = 'dot dot-wait'; title = 'En attente de réseau'; }
+  else if (b.status === 'error') { dot = 'dot dot-error'; title = 'Erreur de sauvegarde (réessai automatique)'; }
+  else if (!b.registered || b.dirty) { dot = 'dot dot-wait'; title = 'Sauvegarde en cours…'; }
+  const last = b.lastSyncAt ? `Dernière synchronisation : ${fmtRelativeDateTime(b.lastSyncAt)}.` : 'Pas encore synchronisée.';
+  return `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span class="${dot}"></span><span style="font-size:16px;font-weight:900">${esc(title)}</span></div>
+    <p class="small" style="font-size:14px;margin-bottom:12px">${esc(last)} Hors ligne, tes séances se synchronisent dès que le réseau revient.</p>
+    <div class="label" style="margin-bottom:6px">Code de récupération</div>
+    <div class="lgi code-box code-box-sm">${esc(b.code ?? '—')}</div>
+    <div class="code-actions">
+      <button class="lgg btn code-btn" type="button" data-copy>Copier</button>
+      <button class="lgg btn code-btn" type="button" data-share>Partager</button>
+    </div>
+    <a class="text-link" href="#/restaurer" style="margin-top:8px;font-size:14px">J'ai un code d'un autre téléphone</a>`;
+}
 
 const MODES = [
   { id: 'auto', label: 'Auto' },
@@ -65,8 +90,7 @@ export default {
       <div class="section">
         <span class="label">Sauvegarde</span>
         <div class="lg card">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span class="dot dot-wait"></span><span style="font-size:16px;font-weight:900">Sauvegarde en ligne bientôt disponible</span></div>
-          <p class="small" style="font-size:14px">Tes séances sont enregistrées sur ce téléphone. La sauvegarde automatique et le code de récupération arrivent au jalon M5.</p>
+          ${backupBlock(app)}
         </div>
       </div>
 
@@ -110,6 +134,7 @@ export default {
   },
   mount(root, app) {
     root.querySelector('[data-reopen]')?.addEventListener('click', () => app.reopen());
+    if (app.state.backup.code) bindCodeButtons(root, app.state.backup.code);
     root.querySelectorAll('[data-mode]').forEach((btn) => {
       btn.addEventListener('click', () => {
         app.setGlassMode(btn.dataset.mode);

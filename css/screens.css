@@ -399,3 +399,13 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; min-heigh
 
 /* Fonds avec texte (anciennes cartes de motivation) : voile renforcé pour la lisibilité */
 #bg.veil-fort::after { background: var(--veil-fort); }
+
+/* =====================================================================
+   M5 — code de récupération
+   ===================================================================== */
+.code-box { border-radius: 18px; padding: 16px 8px; text-align: center; font-size: clamp(19px, 6.2vw, 26px); white-space: nowrap; font-weight: 900; letter-spacing: 1.5px; margin-bottom: 12px; user-select: all; -webkit-user-select: all; }
+.code-box-sm { border-radius: 16px; padding: 12px 8px; font-size: clamp(18px, 5.6vw, 22px); margin-bottom: 10px; }
+.code-actions { display: flex; gap: 10px; }
+.code-btn { flex: 1; height: 48px; color: var(--link-hover); font-size: 16px; padding: 0; }
+.note { border-radius: 22px; padding: 14px 16px; margin-top: 12px; font-size: 14px; line-height: 1.45; font-weight: 700; }
+.code-input { height: 62px; font-size: 24px; font-weight: 900; letter-spacing: 2px; text-align: center; text-transform: uppercase; }

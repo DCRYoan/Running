@@ -12,6 +12,8 @@ import { staticGlassChecks, measureFps, decideGlass, applyGlass } from './glass.
 import { pickBackground, loadBackgroundList, applyBackground, preloadNext } from './backgrounds.js';
 import { TABS, icon, frenchSpacing } from './ui.js';
 import { BUILD } from './version.js';
+import { createSync, mergeData } from './sync.js';
+import { generateCode } from './backup-code.js';
 
 import bienvenue from './screens/bienvenue.js';
 import accueil from './screens/accueil.js';
@@ -27,15 +29,15 @@ import stats from './screens/stats.js';
 import reglages from './screens/reglages.js';
 import profil from './screens/profil.js';
 import programme from './screens/programme.js';
-import { placeholder } from './screens/placeholder.js';
+import code from './screens/code.js';
+import restaurer from './screens/restaurer.js';
 
 const SCREENS = {
   bienvenue, accueil, seance, douleur, celebration, incomplete, repos,
-  'fin-palier': finPalier, historique, modifier, stats, reglages, profil, programme,
-  restaurer: placeholder('Retrouver ma progression', 'La restauration par code arrive au jalon M5.', { back: 'bienvenue' }),
+  'fin-palier': finPalier, historique, modifier, stats, reglages, profil, programme, code, restaurer,
 };
 const HOME = 'accueil';
-const FLOW_SCREENS = new Set(['douleur', 'celebration', 'incomplete']);
+const FLOW_SCREENS = new Set(['douleur', 'celebration', 'incomplete', 'code']);
 
 // Retour au premier plan après plus de 30 min = nouvelle ouverture.
 // Pour tester sans attendre : ouvrir l'app avec ?reopenMs=5000 (5 s).
@@ -61,7 +63,12 @@ export const app = {
   draft: {}, // saisie en cours de l'écran Séance
 
   save() { saveState(this.state); },
-  set(next) { this.state = next; this.save(); },
+  set(next) {
+    this.state = next;
+    this.save();
+    // Toute modification de données (séance, décision, profil, réglages) part en sauvegarde.
+    if (next.backup.dirty || (!next.backup.registered && next.profile)) this.sync?.schedule();
+  },
   go(route, { replace = false } = {}) {
     const hash = `#/${route}`;
     if (replace) location.replace(hash);
@@ -160,6 +167,8 @@ export const app = {
     const steps = [];
     if (session.pain) steps.push('douleur');
     steps.push(session.status === 'complete' ? 'celebration' : 'incomplete');
+    // Code de récupération : montré une fois, après la première séance enregistrée (§5.10).
+    if (!this.state.ui.codeShown) steps.push('code');
     if (this.derived().result.state === 'awaiting_decision') steps.push('fin-palier');
     const anecdote = session.status === 'complete' ? this.drawAnecdote(after) : null;
     this.anecdote = null; // l'Accueil en tirera une nouvelle
@@ -187,6 +196,28 @@ export const app = {
 
   updateSettings(changes) {
     this.set(withSettings(this.state, changes));
+  },
+
+  /**
+   * Restauration (§5.15, §10.3) : remplace les données locales, ou les fusionne
+   * si des séances existent déjà (après confirmation). Le code saisi devient le code de l'appareil.
+   */
+  restore({ code: restoredCode, data, updatedAt, merge }) {
+    const base = merge ? mergeData(this.state, data) : {
+      ...this.state,
+      profile: data.profile ?? this.state.profile,
+      settings: { ...this.state.settings, ...(data.settings || {}), glass: this.state.settings.glass },
+      sessions: data.sessions || [],
+      decisions: data.decisions || [],
+    };
+    this.welcome = null;
+    this.anecdote = null;
+    this.set({
+      ...base,
+      ui: { ...base.ui, codeShown: true },
+      backup: { ...base.backup, code: restoredCode, registered: true, remoteUpdatedAt: updatedAt, dirty: Boolean(merge), status: 'ok', lastSyncAt: new Date().toISOString() },
+    });
+    resolvePendingCity();
   },
 
   /** Paramètres après « ? » dans le hash : #/modifier?id=… */
@@ -271,7 +302,7 @@ function renderNav(active) {
 
 let lastRendered = null;
 
-function render() {
+function render({ keepScroll = false } = {}) {
   const asked = currentRoute();
   const route = guard(asked);
   if (route !== asked) { app.go(route, { replace: true }); return; }
@@ -284,7 +315,7 @@ function render() {
   screen.mount?.($app.firstElementChild, app);
   $nav.hidden = !screen.nav;
   if (screen.nav) renderNav(screen.tab || route);
-  window.scrollTo(0, 0);
+  if (!keepScroll) window.scrollTo(0, 0);
 }
 
 // ---------- Ouverture de l'app ----------
@@ -311,6 +342,9 @@ async function onOpening({ cold }) {
 
   if (currentRoute() !== HOME || !location.hash) app.go(HOME, { replace: true });
   else render();
+  // Chaque ouverture contacte Supabase : envoie ce qui attend, récupère les autres appareils,
+  // et évite la mise en pause du projet gratuit.
+  app.sync.run();
 }
 
 let hiddenAt = null;
@@ -365,6 +399,21 @@ async function registerServiceWorker() {
 // Test (Réglages > Diagnostic) : simule une nouvelle ouverture sans attendre 30 min.
 app.reopen = () => onOpening({ cold: false });
 
+// ---------- Sauvegarde en ligne (§10.3) ----------
+// Écrans réaffichés quand la synchronisation apporte des données d'un autre appareil
+// (jamais un écran de saisie).
+const SAFE_RERENDER = new Set(['accueil', 'historique', 'stats', 'reglages', 'repos', 'programme']);
+app.sync = createSync({
+  getState: () => app.state,
+  setState: (next, { data } = {}) => {
+    app.state = next;
+    app.save();
+    const r = currentRoute();
+    if ((data && SAFE_RERENDER.has(r)) || r === 'reglages') render({ keepScroll: true });
+  },
+});
+window.addEventListener('online', () => app.sync.run());
+
 // ---------- Démarrage ----------
 async function loadJson(path) {
   const res = await fetch(path);
@@ -373,6 +422,11 @@ async function loadJson(path) {
 }
 
 async function start() {
+  // Code de récupération généré dès le premier lancement, même hors ligne (§10.1).
+  if (!app.state.backup.code) {
+    app.state = { ...app.state, backup: { ...app.state.backup, code: generateCode(), registered: false } };
+    app.save();
+  }
   app.glass.reasons = staticGlassChecks();
   refreshGlass();
   [app.data.plan, app.data.messages, app.data.anecdotes] = await Promise.all([
