@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "startKm": 2,
+  "defaultStepKm": 0.5,
+  "defaultSessionsPerPalier": 4,
+  "sessionsPerWeek": 2,
+  "completeThreshold": 0.9,
+  "warmupMin": 5,
+  "cooldownMin": 5,
+  "milestoneEveryKm": 5,
+  "rules": [
+    { "t": "Pas de recherche de vitesse", "d": "Une allure où tu peux tenir une conversation. Le chrono n'est pas un objectif." },
+    { "t": "Le droit de marcher", "d": "Si le souffle devient difficile, tu ralentis ou tu marches. Aucune honte." },
+    { "t": "Écouter son corps", "d": "Une fatigue légère est normale. Une douleur inhabituelle impose d'arrêter." },
+    { "t": "Ne pas brûler les étapes", "d": "Une distance difficile se répète. Aucune obligation de progresser." },
+    { "t": "Respecter la récupération", "d": "Idéalement 48 à 72 h entre les deux sorties." },
+    { "t": "Privilégier la régularité", "d": "Deux petites sorties régulières valent mieux qu'une grosse séance suivie d'un abandon." }
+  ],
+  "tips": [
+    "Tu dois pouvoir tenir une conversation. Si ce n'est plus le cas, ralentis.",
+    "Un verre d'eau avant de partir, et tu pars l'esprit léger.",
+    "Relâche les épaules et les mains : une course détendue est une course plus facile.",
+    "La marche active du début compte dans ta séance : prends-la au sérieux.",
+    "Choisis un parcours que tu aimes, pas forcément le plus plat.",
+    "Le retour au calme fait partie de la séance : ne le saute pas."
+  ],
+  "safetyNote": "En cas de douleur inhabituelle ou persistante, arrête la séance et demande conseil à un professionnel de santé."
+}

@@ -51,11 +51,15 @@ export function migrate(raw) {
 }
 
 export function loadState(storage = globalThis.localStorage) {
+  let txt = null;
   try {
-    const txt = storage?.getItem(STORAGE_KEY);
+    txt = storage?.getItem(STORAGE_KEY);
     return migrate(txt ? JSON.parse(txt) : null);
   } catch (err) {
-    console.error('[state] lecture impossible, état neuf', err);
+    // Données illisibles : on en garde une copie avant de repartir d'un état
+    // neuf, pour ne jamais écraser définitivement un historique.
+    try { if (txt) storage.setItem(`${STORAGE_KEY}:illisible:${Date.now()}`, txt); } catch { /* plein */ }
+    console.warn('[state] lecture impossible, copie conservée, état neuf', err.message);
     return defaultState();
   }
 }
@@ -68,6 +72,51 @@ export function saveState(state, storage = globalThis.localStorage) {
     console.error('[state] écriture impossible', err);
     return false;
   }
+}
+
+// ---------- Identifiants ----------
+
+// UUID v4. randomUUID n'existe qu'en contexte sécurisé (https, localhost) : repli.
+export function newId(cryptoObj = globalThis.crypto) {
+  if (cryptoObj?.randomUUID) return cryptoObj.randomUUID();
+  const b = cryptoObj.getRandomValues(new Uint8Array(16));
+  b[6] = (b[6] & 0x0f) | 0x40;
+  b[8] = (b[8] & 0x3f) | 0x80;
+  const h = [...b].map((x) => x.toString(16).padStart(2, '0')).join('');
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
+// ---------- Mises à jour (renvoient un nouvel état, sans muter l'ancien) ----------
+
+const stamp = (now) => (now instanceof Date ? now : new Date(now ?? Date.now())).toISOString();
+
+export function withSession(state, session) {
+  const others = state.sessions.filter((s) => s.id !== session.id);
+  return { ...state, sessions: [...others, session], backup: { ...state.backup, dirty: true } };
+}
+
+export function withDecision(state, decision) {
+  return { ...state, decisions: [...state.decisions, decision], backup: { ...state.backup, dirty: true } };
+}
+
+export function withProfile(state, changes, now) {
+  return {
+    ...state,
+    profile: { ...(state.profile || {}), ...changes, updatedAt: stamp(now) },
+    backup: { ...state.backup, dirty: true },
+  };
+}
+
+export function withSettings(state, changes, now) {
+  return {
+    ...state,
+    settings: { ...state.settings, ...changes, updatedAt: stamp(now) },
+    backup: { ...state.backup, dirty: true },
+  };
+}
+
+export function withUi(state, changes) {
+  return { ...state, ui: { ...state.ui, ...changes } };
 }
 
 // Demande au navigateur de ne pas effacer nos données sous pression d'espace (§6.1, §11).
