@@ -47,6 +47,9 @@
 .screen.hero { padding: calc(52px + var(--safe-top)) 22px calc(30px + var(--safe-bottom)); gap: 0; }
 
 .spacer { flex: 1; }
+/* Écrans centrés (gap 0) : même quand le contenu dépasse l'écran, le bouton du bas
+   ne vient jamais se coller à la carte au-dessus */
+.screen.center > .spacer { min-height: 22px; }
 
 .h1 { font-size: 32px; line-height: 1.1; font-weight: 900; letter-spacing: -0.7px; }
 .h1-xl { font-size: 38px; line-height: 1.05; font-weight: 900; letter-spacing: -0.9px; }
