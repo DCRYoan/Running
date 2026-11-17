@@ -5,7 +5,7 @@
 // - Requêtes vers d'autres domaines (Supabase, geo.api.gouv.fr) : jamais mises en cache.
 
 // <precache> — bloc généré par tools/build-sw.mjs, ne pas éditer à la main
-const VERSION = '861dad611d66';
+const VERSION = 'de50bf8d2516';
 const PRECACHE = [
   "./",
   "assets/anecdotes/aller-retour-lune.svg",

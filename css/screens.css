@@ -105,8 +105,8 @@
   background: transparent; color: var(--ink-2); font-weight: 800; font-size: 15px;
 }
 .segmented button[aria-pressed="true"] {
-  background: rgba(255,255,255,.85); color: var(--link);
-  box-shadow: 0 4px 14px rgba(110,70,100,.18);
+  background: rgba(255,255,255,.88); color: var(--link);
+  box-shadow: var(--clay-small);
 }
 
 /* ---------- Barre de navigation flottante (§5.16) ---------- */
@@ -136,9 +136,9 @@
 }
 .tab:hover { color: var(--ink-2); }
 .tab[aria-current="page"] {
-  background: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.88);
   color: var(--link);
-  box-shadow: 0 4px 14px rgba(110,70,100,.18);
+  box-shadow: var(--clay-small);
 }
 
 /* ---------- Divers ---------- */
@@ -375,8 +375,8 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; min-heigh
    ===================================================================== */
 .anecdote {
   position: relative; overflow: hidden; width: 100%; flex: none;
-  border-radius: 26px; border: 1px solid rgba(255,255,255,.8);
-  box-shadow: 0 10px 30px rgba(110,70,100,.16);
+  border-radius: 28px; border: 1.5px solid rgba(255,255,255,.85);
+  box-shadow: 0 24px 44px -14px rgba(122,58,98,.34), 0 6px 14px -4px rgba(122,58,98,.14);
   background: var(--cream);
 }
 .anecdote-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
