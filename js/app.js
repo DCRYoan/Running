@@ -31,6 +31,9 @@ import profil from './screens/profil.js';
 import programme from './screens/programme.js';
 import code from './screens/code.js';
 import restaurer from './screens/restaurer.js';
+import { initSplash, replaySplash } from './splash.js';
+
+initSplash();
 
 const SCREENS = {
   bienvenue, accueil, seance, douleur, celebration, incomplete, repos,
@@ -320,6 +323,7 @@ function render({ keepScroll = false } = {}) {
 
 // ---------- Ouverture de l'app ----------
 async function onOpening({ cold }) {
+  if (!cold) replaySplash(); // au lancement, index.html l'affiche déjà
   app.openedAt = Date.now();
   app.state.ui.lastOpenAt = new Date().toISOString();
   app.extraSession = false;
@@ -451,7 +455,7 @@ async function start() {
   await registerServiceWorker();
   await onOpening({ cold: true });
   requestPersist();
-  setTimeout(probeFps, 300);
+  setTimeout(probeFps, 2300); // après l'écran d'ouverture, pour mesurer l'app et non l'animation
 }
 
 start().catch((err) => {

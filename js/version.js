@@ -1,2 +1,2 @@
 // Généré par tools/build-sw.mjs : empreinte de la version publiée.
-export const BUILD = 'fab72a20e3c2';
+export const BUILD = '4474dab6e34b';
