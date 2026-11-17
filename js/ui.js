@@ -86,23 +86,30 @@ export function anecdoteCard({ label = '', text, image, place, height = 166, tex
     </div>`;
 }
 
-// ---------- Confettis (CSS, coupés si prefers-reduced-motion) ----------
-const CONFETTI_COLORS = ['#FF7A59', '#7C5CFF', '#FFC94D', '#34C3A8', '#D63A66'];
+// ---------- Médaille de l'écran Bravo ----------
+// Tombe au bout de son ruban, se balance, brille ; rayons et étincelles autour.
+// Jalon franchi : médaille dorée gravée « 5 km » (10 km…). CSS seul ; avec
+// prefers-reduced-motion, l'état final s'affiche directement (tokens.css).
+const MEDAL_CHECK = '<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 
-export function confetti(count = 8, rnd = Math.random) {
-  let out = '';
-  for (let i = 0; i < count; i += 1) {
-    const round = rnd() < 0.35;
-    const w = round ? 12 + Math.round(rnd() * 4) : 12 + Math.round(rnd() * 4);
-    const h = round ? w : 22 + Math.round(rnd() * 8);
-    const left = Math.round((i + 0.5) * (100 / count) + (rnd() - 0.5) * (60 / count));
-    const top = 24 + Math.round(rnd() * (count > 12 ? 220 : 170));
-    const rot = Math.round(rnd() * 120 - 60);
-    const delay = Math.round(rnd() * 500);
-    const color = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
-    out += `<i class="confetto" style="left:${left}%;top:${top}px;width:${w}px;height:${h}px;border-radius:${round ? '50%' : '4px'};background:${color};--r:${rot}deg;animation-delay:${delay}ms"></i>`;
+export function medal({ milestone = null, rnd = Math.random } = {}) {
+  const n = milestone ? 9 : 5;
+  let sparks = '';
+  for (let i = 0; i < n; i += 1) {
+    const ang = (i / n) * Math.PI * 2 + (rnd() - 0.5) * 0.6;
+    const dist = 70 + rnd() * (milestone ? 60 : 40);
+    const x = Math.round(Math.cos(ang) * dist);
+    const y = Math.round(Math.sin(ang) * dist * 0.8);
+    const size = 10 + Math.round(rnd() * 8);
+    sparks += `<i class="medal-spark" style="--x:${x}px;--y:${y}px;--s:${size}px;--del:${(0.75 + i * 0.12).toFixed(2)}s"></i>`;
   }
-  return `<div class="confetti" aria-hidden="true">${out}</div>`;
+  const label = milestone
+    ? `<span class="medal-km" style="font-size:${String(milestone).length > 2 ? 17 : 22}px">${esc(String(milestone))} km</span>`
+    : MEDAL_CHECK;
+  return `<div class="medal${milestone ? ' medal-gold' : ''}" aria-hidden="true">
+    <div class="medal-glow"><div class="medal-rays"></div></div>${sparks}
+    <div class="medal-swing"><div class="medal-ribbon"></div><div class="medal-face">${label}<i class="medal-shine"></i></div></div>
+  </div>`;
 }
 
 // ---------- Typographie française ----------

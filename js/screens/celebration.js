@@ -1,6 +1,6 @@
-// Séance validée — maquette Celebration (§5.4). Jalon franchi : version renforcée (§4.7).
+// Séance validée — maquette Celebration (§5.4). Jalon franchi : médaille dorée (§4.7).
 // L'anecdote illustrée arrive au jalon M4.
-import { esc, triplet, milestoneBar, roundBadge, confetti, CHECK_SVG, anecdoteCard } from '../ui.js';
+import { esc, triplet, milestoneBar, medal, anecdoteCard } from '../ui.js';
 import { fmtKm1, fmtKm2, fmtDuration, fmtPace, paceSec } from '../format.js';
 import { fill } from '../messages.js';
 
@@ -27,8 +27,7 @@ export default {
     const name = app.state.profile?.firstName ?? '';
     const n = app.derived().result.bySession[s.id]?.n ?? s.plannedN;
     return `
-      ${confetti(ctx.crossed ? 26 : 8)}
-      ${roundBadge(CHECK_SVG, { tint: 'rgba(255,201,77,.85)', extra: 'box-shadow:0 10px 26px rgba(255,201,77,.5),inset 0 1.5px 0 rgba(255,255,255,.9)' })}
+      ${medal({ milestone: ctx.crossed })}
       <h1 class="h1-xl" style="margin:20px 0 8px;font-size:36px;letter-spacing:-0.8px">Bravo ${esc(name)} !</h1>
       <div class="lgb pill">Séance ${n} validée</div>
       ${triplet([[fmtKm2(s.distanceKm), 'km'], [fmtDuration(s.durationSec), 'temps'], [fmtPace(paceSec(s.durationSec, s.distanceKm)), 'min / km']])}

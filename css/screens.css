@@ -249,17 +249,84 @@ html.no-glass .suggestions { background: #fff; }
 .week-seg { flex: 1; height: 14px; border-radius: 7px; background: rgba(255,255,255,.75); }
 .week-seg.on { background: var(--green); }
 
-/* Confettis : tombent en place puis restent */
-.confetti { position: absolute; inset: 0 0 auto 0; height: 320px; pointer-events: none; overflow: hidden; }
-.confetto {
-  position: absolute; display: block;
-  transform: rotate(var(--r));
-  animation: confetto-fall .9s cubic-bezier(.2,.8,.3,1) both;
+/* Médaille de l'écran Bravo (remplace les confettis) */
+.medal { position: relative; width: 96px; height: 96px; flex: none; }
+.medal-glow {
+  position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; margin: -150px 0 0 -150px;
+  border-radius: 50%; overflow: hidden; pointer-events: none;
 }
-@keyframes confetto-fall {
-  from { opacity: 0; transform: translateY(-140px) rotate(calc(var(--r) - 180deg)); }
-  to   { opacity: 1; transform: translateY(0) rotate(var(--r)); }
+.medal-rays {
+  position: absolute; inset: 0;
+  background: repeating-conic-gradient(from 0deg, rgba(255,255,255,.75) 0deg 7deg, rgba(255,255,255,0) 7deg 22deg);
+  -webkit-mask: radial-gradient(circle, #000 18%, transparent 68%);
+  mask: radial-gradient(circle, #000 18%, transparent 68%);
+  opacity: .9;
+  animation: medal-rays .9s ease-out .55s both, medal-spin 26s linear 1.45s infinite;
 }
+.medal-gold .medal-rays { background: repeating-conic-gradient(from 0deg, rgba(255,214,102,.9) 0deg 7deg, rgba(255,255,255,0) 7deg 18deg); }
+/* Téléphone modeste (verre coupé) : pas de rotation continue */
+html.no-glass .medal-rays { animation: medal-rays .9s ease-out .55s both; }
+@keyframes medal-rays { from { opacity: 0; scale: .3; } to { opacity: .9; scale: 1; } }
+@keyframes medal-spin { to { rotate: 360deg; } }
+
+.medal-swing { position: absolute; inset: 0; transform-origin: 50% -150px; animation: medal-drop 1.7s linear both; }
+@keyframes medal-drop {
+  0%   { transform: translateY(-320px) rotate(0deg); animation-timing-function: cubic-bezier(.5,0,.8,.6); }
+  24%  { transform: translateY(8px) rotate(-9deg); animation-timing-function: ease-in-out; }
+  38%  { transform: translateY(0) rotate(8deg); animation-timing-function: ease-in-out; }
+  53%  { transform: translateY(0) rotate(-5deg); animation-timing-function: ease-in-out; }
+  68%  { transform: translateY(0) rotate(3deg); animation-timing-function: ease-in-out; }
+  84%  { transform: translateY(0) rotate(-1.2deg); animation-timing-function: ease-in-out; }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+/* Le ruban monte jusqu'au haut de l'écran */
+.medal-ribbon { position: absolute; left: 50%; bottom: 62%; width: 60px; height: calc(260px + var(--safe-top)); transform: translateX(-50%); }
+.medal-ribbon::before, .medal-ribbon::after {
+  content: ""; position: absolute; bottom: 0; width: 26px; height: 100%; border-radius: 3px;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.35);
+}
+.medal-ribbon::before { left: 2px; transform: skewX(12deg); transform-origin: bottom; background: linear-gradient(90deg, var(--raspberry) 0 33%, var(--pink) 33% 66%, var(--raspberry) 66%); }
+.medal-ribbon::after  { right: 2px; transform: skewX(-12deg); transform-origin: bottom; background: linear-gradient(90deg, var(--violet) 0 33%, var(--lavender) 33% 66%, var(--violet) 66%); }
+
+.medal-face {
+  position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background-image: radial-gradient(circle at 32% 26%, rgba(255,255,255,.7) 0, rgba(255,255,255,0) 42%), linear-gradient(145deg, #F7A9C0, var(--raspberry));
+  border: 3px solid rgba(255,255,255,.9);
+  box-shadow: 0 18px 30px -10px rgba(150,30,70,.55), inset 6px 8px 12px -6px rgba(255,255,255,.85), inset -8px -10px 16px -8px rgba(110,10,50,.5);
+}
+.medal-face::before { content: ""; position: absolute; inset: 9px; border-radius: 50%; border: 2px dashed rgba(255,255,255,.6); }
+.medal-gold .medal-face {
+  background-image: radial-gradient(circle at 32% 26%, rgba(255,255,255,.8) 0, rgba(255,255,255,0) 42%), linear-gradient(145deg, #FFE28A, #E9A100);
+  box-shadow: 0 18px 30px -10px rgba(190,120,0,.6), inset 6px 8px 12px -6px rgba(255,255,255,.9), inset -8px -10px 16px -8px rgba(140,80,0,.5);
+}
+.medal-km { position: relative; font-weight: 900; letter-spacing: -.5px; white-space: nowrap; color: #6E4300; text-shadow: 0 1px 0 rgba(255,255,255,.5); }
+.medal-face svg { position: relative; }
+.medal-shine {
+  position: absolute; top: -30%; left: -70%; width: 45%; height: 160%; transform: rotate(22deg);
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.85), rgba(255,255,255,0));
+  opacity: 0; animation: medal-shine .9s ease-in-out 1.15s both;
+}
+@keyframes medal-shine { from { opacity: 1; left: -70%; } to { opacity: 1; left: 130%; } }
+
+.medal-spark {
+  position: absolute; left: calc(50% + var(--x)); top: calc(50% + var(--y));
+  width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  background: #fff; transform: scale(0);
+  animation: medal-twinkle 1.1s ease-in-out var(--del) 2 both;
+}
+.medal-gold .medal-spark { background: #FFD24D; }
+@keyframes medal-twinkle { 0% { transform: scale(0) rotate(0deg); } 50% { transform: scale(1) rotate(45deg); } 100% { transform: scale(0) rotate(90deg); } }
+
+/* Le reste de l'écran arrive une fois la médaille posée */
+.medal ~ * { animation: medal-rise .5s cubic-bezier(.2,.8,.3,1) .75s both; }
+.medal ~ :nth-child(3) { animation-delay: .83s; }
+.medal ~ :nth-child(4) { animation-delay: .91s; }
+.medal ~ :nth-child(5) { animation-delay: .99s; }
+.medal ~ :nth-child(6) { animation-delay: 1.07s; }
+.medal ~ :nth-child(n+7) { animation-delay: 1.15s; }
+@keyframes medal-rise { from { opacity: 0; transform: translateY(16px); } }
 
 /* Fenêtre de confirmation */
 .modal-backdrop {
@@ -275,9 +342,8 @@ html.no-glass .suggestions { background: #fff; }
 /* La carte du formulaire passe au-dessus du bouton pour que la liste des villes reste visible */
 .profile-form { position: relative; z-index: 3; border-radius: 28px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
 
-/* Les confettis restent derrière le contenu (et se floutent joliment sous le verre) */
-.confetti { z-index: 0; }
-.screen > :not(.confetti) { position: relative; z-index: 1; }
+/* Contenu au-dessus du fond */
+.screen > * { position: relative; z-index: 1; }
 
 /* =====================================================================
    M3 — fin de palier, historique, statistiques, réglages, programme
