@@ -3,7 +3,7 @@
 // Tuiles sans flou (.lt) : tuiles + 3 graphiques dépasseraient ~6 éléments floutés (§9.3).
 import { esc, countUp, glossyIcon } from '../ui.js';
 import { fmtKm1, fmtKm2, fmtHMin, fmtDuration, fmtPace, paceSec, fmtDayMonth, plural } from '../format.js';
-import { sortSessions, weeklyCounts } from '../plan.js';
+import { sortSessions, weeklyCounts, milestonesReached } from '../plan.js';
 import { lineChart, weeklyBars, barChart } from '../charts.js';
 
 const r1 = (v) => Math.round(v * 10) / 10;
@@ -40,6 +40,21 @@ function weekPills(weeks, goal) {
     const n = Math.max(goal, w.count);
     return `<span class="wp"><span class="wp-seg">${Array.from({ length: n }, (_, i) => `<i class="${i < w.count ? 'on' : ''}"></i>`).join('')}</span><span>${esc(fmtDayMonth(w.start))}</span></span>`;
   }).join('')}</div>`;
+}
+
+/** Vitrine : médailles gagnées (dorées) puis les suivantes en silhouette, par étagères de 3. */
+function trophyShelf(list, totalKm, every) {
+  const won = milestonesReached(list, every);
+  const lastWon = won.length ? won[won.length - 1].km : 0;
+  const lockedCount = 3 - (won.length % 3); // complète l'étagère (une nouvelle si elle est pleine)
+  const locked = Array.from({ length: Math.min(3, lockedCount) }, (_, i) => lastWon + every * (i + 1));
+  const items = [
+    ...won.map((m) => `<button type="button" class="trophy" aria-label="Médaille ${m.km} km, gagnée le ${esc(fmtDayMonth(m.date))}"><span class="trophy-wrap"><span class="trophy-ribbon"></span><span class="trophy-face">${m.km}&nbsp;km</span></span><small>le ${esc(fmtDayMonth(m.date))}</small></button>`),
+    ...locked.map((km) => `<div class="trophy locked" role="img" aria-label="Médaille ${km} km : encore ${esc(fmtKm1(km - totalKm))} km"><span class="trophy-wrap"><span class="trophy-face">${km}&nbsp;km</span></span><small>encore ${esc(fmtKm1(km - totalKm))}&nbsp;km</small></div>`),
+  ];
+  const shelves = [];
+  for (let i = 0; i < items.length; i += 3) shelves.push(`<div class="lt shelf">${items.slice(i, i + 3).join('')}</div>`);
+  return `<section class="trophies"><div class="trophies-h"><span class="label">Mes médailles</span><span>${won.length} sur ${won.length + locked.length}</span></div>${shelves.join('')}</section>`;
 }
 
 export default {
@@ -108,6 +123,7 @@ export default {
     return `
       ${head}
       ${bento}
+      ${trophyShelf(list, t.km, app.data.plan.milestoneEveryKm)}
       <div class="lg chart">
         <div class="chart-t">Distance par séance</div>
         <div class="chart-d">en km, de la séance 1 à la séance ${n}</div>
@@ -128,5 +144,11 @@ export default {
   },
   mount(root) {
     countUp(root, { delay: 100 });
+    // Toucher une médaille gagnée la fait retomber et se balancer
+    root.querySelectorAll('button.trophy').forEach((b) => b.addEventListener('click', () => {
+      b.classList.remove('drop');
+      void b.offsetWidth;
+      b.classList.add('drop');
+    }));
   },
 };

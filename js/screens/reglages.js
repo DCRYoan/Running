@@ -17,7 +17,7 @@ function backupBlock(app) {
   else if (!b.registered || b.dirty) { dot = 'dot dot-wait'; title = 'Sauvegarde en cours…'; }
   const last = b.lastSyncAt ? `Dernière synchronisation : ${fmtRelativeDateTime(b.lastSyncAt)}.` : 'Pas encore synchronisée.';
   return `
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span class="${dot}"></span><span style="font-size:16px;font-weight:900">${esc(title)}</span></div>
+    <div class="set-title">${tile('menthe', 'cloud')}<span style="font-weight:900">${esc(title)}</span><span class="${dot}" style="margin-left:auto"></span></div>
     <p class="small" style="font-size:14px;margin-bottom:12px">${esc(last)} Hors ligne, tes séances se synchronisent dès que le réseau revient.</p>
     <div class="label" style="margin-bottom:6px">Code de récupération</div>
     <div class="lgi code-box code-box-sm">${esc(b.code ?? '—')}</div>
@@ -39,6 +39,25 @@ const MINUS = 'M6 12h12';
 const PLUS = 'M6 12h12M12 6v12';
 const CHEVRON = 'M9 5l7 7-7 7';
 const SHARE = 'M12 3v12M8 7l4-4 4 4M6 11v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8';
+
+// Pastilles d'icônes façon réglages de l'iPhone : icône blanche sur fond coloré
+const TILE = {
+  berry: 'linear-gradient(160deg,#E04A74,#A51E4D)', lav: 'linear-gradient(160deg,#9C88E8,#6A47F0)',
+  peche: 'linear-gradient(160deg,#F2B97A,#D98A3A)', menthe: 'linear-gradient(160deg,#5ED6BE,#1F9C85)',
+  prune: 'linear-gradient(160deg,#8A4A7C,#4A2140)',
+};
+const ICON = {
+  user: 'M12 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8ZM4.5 20a7.5 7.5 0 0 1 15 0',
+  pin: 'M12 21s-6.5-5.8-6.5-10.4a6.5 6.5 0 0 1 13 0C18.5 15.2 12 21 12 21ZM12 8.4a2.2 2.2 0 1 0 0 4.4a2.2 2.2 0 0 0 0-4.4Z',
+  trend: 'M4 18l6-6 4 4 6-8M15 8h5v5',
+  repeat: 'M17 3l3 3-3 3M20 6H9a5 5 0 0 0-5 5M7 21l-3-3 3-3M4 18h11a5 5 0 0 0 5-5',
+  cloud: 'M7 18a4.5 4.5 0 0 1-.5-9A6 6 0 0 1 18 8a4 4 0 0 1-1 10H7Z',
+  sparkle: 'M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8Z',
+  book: 'M5 4h10a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4V4ZM9 8h6M9 12h6',
+  phone: 'M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2ZM11 18h2',
+};
+const tile = (color, path) => `<span class="set-tile" style="background:${TILE[color]}" aria-hidden="true">${icon(ICON[path], { size: 17, stroke: '#fff', width: 2.2 })}</span>`;
+const chevron = (size = 18) => icon(CHEVRON, { size, stroke: 'currentColor', width: 2.4 });
 
 const stepper = (key, value, minusLabel, plusLabel, atMin, atMax) => `
   <div class="stepper">
@@ -67,8 +86,8 @@ export default {
       <div class="section">
         <span class="label">Profil</span>
         <div class="lg card rows">
-          <a class="row row-link" href="#/profil"><span class="row-k">Prénom</span><span class="row-v">${esc(p.firstName ?? '')} ${icon(CHEVRON, { size: 18, stroke: '#4F4254', width: 2.4 })}</span></a>
-          <a class="row row-link" href="#/profil"><span class="row-k">Ville</span><span class="row-v">${esc(cityName)} ${icon(CHEVRON, { size: 18, stroke: '#4F4254', width: 2.4 })}</span></a>
+          <a class="row row-link" href="#/profil"><span class="row-k">${tile('berry', 'user')}Prénom</span><span class="row-v">${esc(p.firstName ?? '')} ${chevron()}</span></a>
+          <a class="row row-link" href="#/profil"><span class="row-k">${tile('menthe', 'pin')}Ville</span><span class="row-v">${esc(cityName)} ${chevron()}</span></a>
         </div>
       </div>
 
@@ -76,11 +95,11 @@ export default {
         <span class="label">Progression</span>
         <div class="lg card rows" style="padding-bottom:12px">
           <div class="row" style="min-height:64px">
-            <span class="row-k">Augmentation du palier</span>
+            <span class="row-k">${tile('peche', 'trend')}Augmentation du palier</span>
             ${stepper('stepKm', fmtStep(s.stepKm), "Diminuer l'augmentation", "Augmenter l'augmentation", s.stepKm <= STEP.min + 1e-9, s.stepKm >= STEP.max - 1e-9)}
           </div>
           <div class="row" style="min-height:64px">
-            <span class="row-k">Tous les</span>
+            <span class="row-k">${tile('lav', 'repeat')}Tous les</span>
             ${stepper('sessionsPerPalier', `${s.sessionsPerPalier} ${plural(s.sessionsPerPalier, 'séance')}`, 'Moins de séances par palier', 'Plus de séances par palier', s.sessionsPerPalier <= COUNT.min, s.sessionsPerPalier >= COUNT.max)}
           </div>
           <p class="small" style="margin-top:4px">Par défaut : +500 m toutes les 4 séances (environ 2 semaines). Sans limite. Le changement s'applique aux prochains paliers.</p>
@@ -97,7 +116,7 @@ export default {
       <div class="section">
         <span class="label">Apparence</span>
         <div class="lg card">
-          <div style="font-size:16px;font-weight:800;margin-bottom:10px">Effet verre</div>
+          <div class="set-title">${tile('lav', 'sparkle')}Effet verre</div>
           <div class="segmented lgi" role="group" aria-label="Effet verre">
             ${MODES.map((m) => `<button type="button" data-mode="${m.id}" aria-pressed="${m.id === s.glass}">${m.label}</button>`).join('')}
           </div>
@@ -106,13 +125,13 @@ export default {
       </div>
 
       <a class="lg card row-link link-card" href="#/programme">
-        <span style="font-size:16px;font-weight:800">Mon programme et ses règles</span>
-        ${icon(CHEVRON, { size: 20, stroke: '#4F4254', width: 2.4 })}
+        <span class="set-title" style="margin:0">${tile('berry', 'book')}Mon programme et ses règles</span>
+        <span class="row-v">${chevron(20)}</span>
       </a>
 
       <div class="section">
         <span class="label">Installation</span>
-        <div class="lg card"><p style="font-size:15px;line-height:1.4">${standalone ? 'Running est installée sur ton téléphone : elle fonctionne aussi sans réseau.' : installHelp}</p></div>
+        <div class="lg card"><div class="set-title">${tile('prune', 'phone')}Sur ton téléphone</div><p style="font-size:15px;line-height:1.4">${standalone ? 'Running est installée sur ton téléphone : elle fonctionne aussi sans réseau.' : installHelp}</p></div>
       </div>
 
       <div class="app-version">

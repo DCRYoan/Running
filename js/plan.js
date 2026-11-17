@@ -202,6 +202,24 @@ export function crossedMilestone(beforeKm, afterKm, every = 5) {
   return b > a ? b * every : null;
 }
 
+/**
+ * Jalons gagnés, dans l'ordre : [{ km, sessionId, date }]. Une même sortie peut en franchir
+ * plusieurs (ex. une longue sortie de 2 à 11 km franchit 5 et 10). Sert à l'Historique
+ * (jalons dans le fil) et à la vitrine de médailles.
+ */
+export function milestonesReached(sessions, every = 5) {
+  const out = [];
+  let total = 0;
+  for (const s of sortSessions(sessions)) {
+    const before = total;
+    total = roundKm(total + (s.distanceKm || 0));
+    const a = Math.floor(roundKm(before) / every + EPS);
+    const b = Math.floor(total / every + EPS);
+    for (let k = a + 1; k <= b; k += 1) out.push({ km: k * every, sessionId: s.id, date: s.date });
+  }
+  return out;
+}
+
 // ---------- Semaine (§4.6) : lundi 00:00 → dimanche 23:59, heure locale ----------
 
 export function startOfWeek(date) {

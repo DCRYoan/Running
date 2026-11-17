@@ -1,5 +1,5 @@
 // Séance du jour — maquette Seance (§5.3) : la séance proposée + le formulaire « Ma séance ».
-import { esc, facePicker, bindFacePicker, confirmDialog } from '../ui.js';
+import { esc, facePicker, bindFacePicker, confirmDialog, glossyIcon } from '../ui.js';
 import { fmtKmShort, half, ordinal, parseKm, parseDuration, maskDuration, paceSec, fmtPace, fmtDuration, fmtKm2, paceLooksOdd } from '../format.js';
 
 // Conseil du jour : stable pour une journée donnée.
@@ -28,20 +28,23 @@ export default {
       <div class="lg card" style="border-radius:28px;padding:18px 18px 12px">
         <div style="display:flex;align-items:baseline;gap:8px"><span class="big-km">${fmtKmShort(km)}</span><span style="font-size:24px;font-weight:800">km</span></div>
         <div style="font-size:15px;color:var(--ink-2);font-weight:700;margin:4px 0 6px">Course à allure confortable, sans objectif de temps.</div>
-        <svg viewBox="0 0 320 72" width="100%" height="72" role="img" aria-label="Aller ${h} km jusqu'au demi-tour, puis retour ${h} km">
-          <path d="M30 38 H292" stroke="rgba(255,255,255,.85)" stroke-width="6" stroke-linecap="round"/>
-          <circle cx="26" cy="38" r="10" fill="#34C3A8"/>
-          <path d="M298 48 V12" style="stroke:var(--ink)" stroke-width="3" stroke-linecap="round"/>
-          <path d="M298 12 L318 19 L298 26Z" fill="#FF7A59"/>
-          <text x="160" y="22" text-anchor="middle" font-size="14" font-weight="800" style="fill:var(--ink-2)" font-family="Nunito, sans-serif">aller · ${h} km →</text>
-          <text x="160" y="64" text-anchor="middle" font-size="14" font-weight="800" style="fill:var(--ink-2)" font-family="Nunito, sans-serif">← retour · ${h} km</text>
+        <svg class="route" viewBox="0 0 320 92" width="100%" height="92" role="img" aria-label="Aller ${h} km jusqu'au demi-tour, puis retour ${h} km">
+          <defs><mask id="route-back-mask"><path class="route-back-reveal" pathLength="1" d="M290 34 C 260 38, 215 50, 160 46 S 80 82, 30 78" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/></mask></defs>
+          <path d="M30 70 C 80 70, 100 30, 160 36 S 260 22, 290 26" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="10" stroke-linecap="round"/>
+          <path class="route-out" pathLength="1" d="M30 70 C 80 70, 100 30, 160 36 S 260 22, 290 26" fill="none" stroke="#A51E4D" stroke-width="3.5" stroke-linecap="round"/>
+          <path mask="url(#route-back-mask)" d="M290 34 C 260 38, 215 50, 160 46 S 80 82, 30 78" fill="none" stroke="#E9A100" stroke-width="3" stroke-dasharray="4 7" stroke-linecap="round"/>
+          <circle cx="30" cy="74" r="8.5" fill="#34C3A8" stroke="#fff" stroke-width="2.5"/>
+          <g class="route-flag"><path d="M290 34 V6" style="stroke:var(--ink)" stroke-width="2.5" stroke-linecap="round"/><path d="M290 6 L309 12 L290 18Z" fill="#E04A74"/></g>
+          <text x="160" y="14" text-anchor="middle" font-size="13" font-weight="800" style="fill:var(--ink-2)" font-family="Nunito, sans-serif">aller · ${h} km →</text>
+          <text x="160" y="91" text-anchor="middle" font-size="13" font-weight="800" style="fill:var(--ink-2)" font-family="Nunito, sans-serif">← retour · ${h} km</text>
         </svg>
       </div>
 
-      <div class="lg steps">
-        <div class="step"><div class="step-n lav">1</div><div><div class="step-t">${plan.warmupMin} min de marche active</div><div class="step-d">Pour préparer ton corps</div></div></div>
-        <div class="step"><div class="step-n rose">2</div><div><div class="step-t">${fmtKmShort(km)} km à allure confortable</div><div class="step-d">Tu peux marcher si le souffle manque</div></div></div>
-        <div class="step"><div class="step-n lav">3</div><div><div class="step-t">${plan.cooldownMin} min de marche tranquille</div><div class="step-d">Retour au calme</div></div></div>
+      <div class="lg frise">
+        <div class="frise-step"><span class="frise-ic">${glossyIcon('pas', 26)}</span><b>${plan.warmupMin} min</b><small>Marche active</small></div>
+        <div class="frise-step"><span class="frise-ic">${glossyIcon('seance', 28)}</span><b>${fmtKmShort(km)} km</b><small>Course douce</small></div>
+        <div class="frise-step"><span class="frise-ic">${glossyIcon('lune', 24)}</span><b>${plan.cooldownMin} min</b><small>Retour au calme</small></div>
+        <p class="frise-note">Tu peux marcher si le souffle manque.</p>
       </div>
 
       <div class="lg t-peche tip">
@@ -68,6 +71,7 @@ export default {
         <label class="check" for="douleur">
           <input id="douleur" type="checkbox" ${d.pain ? 'checked' : ''}>
           J'ai ressenti une douleur inhabituelle
+          <span class="pain-heart">${glossyIcon('coeur', 24)}</span>
         </label>
         <p class="form-error" id="session-error" role="alert" hidden></p>
         <button class="lgb btn btn-primary" type="submit">Enregistrer ma séance</button>

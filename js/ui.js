@@ -44,6 +44,11 @@ export function bindFacePicker(root, onChange, name = 'feeling') {
   const buttons = [...root.querySelectorAll(`[data-${name}]`)];
   buttons.forEach((b) => b.addEventListener('click', () => {
     buttons.forEach((x) => x.setAttribute('aria-checked', String(x === b)));
+    // Le visage choisi rebondit (CSS .face.pop) ; petite vibration sur Android (l'iPhone l'ignore)
+    b.classList.remove('pop');
+    void b.offsetWidth;
+    b.classList.add('pop');
+    try { navigator.vibrate?.(12); } catch { /* non pris en charge */ }
     onChange(Number(b.dataset[name]));
   }));
 }
@@ -83,6 +88,8 @@ const GLOSSY = {
   lieu: { base: ['M12 21s-6.8-6-6.8-10.8a6.8 6.8 0 0 1 13.6 0C18.8 15 12 21 12 21Z'],
     details: ['M12 7.8a2.4 2.4 0 1 0 0 4.8a2.4 2.4 0 1 0 0-4.8Z'] },
   valide: { base: ['M12 3.2a8.8 8.8 0 1 0 0 17.6a8.8 8.8 0 1 0 0-17.6Z'], details: ['M8 12.4l2.8 2.8L16.2 9.6'] },
+  pas: { base: ['M7.5 3.5c1.9 0 3 1.8 3 4.2 0 2.6-1.2 4.8-3 4.8s-3-2.2-3-4.8c0-2.4 1.1-4.2 3-4.2Z', 'M16.5 9.5c1.9 0 3 1.8 3 4.2 0 2.6-1.2 4.8-3 4.8s-3-2.2-3-4.8c0-2.4 1.1-4.2 3-4.2Z'],
+    lines: ['M5.6 14.6l3.6.6M14.6 20.6l3.6.6'] },
 };
 let glossyUid = 0;
 

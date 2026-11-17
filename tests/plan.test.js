@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
   replay, sessionStatus, makeDecision, projectPaliers, buildSession, editSession,
-  totals, milestoneProgress, crossedMilestone, startOfWeek, sessionsInWeek, isWeekDone,
+  totals, milestoneProgress, crossedMilestone, milestonesReached, startOfWeek, sessionsInWeek, isWeekDone,
   averageFeeling, feelingLabel, suggestStay, currentSegmentSessions, sortSessions,
 } from '../js/plan.js';
 
@@ -293,5 +293,19 @@ describe('ressenti (§4.8)', () => {
     const avg = averageFeeling(currentSegmentSessions(r, s));
     assert.equal(avg, 2);
     assert.equal(feelingLabel(avg), 'plutôt difficile');
+  });
+});
+
+describe('jalons gagnés (vitrine, historique)', () => {
+  const mk = (id, day, km) => ({ id, date: new Date(2026, 10, day, 18).toISOString(), distanceKm: km });
+  test('chaque cap de 5 km rattaché à la sortie qui le franchit', () => {
+    const s = [mk('a', 3, 2), mk('b', 5, 2.1), mk('c', 10, 1.2), mk('d', 12, 2.6), mk('e', 14, 2.5)];
+    assert.deepEqual(milestonesReached(s).map((m) => [m.km, m.sessionId]), [[5, 'c'], [10, 'e']]);
+  });
+  test('une longue sortie peut franchir plusieurs caps', () => {
+    assert.deepEqual(milestonesReached([mk('a', 3, 2), mk('b', 5, 9)]).map((m) => m.km), [5, 10]);
+  });
+  test('aucune sortie : aucun jalon', () => {
+    assert.deepEqual(milestonesReached([]), []);
   });
 });
