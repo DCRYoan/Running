@@ -73,6 +73,10 @@ export const MOON_SVG = '<svg width="60" height="60" viewBox="0 0 24 24" fill="n
 
 // ---------- Carte anecdote (§7.6) : image en fond, voile blanc à gauche, pastille de lieu ----------
 const PIN_PATH = 'M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z';
+// « Saint-Cyr-sur-Mer → Six-Fours-les-Plages » : chaque commune reste sur une ligne,
+// le retour à la ligne ne peut se faire qu'après la flèche.
+const placeHtml = (place) => String(place).split(' → ').map((p) => `<span class="nw">${esc(p)}</span>`).join(' → ');
+
 export function anecdoteCard({ label = '', text, image, place, height = 166, textWidth = 236 }) {
   return `
     <div class="anecdote" style="min-height:${height}px">
@@ -82,7 +86,7 @@ export function anecdoteCard({ label = '', text, image, place, height = 166, tex
         ${label ? `<div class="label anecdote-label">${esc(label)}</div>` : ''}
         <p class="anecdote-text">${esc(text)}</p>
       </div>
-      ${place ? `<div class="lg anecdote-place"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B02A52" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${PIN_PATH}"/><circle cx="12" cy="10" r="2.4"/></svg>${esc(place)}</div>` : ''}
+      ${place ? `<div class="lg anecdote-place"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B02A52" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${PIN_PATH}"/><circle cx="12" cy="10" r="2.4"/></svg><span>${placeHtml(place)}</span></div>` : ''}
     </div>`;
 }
 
