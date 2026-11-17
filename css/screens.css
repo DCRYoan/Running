@@ -144,10 +144,20 @@
 }
 .tab { position: relative; z-index: 1; color: #3E1C36; text-shadow: 0 0 8px rgba(255,248,240,.95), 0 0 2px rgba(255,248,240,.9); }
 .tab:hover { color: #3E1C36; }
-/* Onglet actif : lentille de verre bombée (arête lumineuse, point spéculaire, base champagne) */
-.tab[aria-current="page"] {
-  color: var(--berry);
-  text-shadow: none;
+/* Onglet actif : texte baie ; la lentille de verre est un élément à part qui glisse */
+.tab[aria-current="page"] { color: var(--berry); text-shadow: none; }
+.tab-lens {
+  position: absolute; z-index: 0; top: 8px; bottom: 8px; left: 8px;
+  width: calc((100% - 16px - 12px) / 4);   /* 4 onglets, padding 8px, gap 4px */
+  transform: translateX(calc(var(--i, 0) * (100% + 4px)));
+  transition: transform .5s cubic-bezier(.35,1.35,.45,1);
+  pointer-events: none;
+}
+.tab-lens[hidden] { display: none; }
+.tab-lens.instant { transition: none; }
+/* Lentille de verre bombée (arête lumineuse, point spéculaire, base champagne) */
+.tab-lens i {
+  position: absolute; inset: 0; border-radius: 26px; display: block;
   background:
     radial-gradient(60% 40% at 32% 18%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 100%),
     radial-gradient(130% 110% at 50% 100%, rgba(243,217,181,.55) 0%, rgba(255,247,236,.25) 55%, rgba(255,255,255,.18) 100%);
@@ -159,7 +169,18 @@
     inset 0 -8px 12px -6px rgba(214,160,100,.45),
     inset 0 0 0 3px rgba(255,232,196,.25);
 }
-html.no-glass .tab[aria-current="page"] { background-color: rgba(255,247,236,.9); }
+/* En glissant, la lentille s'étire puis reprend sa forme */
+.tab-lens.moving i { animation: lens-squash .5s ease-in-out; }
+@keyframes lens-squash { 0% { transform: none; } 40% { transform: scale(1.16, .88); } 70% { transform: scale(.97, 1.03); } 100% { transform: none; } }
+html.no-glass .tab-lens i { background-color: rgba(255,247,236,.9); }
+/* Téléphone modeste (verre coupé) : passage instantané */
+html.no-glass .tab-lens { transition: none; }
+html.no-glass .tab-lens.moving i { animation: none; }
+
+/* Fondu d'entrée d'un nouvel écran (opacité seule : aucun effet sur la mise en page) */
+.screen.screen-in { animation: screen-in .28s ease-out both; }
+@keyframes screen-in { from { opacity: 0; } }
+html.no-glass .screen.screen-in { animation: none; }
 
 /* ---------- Divers ---------- */
 .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -606,3 +627,185 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; min-heigh
   .splash.play { animation: splash-out .2s ease-in .8s both !important; }
   .splash.play.skip { animation: splash-skip .2s ease-in both !important; }
 }
+
+/* =====================================================================
+   Chiffres « sport » (Barlow Semi Condensed) — compteurs animés en JS (countUp)
+   ===================================================================== */
+.tile-v, .triplet-v, .big-km, .stat-v, .ring-v, .medal-km {
+  font-family: var(--font-num); font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.tile-v { font-size: 54px; letter-spacing: -.5px; }
+.triplet-v { font-size: 32px; letter-spacing: 0; }
+.big-km { font-size: 68px; letter-spacing: -1px; }
+.stat-v { font-size: 30px; letter-spacing: 0; }
+.stat-u { font-family: var(--font); }
+.medal-km { letter-spacing: 0; }
+
+/* =====================================================================
+   Accueil : anneau de progression vers le prochain jalon
+   ===================================================================== */
+.progress-card { border-radius: 28px; padding: 16px; display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+.ring { position: relative; width: 132px; height: 132px; flex: none; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.ring-track { fill: none; stroke: rgba(255,255,255,.65); stroke-width: 12; }
+.ring-prog {
+  fill: none; stroke-width: 12; stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(240,184,94,.55));
+  animation: ring-fill 1.3s cubic-bezier(.3,.8,.3,1) .15s both;
+}
+@keyframes ring-fill { from { stroke-dashoffset: 339.3; } }
+.ring-c { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring-v {
+  font-size: 40px; line-height: 1; letter-spacing: -.5px;
+  background: linear-gradient(170deg, #2E2233 30%, #6B2D58 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.ring-u { font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--label-ink); margin-top: 2px; }
+.progress-side { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.progress-side .tile-v { font-size: 44px; line-height: 1; }
+.progress-side .tile-l { display: inline-block; margin-left: 2px; }
+.progress-next { margin: 0; font-size: 14.5px; line-height: 1.4; font-weight: 700; color: var(--ink-2); }
+.progress-next b { color: var(--berry); font-weight: 900; }
+
+/* Barres des Stats : elles poussent depuis la ligne de base */
+.bc-bar { transform-box: fill-box; transform-origin: bottom; animation: bar-grow .8s cubic-bezier(.3,.8,.3,1) both; animation-delay: calc(var(--k, 0) * 45ms); }
+@keyframes bar-grow { from { transform: scaleY(0); } }
+
+/* =====================================================================
+   Ambiance selon l'heure : html[data-time] = matin | jour | soir
+   (posé par le script en tête d'index.html puis à chaque ouverture)
+   ===================================================================== */
+
+/* ---------- Matin : voile pêche doré ---------- */
+html[data-time="matin"] {
+  --veil: linear-gradient(180deg, rgba(255,226,190,.66) 0%, rgba(255,214,170,.38) 36%, rgba(255,232,205,.36) 68%, rgba(255,226,190,.60) 100%);
+}
+html.no-glass[data-time="matin"] {
+  --veil: linear-gradient(180deg, rgba(255,226,190,.82) 0%, rgba(255,214,170,.58) 36%, rgba(255,232,205,.54) 68%, rgba(255,226,190,.74) 100%);
+}
+
+/* ---------- Soir : prune profond, cartes sombres, liserés champagne ---------- */
+html[data-time="soir"] {
+  --veil: linear-gradient(180deg, rgba(42,18,38,.80) 0%, rgba(58,24,52,.62) 36%, rgba(58,24,52,.60) 68%, rgba(36,14,32,.82) 100%);
+  --veil-fort: linear-gradient(180deg, rgba(42,18,38,.88) 0%, rgba(58,24,52,.76) 36%, rgba(58,24,52,.74) 68%, rgba(36,14,32,.88) 100%);
+  --ink: #FBEFE6;
+  --ink-2: rgba(251,239,230,.88);
+  --ink-3: rgba(251,239,230,.74);
+  --link: #F7A8C0;
+  --link-hover: #FFC2D4;
+  --lavender-ink: #D9CCF7;
+  --green-ink: #7FE0CB;
+  --label-ink: rgba(243,217,181,.86);
+  --plum-ink: #F3D9B5;
+  --berry-label: #F7A8C0;
+}
+html.no-glass[data-time="soir"] {
+  --veil: linear-gradient(180deg, rgba(42,18,38,.90) 0%, rgba(58,24,52,.78) 36%, rgba(58,24,52,.76) 68%, rgba(36,14,32,.90) 100%);
+}
+html[data-time="soir"] body { background: #2A1426; }
+
+/* Titres et chiffres en champagne */
+html[data-time="soir"] .h1-xl, html[data-time="soir"] .h1,
+html[data-time="soir"] .tile-v, html[data-time="soir"] .triplet-v, html[data-time="soir"] .ring-v {
+  background: linear-gradient(170deg, #FFF4E8 15%, #F3D9B5 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+html[data-time="soir"] .big-km {
+  background: linear-gradient(170deg, #FFB3C8 10%, #F06A90 90%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+html[data-time="soir"] .tile-u { color: var(--champagne); }
+html[data-time="soir"] .lead { color: var(--ink-2); }
+html[data-time="soir"] .lead,
+html[data-time="soir"] .screen > .label,
+html[data-time="soir"] .section > .label { text-shadow: 0 0 14px rgba(30,10,26,.9), 0 0 3px rgba(30,10,26,.8); }
+html[data-time="soir"] .milestone-left,
+html[data-time="soir"] .progress-next b { color: #F7A8C0; }
+html[data-time="soir"] .safety { color: var(--ink); }
+
+/* Cartes : verre sombre, double liseré champagne */
+html[data-time="soir"] .lg:not(.tabbar),
+html[data-time="soir"] .lt {
+  background-color: rgba(62,30,56,.46);
+  background-image: radial-gradient(120% 80% at 0% 0%, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 55%);
+  border-color: rgba(255,255,255,.22) rgba(255,255,255,.08) rgba(255,255,255,.06) rgba(255,255,255,.18);
+  box-shadow:
+    inset 0 0 0 1px rgba(243,217,181,.55),
+    0 30px 56px -20px rgba(0,0,0,.6),
+    0 6px 14px -6px rgba(0,0,0,.3),
+    inset 8px 10px 18px -8px rgba(255,255,255,.07),
+    inset -12px -16px 26px -10px rgba(0,0,0,.25);
+}
+html[data-time="soir"] .lt { background-color: rgba(62,30,56,.66); }
+html[data-time="soir"] .lg.t-rose,
+html[data-time="soir"] .lg.t-rose-6   { background-color: rgba(150,50,90,.34); }
+html[data-time="soir"] .lg.t-rose-2   { background-color: rgba(160,60,100,.42); }
+html[data-time="soir"] .lg.t-lavande  { background-color: rgba(110,90,170,.34); }
+html[data-time="soir"] .lg.t-peche    { background-color: rgba(170,100,70,.34); }
+html[data-time="soir"] .stat.tint-rose  { background-color: rgba(150,50,90,.40); }
+html[data-time="soir"] .stat.tint-lav   { background-color: rgba(110,90,170,.40); }
+html[data-time="soir"] .stat.tint-peche { background-color: rgba(170,100,70,.40); }
+
+/* Boutons secondaires, champs, choix */
+html[data-time="soir"] .lgg,
+html[data-time="soir"] .lg .lgg {
+  background-color: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.28) rgba(255,255,255,.1) rgba(255,255,255,.08) rgba(255,255,255,.22);
+  box-shadow: 0 12px 22px -8px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.18), inset 0 0 0 1px rgba(243,217,181,.25);
+}
+html[data-time="soir"] .lgi {
+  background: rgba(24,10,22,.45); color: var(--ink);
+  border-color: rgba(255,255,255,.16);
+  box-shadow: inset 4px 5px 10px rgba(0,0,0,.35), inset -3px -4px 8px rgba(255,255,255,.04);
+}
+html[data-time="soir"] .segmented button[aria-pressed="true"] { color: var(--berry); }
+html[data-time="soir"] .face { background-color: rgba(255,255,255,.14); }
+html[data-time="soir"] .choice.selected { background: rgba(214,58,102,.25); }
+html[data-time="soir"] .palier-row.current { background: rgba(214,58,102,.25); }
+html[data-time="soir"] .row + .row,
+html[data-time="soir"] .step + .step { border-top-color: rgba(255,255,255,.12); }
+html[data-time="soir"] .week-seg { background: rgba(255,255,255,.18); }
+html[data-time="soir"] .week-seg.on { background: var(--green); }
+html[data-time="soir"] .bar { background: rgba(255,255,255,.16); }
+
+/* Listes et fenêtres posées au-dessus du contenu */
+html[data-time="soir"] .suggestions { background: rgba(52,24,46,.97); }
+html[data-time="soir"] .suggestions li:hover,
+html[data-time="soir"] .suggestions li:active { background: rgba(255,255,255,.08); }
+html[data-time="soir"] .modal { background: rgba(52,24,46,.95); }
+
+/* La carte anecdote garde son illustration claire : textes et pastille restent sombres */
+html[data-time="soir"] .anecdote {
+  --ink: #3A2E3F; --ink-2: #4F4254; --ink-3: #5E4F63; --label-ink: #7A5C6E; --link: #B02A52;
+  color: var(--ink);
+}
+html[data-time="soir"] .anecdote .lg { background-color: rgba(255,249,243,.72); box-shadow: inset 0 0 0 1px rgba(255,232,196,.95), 0 8px 16px -10px rgba(74,33,64,.4); }
+
+/* Barre d'onglets : libellés clairs sur le verre */
+html[data-time="soir"] .tab { color: var(--ink); text-shadow: 0 0 8px rgba(30,10,26,.9); }
+html[data-time="soir"] .tab[aria-current="page"] { color: var(--berry); text-shadow: none; }
+
+/* Écran d'ouverture du soir */
+html[data-time="soir"] .splash {
+  background:
+    radial-gradient(120% 90% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.25) 100%),
+    #2A1426;
+}
+html[data-time="soir"] .splash-word { color: var(--champagne); }
+
+/* Sans verre, le soir : cartes opaques */
+html.no-glass[data-time="soir"] .lg  { background-color: rgba(52,24,46,.93); }
+html.no-glass[data-time="soir"] .lt  { background-color: rgba(52,24,46,.93); }
+html.no-glass[data-time="soir"] .lgg { background-color: rgba(255,255,255,.1); }
+html.no-glass[data-time="soir"] .lgi { background: rgba(24,10,22,.75); }
+html.no-glass[data-time="soir"] .lg.t-rose,
+html.no-glass[data-time="soir"] .lg.t-rose-6  { background-color: rgba(86,32,62,.95); }
+html.no-glass[data-time="soir"] .lg.t-rose-2  { background-color: rgba(96,36,68,.96); }
+html.no-glass[data-time="soir"] .lg.t-lavande { background-color: rgba(66,48,98,.95); }
+html.no-glass[data-time="soir"] .lg.t-peche   { background-color: rgba(92,54,46,.95); }
+html.no-glass[data-time="soir"] .tabbar.lg    { background-color: rgba(52,24,46,.95); }
+html.no-glass[data-time="soir"] .anecdote .lg { background-color: rgba(255,249,243,.92); }
+/* Pastilles claires (paliers, étapes, étiquettes) : leur texte reste foncé le soir */
+html[data-time="soir"] .palier-badge,
+html[data-time="soir"] .step-n.lav,
+html[data-time="soir"] .tag-lav { color: #473B73; }

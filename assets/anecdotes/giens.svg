@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#FDEBDD"/>
-<circle cx="64" cy="40" r="34" fill="#FFE8D2" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#FFF4E8"/>
+<g class="l">
+<circle cx="64" cy="40" r="34" fill="#FBEEDD" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="178" cy="28" r="8"/><circle cx="190" cy="21" r="11"/><circle cx="204" cy="27" r="8"/><rect x="170" y="26" width="42" height="9" rx="4.5"/></g>
-<rect x="0" y="90" width="346" height="86" fill="#A6DDE2"/><path d="M0 106 Q22 99 44 106 T88 106 T132 106 T176 106 T220 106 T264 106 T308 106 T352 106 V176 H0 Z" fill="#92D5DC"/><path d="M0 130 Q22 123 44 130 T88 130 T132 130 T176 130 T220 130 T264 130 T308 130 T352 130 V176 H0 Z" fill="#7FCBD3"/>
-<path d="M200 122 C220 96 252 84 284 88 C316 92 334 104 346 110 V124 H200Z" fill="#CDEBDD"/><path d="M176 132 C220 126 260 128 346 120 V132 H176Z" fill="#FBE3B8"/>
-<g transform="translate(244,100) scale(1)"><path d="M0 0 C1 -10 -2 -18 2 -26" stroke="#C9AEB8" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="2" cy="-30" rx="18" ry="7" fill="#8FD0BB"/><ellipse cx="-6" cy="-33" rx="10" ry="5" fill="#A8DCCD"/></g>
-<g transform="translate(292,96) scale(1.1)"><path d="M0 0 C1 -10 -2 -18 2 -26" stroke="#C9AEB8" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="2" cy="-30" rx="18" ry="7" fill="#8FD0BB"/><ellipse cx="-6" cy="-33" rx="10" ry="5" fill="#A8DCCD"/></g>
+<rect x="0" y="90" width="346" height="86" fill="#DCE2F1"/><path d="M0 106 Q22 99 44 106 T88 106 T132 106 T176 106 T220 106 T264 106 T308 106 T352 106 V176 H0 Z" fill="#CFD6EC"/><path d="M0 130 Q22 123 44 130 T88 130 T132 130 T176 130 T220 130 T264 130 T308 130 T352 130 V176 H0 Z" fill="#C2CBE6"/>
+<path d="M200 122 C220 96 252 84 284 88 C316 92 334 104 346 110 V124 H200Z" fill="#F9E3CF"/><path d="M176 132 C220 126 260 128 346 120 V132 H176Z" fill="#FBEBD3"/>
+<g transform="translate(244,100) scale(1)"><path d="M0 0 C1 -10 -2 -18 2 -26" stroke="#B9A0AE" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="2" cy="-30" rx="18" ry="7" fill="#CFD8BC"/><ellipse cx="-6" cy="-33" rx="10" ry="5" fill="#DCE2CB"/></g>
+<g transform="translate(292,96) scale(1.1)"><path d="M0 0 C1 -10 -2 -18 2 -26" stroke="#B9A0AE" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="2" cy="-30" rx="18" ry="7" fill="#CFD8BC"/><ellipse cx="-6" cy="-33" rx="10" ry="5" fill="#DCE2CB"/></g>
 <path d="M206 124 C230 108 260 98 300 100 C320 102 336 110 346 116" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="6 7" stroke-linecap="round" opacity="0.9"/>
 <g fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" opacity="0.6"><path d="M30 150 q10 -6 20 0 t20 0"/><path d="M200 156 q10 -6 20 0 t20 0"/></g>
+</g>
 </svg>

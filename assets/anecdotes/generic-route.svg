@@ -1,12 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#FDEBDD"/>
-<circle cx="64" cy="40" r="34" fill="#FFE8D2" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#FFF4E8"/>
+<g class="l">
+<circle cx="64" cy="40" r="34" fill="#FBEEDD" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="178" cy="28" r="8"/><circle cx="190" cy="21" r="11"/><circle cx="204" cy="27" r="8"/><rect x="170" y="26" width="42" height="9" rx="4.5"/></g>
-<path d="M0 130 C80 118 190 128 346 114 V176 H0 Z" fill="#CDEBDD"/><path d="M0 150 C100 140 230 152 346 138 V176 H0 Z" fill="#B9E1D0"/>
+<path d="M0 130 C80 118 190 128 346 114 V176 H0 Z" fill="#F9E3CF"/><path d="M0 150 C100 140 230 152 346 138 V176 H0 Z" fill="#F3D6BF"/>
 <path d="M190 176 C200 150 240 150 252 128 C262 110 290 104 318 96" fill="none" stroke="#FFFAF6" stroke-width="12" stroke-linecap="round"/>
-<path d="M190 176 C200 150 240 150 252 128 C262 110 290 104 318 96" fill="none" stroke="#FFC94D" stroke-width="2.4" stroke-dasharray="6 7"/>
-<path d="M214 156 c-9 -10 -12 -15 -12 -21 a12 12 0 0 1 24 0 c0 6 -3 11 -12 21Z" fill="#34C3A8"/><circle cx="214" cy="135" r="4.5" fill="#FFFFFF"/>
-<path d="M318 94 c-9 -10 -12 -15 -12 -21 a12 12 0 0 1 24 0 c0 6 -3 11 -12 21Z" fill="#D63A66"/><circle cx="318" cy="73" r="4.5" fill="#FFFFFF"/>
-<rect x="288.5" y="146" width="3" height="12" rx="1.5" fill="#C9AEB8"/><circle cx="290" cy="142" r="10" fill="#A8DCCD"/>
-<rect x="238.5" y="112" width="3" height="10" rx="1.5" fill="#C9AEB8"/><circle cx="240" cy="108.8" r="8" fill="#A8DCCD"/>
+<path d="M190 176 C200 150 240 150 252 128 C262 110 290 104 318 96" fill="none" stroke="#E8C07A" stroke-width="2.4" stroke-dasharray="6 7"/>
+<path d="M214 156 c-9 -10 -12 -15 -12 -21 a12 12 0 0 1 24 0 c0 6 -3 11 -12 21Z" fill="#8CC7B5"/><circle cx="214" cy="135" r="4.5" fill="#FFFFFF"/>
+<path d="M318 94 c-9 -10 -12 -15 -12 -21 a12 12 0 0 1 24 0 c0 6 -3 11 -12 21Z" fill="#A51E4D"/><circle cx="318" cy="73" r="4.5" fill="#FFFFFF"/>
+<rect x="288.5" y="146" width="3" height="12" rx="1.5" fill="#B9A0AE"/><circle cx="290" cy="142" r="10" fill="#DCE2CB"/>
+<rect x="238.5" y="112" width="3" height="10" rx="1.5" fill="#B9A0AE"/><circle cx="240" cy="108.8" r="8" fill="#DCE2CB"/>
+</g>
 </svg>

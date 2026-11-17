@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#F9E1E6"/>
-<circle cx="64" cy="40" r="34" fill="#FFE8D2" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#FBEEEC"/>
+<g class="l">
+<circle cx="64" cy="40" r="34" fill="#FBEEDD" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="158" cy="26" r="8"/><circle cx="170" cy="19" r="11"/><circle cx="184" cy="25" r="8"/><rect x="150" y="24" width="42" height="9" rx="4.5"/></g>
 <path d="M170 176 C200 120 240 66 286 54 C316 46 340 60 346 66 V176Z" fill="#E3DAF2"/><path d="M200 176 C230 140 264 112 300 104 C326 98 346 108 346 108 V176Z" fill="#CDBFE8"/>
-<path d="M150 150 L296 58" stroke="#8F7DB8" stroke-width="1.6"/><g transform="translate(232,98)"><rect x="-1" y="-6" width="2" height="8" fill="#8F7DB8"/><rect x="-9" y="2" width="18" height="12" rx="3" fill="#FF7A59"/></g>
+<path d="M150 150 L296 58" stroke="#6B4A6E" stroke-width="1.6"/><g transform="translate(232,98)"><rect x="-1" y="-6" width="2" height="8" fill="#6B4A6E"/><rect x="-9" y="2" width="18" height="12" rx="3" fill="#E59A7C"/></g>
 <rect x="292" y="44" width="22" height="12" fill="#F6E7DD"/>
-<rect x="0" y="150" width="346" height="26" fill="#A6DDE2"/><path d="M0 166 Q22 159 44 166 T88 166 T132 166 T176 166 T220 166 T264 166 T308 166 T352 166 V176 H0 Z" fill="#92D5DC"/>
+<rect x="0" y="150" width="346" height="26" fill="#DCE2F1"/><path d="M0 166 Q22 159 44 166 T88 166 T132 166 T176 166 T220 166 T264 166 T308 166 T352 166 V176 H0 Z" fill="#CFD6EC"/>
+</g>
 </svg>

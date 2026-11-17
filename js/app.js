@@ -296,11 +296,34 @@ function guard(route) {
   return route;
 }
 
-function renderNav(active) {
-  $nav.innerHTML = TABS.map((t) => `
-    <a class="tab" href="#/${t.route}" ${t.route === active ? 'aria-current="page"' : ''}>
-      ${icon(t.d)}<span>${t.label}</span>
-    </a>`).join('');
+// Barre d'onglets construite une seule fois : la lentille (onglet actif) glisse d'un onglet à l'autre.
+function renderNav(active, { instant = false } = {}) {
+  if (!$nav.querySelector('.tab-lens')) {
+    $nav.innerHTML = `<span class="tab-lens" aria-hidden="true"><i></i></span>${TABS.map((t) => `
+      <a class="tab" href="#/${t.route}">${icon(t.d)}<span>${t.label}</span></a>`).join('')}`;
+    instant = true;
+  }
+  const i = TABS.findIndex((t) => t.route === active);
+  $nav.querySelectorAll('.tab').forEach((a, k) => {
+    if (k === i) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+  const lens = $nav.querySelector('.tab-lens');
+  const prev = Number(lens.dataset.i ?? -1);
+  lens.hidden = i < 0;
+  if (i < 0 || i === prev) return;
+  lens.dataset.i = String(i);
+  if (instant || prev < 0) {
+    lens.classList.add('instant');
+    lens.style.setProperty('--i', String(i));
+    void lens.offsetWidth;
+    lens.classList.remove('instant');
+  } else {
+    lens.style.setProperty('--i', String(i));
+    lens.classList.remove('moving');
+    void lens.offsetWidth;
+    lens.classList.add('moving');
+  }
 }
 
 let lastRendered = null;
@@ -309,20 +332,38 @@ function render({ keepScroll = false } = {}) {
   const asked = currentRoute();
   const route = guard(asked);
   if (route !== asked) { app.go(route, { replace: true }); return; }
-  if (lastRendered && lastRendered !== route) app.prevRoute = lastRendered;
+  const changed = lastRendered !== route;
+  if (lastRendered && changed) app.prevRoute = lastRendered;
   lastRendered = route;
   const screen = SCREENS[route];
-  const classes = ['screen', screen.nav ? 'has-nav' : '', screen.layout || ''].filter(Boolean).join(' ');
+  // Nouvel écran : léger fondu d'entrée (pas sur une simple mise à jour du même écran).
+  const classes = ['screen', screen.nav ? 'has-nav' : '', screen.layout || '', changed ? 'screen-in' : ''].filter(Boolean).join(' ');
   $app.innerHTML = `<div class="${classes}" data-screen="${route}">${screen.render(app)}</div>`;
   frenchSpacing($app);
   screen.mount?.($app.firstElementChild, app);
+  const navWasHidden = $nav.hidden;
   $nav.hidden = !screen.nav;
-  if (screen.nav) renderNav(screen.tab || route);
+  if (screen.nav) renderNav(screen.tab || route, { instant: navWasHidden });
   if (!keepScroll) window.scrollTo(0, 0);
+}
+
+// ---------- Ambiance selon l'heure (matin < 11 h, soir ≥ 19 h) ----------
+// Posée d'abord par le script en tête d'index.html, puis mise à jour à chaque ouverture.
+export function timeOfDay(hour) {
+  if (hour >= 5 && hour < 11) return 'matin';
+  if (hour >= 19 || hour < 5) return 'soir';
+  return 'jour';
+}
+function applyTimeOfDay() {
+  const forced = params.get('time');
+  const t = ['matin', 'jour', 'soir'].includes(forced) ? forced : timeOfDay(new Date().getHours());
+  document.documentElement.dataset.time = t;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', t === 'soir' ? '#2A1426' : '#FBF4F1');
 }
 
 // ---------- Ouverture de l'app ----------
 async function onOpening({ cold }) {
+  applyTimeOfDay();
   if (!cold) replaySplash(); // au lancement, index.html l'affiche déjà
   app.openedAt = Date.now();
   app.state.ui.lastOpenAt = new Date().toISOString();

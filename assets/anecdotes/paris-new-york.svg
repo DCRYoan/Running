@@ -1,10 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#EFE8F8"/>
-<circle cx="64" cy="44" r="34" fill="#FFE8D2" opacity="0.85"/><circle cx="64" cy="44" r="21" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#F3EEF8"/>
+<g class="l">
+<circle cx="64" cy="44" r="34" fill="#FBEEDD" opacity="0.85"/><circle cx="64" cy="44" r="21" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="158" cy="32" r="8"/><circle cx="170" cy="25" r="11"/><circle cx="184" cy="31" r="8"/><rect x="150" y="30" width="42" height="9" rx="4.5"/></g>
-<g transform="translate(226,46) rotate(-6) scale(0.9)"><path d="M-30 0 Q-30 -5 -22 -5 H18 Q30 -5 32 0 Q30 5 18 5 H-22 Q-30 5 -30 0Z" fill="#FFFFFF"/><path d="M-4 -4 L-16 -22 H-8 L10 -4Z M-4 4 L-16 22 H-8 L10 4Z" fill="#CDBFE8"/><path d="M-24 -4 L-30 -14 H-25 L-17 -4Z" fill="#FF7A59"/></g>
+<g transform="translate(226,46) rotate(-6) scale(0.9)"><path d="M-30 0 Q-30 -5 -22 -5 H18 Q30 -5 32 0 Q30 5 18 5 H-22 Q-30 5 -30 0Z" fill="#FFFFFF"/><path d="M-4 -4 L-16 -22 H-8 L10 -4Z M-4 4 L-16 22 H-8 L10 4Z" fill="#CDBFE8"/><path d="M-24 -4 L-30 -14 H-25 L-17 -4Z" fill="#E59A7C"/></g>
 <path d="M120 60 C170 30 210 32 248 44" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="4 6" opacity="0.8"/>
-<rect x="0" y="110" width="346" height="66" fill="#A6DDE2"/><path d="M0 126 Q22 119 44 126 T88 126 T132 126 T176 126 T220 126 T264 126 T308 126 T352 126 V176 H0 Z" fill="#92D5DC"/><path d="M0 150 Q22 143 44 150 T88 150 T132 150 T176 150 T220 150 T264 150 T308 150 T352 150 V176 H0 Z" fill="#7FCBD3"/>
+<rect x="0" y="110" width="346" height="66" fill="#DCE2F1"/><path d="M0 126 Q22 119 44 126 T88 126 T132 126 T176 126 T220 126 T264 126 T308 126 T352 126 V176 H0 Z" fill="#CFD6EC"/><path d="M0 150 Q22 143 44 150 T88 150 T132 150 T176 150 T220 150 T264 150 T308 150 T352 150 V176 H0 Z" fill="#C2CBE6"/>
 <rect x="270" y="116" width="22" height="26" fill="#E3DAF2"/><rect x="292" y="102" width="22" height="40" fill="#D9D0EE"/><rect x="314" y="112" width="22" height="30" fill="#F0CFD8"/>
 <g fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" opacity="0.6"><path d="M40 140 q10 -6 20 0 t20 0"/><path d="M180 154 q10 -6 20 0 t20 0"/></g>
+</g>
 </svg>

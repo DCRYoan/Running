@@ -1,6 +1,6 @@
 // Séance validée — maquette Celebration (§5.4). Jalon franchi : médaille dorée (§4.7).
 // L'anecdote illustrée arrive au jalon M4.
-import { esc, triplet, milestoneBar, medal, anecdoteCard } from '../ui.js';
+import { esc, triplet, milestoneBar, medal, anecdoteCard, countUp } from '../ui.js';
 import { fmtKm1, fmtKm2, fmtDuration, fmtPace, paceSec } from '../format.js';
 import { fill } from '../messages.js';
 
@@ -41,6 +41,7 @@ export default {
       <button class="lgb btn btn-primary" type="button" data-next>Continuer</button>`;
   },
   mount(root, app) {
+    countUp(root, { delay: 850 }); // les chiffres défilent une fois la médaille posée
     root.querySelector('[data-next]')?.addEventListener('click', () => app.nextStep());
   },
 };

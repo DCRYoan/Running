@@ -31,10 +31,10 @@ export default {
         <svg viewBox="0 0 320 72" width="100%" height="72" role="img" aria-label="Aller ${h} km jusqu'au demi-tour, puis retour ${h} km">
           <path d="M30 38 H292" stroke="rgba(255,255,255,.85)" stroke-width="6" stroke-linecap="round"/>
           <circle cx="26" cy="38" r="10" fill="#34C3A8"/>
-          <path d="M298 48 V12" stroke="#3A2E3F" stroke-width="3" stroke-linecap="round"/>
+          <path d="M298 48 V12" style="stroke:var(--ink)" stroke-width="3" stroke-linecap="round"/>
           <path d="M298 12 L318 19 L298 26Z" fill="#FF7A59"/>
-          <text x="160" y="22" text-anchor="middle" font-size="14" font-weight="800" fill="#4F4254" font-family="Nunito, sans-serif">aller · ${h} km →</text>
-          <text x="160" y="64" text-anchor="middle" font-size="14" font-weight="800" fill="#4F4254" font-family="Nunito, sans-serif">← retour · ${h} km</text>
+          <text x="160" y="22" text-anchor="middle" font-size="14" font-weight="800" style="fill:var(--ink-2)" font-family="Nunito, sans-serif">aller · ${h} km →</text>
+          <text x="160" y="64" text-anchor="middle" font-size="14" font-weight="800" style="fill:var(--ink-2)" font-family="Nunito, sans-serif">← retour · ${h} km</text>
         </svg>
       </div>
 

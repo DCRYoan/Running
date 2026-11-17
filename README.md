@@ -38,6 +38,8 @@ Astuces de test :
 - `?reopenMs=5000` dans l'adresse : une « nouvelle ouverture » (nouveau fond, nouvelle anecdote)
   après 5 s en arrière-plan au lieu de 30 min.
 - Dans la console du navigateur : `(await import('./js/app.js')).app.reopen()` simule une ouverture.
+- `?time=matin`, `?time=jour` ou `?time=soir` dans l'adresse : force l'ambiance du moment
+  (sinon : matin de 5 h à 11 h, soir à partir de 19 h).
 - Les sources des images (`../backgrounds-sources`, `../cartes-motivation`) et le cahier des charges
   restent **à côté** du dépôt, jamais dedans (`.gitignore`).
 
@@ -149,7 +151,7 @@ js/
   geo.js · city-field.js   communes (geo.api.gouv.fr)  charts.js  graphiques SVG
   screens/        un fichier par écran
 data/     plan · messages · anecdotes · backgrounds · communes-ref (JSON)
-assets/   fonts (Nunito, licence OFL) · icons · backgrounds · anecdotes (SVG)
+assets/   fonts (Nunito + Barlow Semi Condensed pour les chiffres, licences OFL) · icons · backgrounds · anecdotes (SVG)
 supabase/ schema.sql · purge-test-data.sql
 tools/    serve, build-sw, build-backgrounds, build-anecdote-art, build-communes,
           build-icons, test-separation

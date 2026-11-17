@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#FDE4D8"/>
-<circle cx="64" cy="40" r="34" fill="#FFE8D2" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#FFF0E4"/>
+<g class="l">
+<circle cx="64" cy="40" r="34" fill="#FBEEDD" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="158" cy="26" r="8"/><circle cx="170" cy="19" r="11"/><circle cx="184" cy="25" r="8"/><rect x="150" y="24" width="42" height="9" rx="4.5"/></g>
-<path d="M180 124 L210 96 H240 L254 84 H280 L294 124Z" fill="#E8C9BC"/><path d="M300 124 L316 104 H332 L346 116 V124Z" fill="#E8C9BC"/>
-<path d="M0 124 C90 116 220 122 346 114 V176 H0 Z" fill="#FBE3B8"/><path d="M0 142 C100 134 230 144 346 134 V176 H0 Z" fill="#F6D3A0"/>
-<path d="M250 124 L270 124 L346 176 H206Z" fill="#CDBFE8"/><path d="M260 124 L276 176" stroke="#FFC94D" stroke-width="3" stroke-dasharray="8 8"/>
-<g fill="#8FD0BB"><rect x="320" y="128" width="7" height="28" rx="3.5"/><rect x="311" y="136" width="6" height="12" rx="3"/><rect x="330" y="132" width="6" height="12" rx="3"/></g>
+<path d="M180 124 L210 96 H240 L254 84 H280 L294 124Z" fill="#EED6CB"/><path d="M300 124 L316 104 H332 L346 116 V124Z" fill="#EED6CB"/>
+<path d="M0 124 C90 116 220 122 346 114 V176 H0 Z" fill="#FBEBD3"/><path d="M0 142 C100 134 230 144 346 134 V176 H0 Z" fill="#F4DDBF"/>
+<path d="M250 124 L270 124 L346 176 H206Z" fill="#CDBFE8"/><path d="M260 124 L276 176" stroke="#E8C07A" stroke-width="3" stroke-dasharray="8 8"/>
+<g fill="#CFD8BC"><rect x="320" y="128" width="7" height="28" rx="3.5"/><rect x="311" y="136" width="6" height="12" rx="3"/><rect x="330" y="132" width="6" height="12" rx="3"/></g>
+</g>
 </svg>

@@ -53,7 +53,7 @@ export function bindFacePicker(root, onChange, name = 'feeling') {
 /** Carte 3 chiffres (km, temps, min/km). */
 export const triplet = (items) => `
   <div class="lg triplet">
-    ${items.map(([v, l]) => `<div><div class="triplet-v">${esc(v)}</div><div class="triplet-l">${esc(l)}</div></div>`).join('')}
+    ${items.map(([v, l]) => `<div><div class="triplet-v" data-count>${esc(v)}</div><div class="triplet-l">${esc(l)}</div></div>`).join('')}
   </div>`;
 
 /** Barre « Prochain jalon : 20 km — encore 1,8 km ». */
@@ -155,3 +155,49 @@ export const TABS = [
   { route: 'stats', label: 'Stats', d: 'M5 20V10M12 20V4M19 20v-7' },
   { route: 'reglages', label: 'Réglages', d: 'M4 8h16M4 16h16M9 5v6M15 13v6' },
 ];
+
+// ---------- Compteurs animés ----------
+// Les éléments [data-count] défilent de 0 jusqu'à leur valeur affichée (« 13,0 », « 18:40 », « 6 »).
+// Le texte final est remis tel quel à la fin. Rien ne bouge si « Réduire les animations ».
+export function countUp(root, { duration = 900, delay = 0 } = {}) {
+  if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  root.querySelectorAll('[data-count]').forEach((el) => {
+    const final = el.textContent.trim();
+    let to; let fmt; let m;
+    if ((m = final.match(/^(\d+):(\d{2})$/))) {
+      to = Number(m[1]) * 60 + Number(m[2]);
+      fmt = (v) => `${Math.floor(v / 60)}:${String(Math.floor(v % 60)).padStart(2, '0')}`;
+    } else if ((m = final.match(/^(\d+),(\d+)$/))) {
+      const d = m[2].length;
+      to = Number(`${m[1]}.${m[2]}`);
+      fmt = (v) => v.toFixed(d).replace('.', ',');
+    } else if (/^\d+$/.test(final)) {
+      to = Number(final);
+      fmt = (v) => String(Math.round(v));
+    } else return;
+    if (!to) return;
+    el.textContent = fmt(0);
+    const start = performance.now() + delay;
+    const step = (now) => {
+      const t = Math.min(1, Math.max(0, (now - start) / duration));
+      el.textContent = t < 1 ? fmt(to * (1 - (1 - t) ** 3)) : final;
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+}
+
+// ---------- Anneau de progression vers le prochain jalon (Accueil) ----------
+const RING_C = 2 * Math.PI * 54;
+export function progressRing({ totalText, progress, next }) {
+  const off = Math.round(RING_C * (1 - Math.min(1, Math.max(0, progress))) * 10) / 10;
+  return `
+    <div class="ring" role="img" aria-label="${esc(totalText)} km parcourus, prochain jalon ${esc(String(next))} km">
+      <svg viewBox="0 0 132 132" aria-hidden="true">
+        <defs><linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3D9B5"/><stop offset=".55" stop-color="#F0A0A0"/><stop offset="1" stop-color="#A51E4D"/></linearGradient></defs>
+        <circle class="ring-track" cx="66" cy="66" r="54"/>
+        <circle class="ring-prog" cx="66" cy="66" r="54" stroke="url(#ring-grad)" stroke-dasharray="${Math.round(RING_C * 10) / 10}" style="stroke-dashoffset:${off}"/>
+      </svg>
+      <div class="ring-c"><span class="ring-v" data-count>${esc(totalText)}</span><span class="ring-u">km</span></div>
+    </div>`;
+}

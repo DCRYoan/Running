@@ -1,5 +1,5 @@
 // Illustrations des anecdotes (§7.6) : assets/anecdotes/<id>.svg, viewBox 0 0 346 176.
-// Style des références (references/cartes-anecdotes) : à plat, palette de l'app,
+// Style « trait fin » : aplats doux (crème, champagne, pêche, lavande) et traits prune fins,
 // soleil et nuage à gauche (zone calme sous le texte), SUJET SUR LA MOITIÉ DROITE.
 // Pas de texte, pas de logo, pas de personnage reconnaissable.
 // Usage : node tools/build-anecdote-art.mjs
@@ -10,18 +10,23 @@ import { fileURLToPath } from 'node:url';
 const OUT = fileURLToPath(new URL('../assets/anecdotes/', import.meta.url));
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
-// ---------- Palette ----------
+// ---------- Palette « trait fin » ----------
+// Tons doux de l'app (crème, champagne, pêche, lavande), traits prune fins posés par la feuille
+// de style intégrée à chaque SVG (voir svg()). Ancienne palette « dessin animé » : historique git.
 const C = {
-  peach: '#FDEBDD', pink: '#F9E1E6', apricot: '#FDE4D8', lav: '#EFE8F8', night: '#3B3366', dusk: '#5A4A8C',
-  sunHalo: '#FFE8D2', sun: '#FFD3AE', sea1: '#A6DDE2', sea2: '#92D5DC', sea3: '#7FCBD3',
-  hill1: '#CDEBDD', hill2: '#B9E1D0', leaf: '#8FD0BB', leaf2: '#A8DCCD', trunk: '#C9AEB8',
-  sand1: '#FBE3B8', sand2: '#F6D3A0', stone: '#F6E7DD', stone2: '#E8C9BC', stone3: '#D9B8A5',
-  lilac: '#E3DAF2', lilac2: '#CDBFE8', lilac3: '#C9BCE6', ink: '#8F7DB8',
-  coral: '#FF7A59', yellow: '#FFC94D', rasp: '#D63A66', rose: '#F6D3DA', white: '#FFFFFF', green: '#34C3A8',
+  peach: '#FFF4E8', pink: '#FBEEEC', apricot: '#FFF0E4', lav: '#F3EEF8', night: '#3A1F3A', dusk: '#4E2D4E',
+  sunHalo: '#FBEEDD', sun: '#F6DDBA', sea1: '#DCE2F1', sea2: '#CFD6EC', sea3: '#C2CBE6',
+  hill1: '#F9E3CF', hill2: '#F3D6BF', leaf: '#CFD8BC', leaf2: '#DCE2CB', trunk: '#B9A0AE',
+  sand1: '#FBEBD3', sand2: '#F4DDBF', stone: '#F6E7DD', stone2: '#EED6CB', stone3: '#D9B8A5',
+  lilac: '#E3DAF2', lilac2: '#CDBFE8', lilac3: '#C9BCE6', ink: '#6B4A6E',
+  coral: '#E59A7C', yellow: '#E8C07A', rasp: '#A51E4D', rose: '#F6D3DA', white: '#FFFFFF', green: '#8CC7B5',
 };
 
+// Trait fin prune sur les formes pleines (celles qui n'ont pas déjà leur propre trait).
+const LINE_STYLE = '<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>';
+
 // ---------- Briques ----------
-const svg = (bg, body) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">\n<rect width="346" height="176" fill="${bg}"/>\n${body}\n</svg>\n`;
+const svg = (bg, body) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">\n${LINE_STYLE}\n<rect width="346" height="176" fill="${bg}"/>\n<g class="l">\n${body}\n</g>\n</svg>\n`;
 const sun = (x = 64, y = 40, r = 21) => `<circle cx="${x}" cy="${y}" r="${r + 13}" fill="${C.sunHalo}" opacity="0.85"/><circle cx="${x}" cy="${y}" r="${r}" fill="${C.sun}"/>`;
 const cloud = (x, y, o = 0.85) => `<g fill="#FFFFFF" opacity="${o}"><circle cx="${x + 8}" cy="${y + 6}" r="8"/><circle cx="${x + 20}" cy="${y - 1}" r="11"/><circle cx="${x + 34}" cy="${y + 5}" r="8"/><rect x="${x}" y="${y + 4}" width="42" height="9" rx="4.5"/></g>`;
 const wave = (y, fill, x0 = 0, x1 = 346) => {

@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#3B3366"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#3A1F3A"/>
+<g class="l">
 <g fill="#FFFFFF"><circle cx="30" cy="30" r="1.6"/><circle cx="90" cy="20" r="1.6"/><circle cx="140" cy="60" r="1.6"/><circle cx="180" cy="24" r="1.6"/><circle cx="60" cy="110" r="1.6"/><circle cx="120" cy="140" r="1.6"/><circle cx="210" cy="150" r="1.6"/><circle cx="330" cy="20" r="1.2"/><circle cx="250" cy="18" r="1.6"/></g>
 <circle cx="282" cy="80" r="46" fill="#F3EEDC"/><g fill="#E2DCC4"><circle cx="266" cy="68" r="9"/><circle cx="294" cy="98" r="12"/><circle cx="300" cy="64" r="6"/></g>
 <path d="M150 170 C190 140 220 120 236 104" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="4 6" opacity="0.7"/>
-<circle cx="150" cy="190" r="34" fill="#A6DDE2"/>
+<circle cx="150" cy="190" r="34" fill="#DCE2F1"/>
+</g>
 </svg>

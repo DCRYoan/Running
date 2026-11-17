@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#F9E1E6"/>
-<circle cx="70" cy="52" r="38" fill="#FFE8D2" opacity="0.85"/><circle cx="70" cy="52" r="25" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#FBEEEC"/>
+<g class="l">
+<circle cx="70" cy="52" r="38" fill="#FBEEDD" opacity="0.85"/><circle cx="70" cy="52" r="25" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="194" cy="32" r="8"/><circle cx="206" cy="25" r="11"/><circle cx="220" cy="31" r="8"/><rect x="186" y="30" width="42" height="9" rx="4.5"/></g>
-<g fill="#8F7DB8" opacity="0.8"><path d="M232 142 V62 H312 V142 H292 V100 Q272 78 252 100 V142Z"/><rect x="226" y="54" width="92" height="10"/></g>
+<g fill="#6B4A6E" opacity="0.8"><path d="M232 142 V62 H312 V142 H292 V100 Q272 78 252 100 V142Z"/><rect x="226" y="54" width="92" height="10"/></g>
 <g fill="#CDBFE8"><circle cx="180" cy="124" r="10"/><circle cx="198" cy="124" r="10"/><circle cx="324" cy="124" r="10"/><circle cx="338" cy="124" r="10"/></g>
-<path d="M0 148 C80 136 190 146 346 132 V176 H0 Z" fill="#CDEBDD"/><path d="M0 168 C100 158 230 170 346 156 V176 H0 Z" fill="#B9E1D0"/>
+<path d="M0 148 C80 136 190 146 346 132 V176 H0 Z" fill="#F9E3CF"/><path d="M0 168 C100 158 230 170 346 156 V176 H0 Z" fill="#F3D6BF"/>
 <path d="M220 176 L262 142 H282 L326 176Z" fill="#FFFAF6"/>
+</g>
 </svg>

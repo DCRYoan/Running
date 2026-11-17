@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#F9E1E6"/>
-<circle cx="64" cy="40" r="34" fill="#FFE8D2" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#FBEEEC"/>
+<g class="l">
+<circle cx="64" cy="40" r="34" fill="#FBEEDD" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="158" cy="26" r="8"/><circle cx="170" cy="19" r="11"/><circle cx="184" cy="25" r="8"/><rect x="150" y="24" width="42" height="9" rx="4.5"/></g>
-<g transform="translate(196,30) rotate(-8) scale(0.55)"><path d="M-30 0 Q-30 -5 -22 -5 H18 Q30 -5 32 0 Q30 5 18 5 H-22 Q-30 5 -30 0Z" fill="#FFFFFF"/><path d="M-4 -4 L-16 -22 H-8 L10 -4Z M-4 4 L-16 22 H-8 L10 4Z" fill="#CDBFE8"/><path d="M-24 -4 L-30 -14 H-25 L-17 -4Z" fill="#FF7A59"/></g>
+<g transform="translate(196,30) rotate(-8) scale(0.55)"><path d="M-30 0 Q-30 -5 -22 -5 H18 Q30 -5 32 0 Q30 5 18 5 H-22 Q-30 5 -30 0Z" fill="#FFFFFF"/><path d="M-4 -4 L-16 -22 H-8 L10 -4Z M-4 4 L-16 22 H-8 L10 4Z" fill="#CDBFE8"/><path d="M-24 -4 L-30 -14 H-25 L-17 -4Z" fill="#E59A7C"/></g>
 <polygon points="190,140 268,58 346,140" fill="#E3DAF2"/>
 <polygon points="248,78 268,58 288,78 278,74 268,82 258,74" fill="#FFFFFF"/>
-<g fill="#D63A66"><rect x="300" y="96" width="34" height="5"/><rect x="304" y="104" width="4" height="36"/><rect x="326" y="104" width="4" height="36"/><rect x="302" y="108" width="30" height="3"/></g>
-<path d="M0 150 C80 138 190 148 346 134 V176 H0 Z" fill="#CDEBDD"/><path d="M0 170 C100 160 230 172 346 158 V176 H0 Z" fill="#B9E1D0"/>
+<g fill="#A51E4D"><rect x="300" y="96" width="34" height="5"/><rect x="304" y="104" width="4" height="36"/><rect x="326" y="104" width="4" height="36"/><rect x="302" y="108" width="30" height="3"/></g>
+<path d="M0 150 C80 138 190 148 346 134 V176 H0 Z" fill="#F9E3CF"/><path d="M0 170 C100 160 230 172 346 158 V176 H0 Z" fill="#F3D6BF"/>
 <g fill="#F6B8C8"><circle cx="206" cy="140" r="7"/><circle cx="222" cy="132" r="7"/><circle cx="214" cy="126" r="7"/><circle cx="234" cy="140" r="7"/></g>
+</g>
 </svg>

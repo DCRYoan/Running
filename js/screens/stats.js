@@ -1,12 +1,12 @@
 // Statistiques — maquette Stats (§5.12). Toutes les sorties comptent (complètes ou non).
 // Tuiles sans flou (.lt) : 8 tuiles + 3 graphiques dépasseraient ~6 éléments floutés (§9.3).
-import { esc } from '../ui.js';
+import { esc, countUp } from '../ui.js';
 import { fmtKm1, fmtKm2, fmtHMin, fmtDuration, fmtPace, paceSec, fmtDayMonth } from '../format.js';
 import { sortSessions, weeklyCounts } from '../plan.js';
-import { lineChart, weeklyBars } from '../charts.js';
+import { lineChart, weeklyBars, barChart } from '../charts.js';
 
 const tile = (label, value, unit = '', tint = '') =>
-  `<div class="lt stat ${tint}"><div class="stat-l">${esc(label)}</div><div class="stat-v">${esc(value)}${unit ? `<span class="stat-u">${esc(unit)}</span>` : ''}</div></div>`;
+  `<div class="lt stat ${tint}"><div class="stat-l">${esc(label)}</div><div class="stat-v"><span data-count>${esc(value)}</span>${unit ? `<span class="stat-u">${esc(unit)}</span>` : ''}</div></div>`;
 
 export default {
   nav: true,
@@ -39,7 +39,9 @@ export default {
       <div class="lg chart">
         <div class="chart-t">Distance par séance</div>
         <div class="chart-d">en km, de la séance 1 à la séance ${n}</div>
-        ${lineChart(dists, { ariaLabel: `Courbe de la distance : de ${fmtKm1(dists[0])} km à ${fmtKm1(dists[n - 1])} km` })}
+        ${n <= 24
+    ? barChart(dists, { fmt: (v) => `${fmtKm1(v)} km`, ariaLabel: `Barres de la distance : de ${fmtKm1(dists[0])} km à ${fmtKm1(dists[n - 1])} km` })
+    : lineChart(dists, { ariaLabel: `Courbe de la distance : de ${fmtKm1(dists[0])} km à ${fmtKm1(dists[n - 1])} km` })}
       </div>
       <div class="lg chart">
         <div class="chart-t">Allure</div>
@@ -51,5 +53,8 @@ export default {
         <div class="chart-d" style="margin-bottom:8px">séances par semaine (objectif : ${goal})</div>
         ${weeklyBars(weeks, { goal, fmtLabel: fmtDayMonth, ariaLabel: `Séances par semaine : ${weeks.map((w) => w.count).join(', ')}` })}
       </div>`;
+  },
+  mount(root) {
+    countUp(root, { delay: 100 });
   },
 };

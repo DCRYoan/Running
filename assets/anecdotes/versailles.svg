@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#F9E1E6"/>
-<circle cx="70" cy="52" r="38" fill="#FFE8D2" opacity="0.85"/><circle cx="70" cy="52" r="25" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#FBEEEC"/>
+<g class="l">
+<circle cx="70" cy="52" r="38" fill="#FBEEDD" opacity="0.85"/><circle cx="70" cy="52" r="25" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="194" cy="32" r="8"/><circle cx="206" cy="25" r="11"/><circle cx="220" cy="31" r="8"/><rect x="186" y="30" width="42" height="9" rx="4.5"/></g>
 <g fill="#E3DAF2"><rect x="188" y="92" width="158" height="44"/><rect x="236" y="80" width="62" height="14"/><polygon points="236,80 267,66 298,80"/></g>
 <g fill="#FFFFFF" opacity="0.6"><rect x="196" y="102" width="6" height="12"/><rect x="212" y="102" width="6" height="12"/><rect x="228" y="102" width="6" height="12"/><rect x="304" y="102" width="6" height="12"/><rect x="320" y="102" width="6" height="12"/><rect x="336" y="102" width="6" height="12"/></g>
-<g stroke="#FFC94D" stroke-width="2.2"><path d="M200 150 V126"/><path d="M214 150 V126"/><path d="M228 150 V126"/><path d="M242 150 V126"/><path d="M256 150 V126"/><path d="M270 150 V126"/><path d="M284 150 V126"/><path d="M298 150 V126"/><path d="M312 150 V126"/><path d="M326 150 V126"/><path d="M196 132 H334"/></g>
-<path d="M0 150 C80 138 190 148 346 134 V176 H0 Z" fill="#CDEBDD"/><path d="M0 170 C100 160 230 172 346 158 V176 H0 Z" fill="#B9E1D0"/>
+<g stroke="#E8C07A" stroke-width="2.2"><path d="M200 150 V126"/><path d="M214 150 V126"/><path d="M228 150 V126"/><path d="M242 150 V126"/><path d="M256 150 V126"/><path d="M270 150 V126"/><path d="M284 150 V126"/><path d="M298 150 V126"/><path d="M312 150 V126"/><path d="M326 150 V126"/><path d="M196 132 H334"/></g>
+<path d="M0 150 C80 138 190 148 346 134 V176 H0 Z" fill="#F9E3CF"/><path d="M0 170 C100 160 230 172 346 158 V176 H0 Z" fill="#F3D6BF"/>
 <ellipse cx="180" cy="139" rx="3.142857142857143" ry="11" fill="#7FBFA8"/>
 <ellipse cx="340" cy="141" rx="3.142857142857143" ry="11" fill="#7FBFA8"/>
+</g>
 </svg>

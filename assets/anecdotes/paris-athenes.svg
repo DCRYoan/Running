@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#FDE4D8"/>
-<circle cx="64" cy="40" r="34" fill="#FFE8D2" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#FFF0E4"/>
+<g class="l">
+<circle cx="64" cy="40" r="34" fill="#FBEEDD" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="168" cy="28" r="8"/><circle cx="180" cy="21" r="11"/><circle cx="194" cy="27" r="8"/><rect x="160" y="26" width="42" height="9" rx="4.5"/></g>
-<g transform="translate(220,32) rotate(-8) scale(0.55)"><path d="M-30 0 Q-30 -5 -22 -5 H18 Q30 -5 32 0 Q30 5 18 5 H-22 Q-30 5 -30 0Z" fill="#FFFFFF"/><path d="M-4 -4 L-16 -22 H-8 L10 -4Z M-4 4 L-16 22 H-8 L10 4Z" fill="#CDBFE8"/><path d="M-24 -4 L-30 -14 H-25 L-17 -4Z" fill="#FF7A59"/></g>
-<path d="M180 150 C220 112 270 104 346 108 V150Z" fill="#E8C9BC"/>
+<g transform="translate(220,32) rotate(-8) scale(0.55)"><path d="M-30 0 Q-30 -5 -22 -5 H18 Q30 -5 32 0 Q30 5 18 5 H-22 Q-30 5 -30 0Z" fill="#FFFFFF"/><path d="M-4 -4 L-16 -22 H-8 L10 -4Z M-4 4 L-16 22 H-8 L10 4Z" fill="#CDBFE8"/><path d="M-24 -4 L-30 -14 H-25 L-17 -4Z" fill="#E59A7C"/></g>
+<path d="M180 150 C220 112 270 104 346 108 V150Z" fill="#EED6CB"/>
 <g fill="#F6E7DD"><polygon points="214,82 270,62 326,82"/><rect x="214" y="82" width="112" height="6"/><rect x="218" y="88" width="8" height="26"/><rect x="236" y="88" width="8" height="26"/><rect x="254" y="88" width="8" height="26"/><rect x="272" y="88" width="8" height="26"/><rect x="290" y="88" width="8" height="26"/><rect x="308" y="88" width="8" height="26"/><rect x="210" y="114" width="120" height="6"/></g>
-<path d="M0 150 C80 138 190 148 346 134 V176 H0 Z" fill="#CDEBDD"/><path d="M0 170 C100 160 230 172 346 158 V176 H0 Z" fill="#B9E1D0"/>
+<path d="M0 150 C80 138 190 148 346 134 V176 H0 Z" fill="#F9E3CF"/><path d="M0 170 C100 160 230 172 346 158 V176 H0 Z" fill="#F3D6BF"/>
+</g>
 </svg>

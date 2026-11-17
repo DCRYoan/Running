@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#FDEBDD"/>
-<circle cx="64" cy="40" r="34" fill="#FFE8D2" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#FFF4E8"/>
+<g class="l">
+<circle cx="64" cy="40" r="34" fill="#FBEEDD" opacity="0.85"/><circle cx="64" cy="40" r="21" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="158" cy="26" r="8"/><circle cx="170" cy="19" r="11"/><circle cx="184" cy="25" r="8"/><rect x="150" y="24" width="42" height="9" rx="4.5"/></g>
-<polygon points="170,150 220,90 270,120 320,70 346,86 346,150" fill="#CDEBDD"/>
-<path d="M176 140 C200 120 214 100 230 98 C250 96 262 116 276 112 C294 106 304 82 322 78 L346 82" fill="none" stroke="#E8C9BC" stroke-width="9" stroke-linejoin="round"/>
+<polygon points="170,150 220,90 270,120 320,70 346,86 346,150" fill="#F9E3CF"/>
+<path d="M176 140 C200 120 214 100 230 98 C250 96 262 116 276 112 C294 106 304 82 322 78 L346 82" fill="none" stroke="#EED6CB" stroke-width="9" stroke-linejoin="round"/>
 <g fill="#D9B8A5"><rect x="226" y="88" width="12" height="12"/><rect x="316" y="68" width="12" height="12"/></g>
-<path d="M0 150 C80 138 190 148 346 134 V176 H0 Z" fill="#CDEBDD"/><path d="M0 170 C100 160 230 172 346 158 V176 H0 Z" fill="#B9E1D0"/>
+<path d="M0 150 C80 138 190 148 346 134 V176 H0 Z" fill="#F9E3CF"/><path d="M0 170 C100 160 230 172 346 158 V176 H0 Z" fill="#F3D6BF"/>
+</g>
 </svg>

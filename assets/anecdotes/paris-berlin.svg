@@ -1,8 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346 176" width="346" height="176">
-<rect width="346" height="176" fill="#EFE8F8"/>
-<circle cx="70" cy="52" r="34" fill="#FFE8D2" opacity="0.85"/><circle cx="70" cy="52" r="21" fill="#FFD3AE"/>
+<style>.l path:not([stroke]):not([opacity]),.l polygon:not([stroke]):not([opacity]),.l rect:not([stroke]):not([opacity]),.l circle:not([stroke]):not([opacity]),.l ellipse:not([stroke]):not([opacity]){stroke:#4A2140;stroke-opacity:.5;stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}.l g[opacity] *{stroke:none}</style>
+<rect width="346" height="176" fill="#F3EEF8"/>
+<g class="l">
+<circle cx="70" cy="52" r="34" fill="#FBEEDD" opacity="0.85"/><circle cx="70" cy="52" r="21" fill="#F6DDBA"/>
 <g fill="#FFFFFF" opacity="0.85"><circle cx="178" cy="30" r="8"/><circle cx="190" cy="23" r="11"/><circle cx="204" cy="29" r="8"/><rect x="170" y="28" width="42" height="9" rx="4.5"/></g>
-<g transform="translate(220,36) rotate(-8) scale(0.6)"><path d="M-30 0 Q-30 -5 -22 -5 H18 Q30 -5 32 0 Q30 5 18 5 H-22 Q-30 5 -30 0Z" fill="#FFFFFF"/><path d="M-4 -4 L-16 -22 H-8 L10 -4Z M-4 4 L-16 22 H-8 L10 4Z" fill="#CDBFE8"/><path d="M-24 -4 L-30 -14 H-25 L-17 -4Z" fill="#FF7A59"/></g>
+<g transform="translate(220,36) rotate(-8) scale(0.6)"><path d="M-30 0 Q-30 -5 -22 -5 H18 Q30 -5 32 0 Q30 5 18 5 H-22 Q-30 5 -30 0Z" fill="#FFFFFF"/><path d="M-4 -4 L-16 -22 H-8 L10 -4Z M-4 4 L-16 22 H-8 L10 4Z" fill="#CDBFE8"/><path d="M-24 -4 L-30 -14 H-25 L-17 -4Z" fill="#E59A7C"/></g>
 <g fill="#C9BCE6"><rect x="210" y="70" width="130" height="10"/><rect x="214" y="80" width="8" height="58"/><rect x="238" y="80" width="8" height="58"/><rect x="262" y="80" width="8" height="58"/><rect x="286" y="80" width="8" height="58"/><rect x="310" y="80" width="8" height="58"/><rect x="330" y="80" width="8" height="58"/><rect x="252" y="58" width="46" height="12"/></g>
-<path d="M0 146 C80 134 190 144 346 130 V176 H0 Z" fill="#CDEBDD"/><path d="M0 166 C100 156 230 168 346 154 V176 H0 Z" fill="#B9E1D0"/>
+<path d="M0 146 C80 134 190 144 346 130 V176 H0 Z" fill="#F9E3CF"/><path d="M0 166 C100 156 230 168 346 154 V176 H0 Z" fill="#F3D6BF"/>
+</g>
 </svg>
