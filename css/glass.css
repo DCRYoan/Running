@@ -1,7 +1,7 @@
-/* « Liquid glass » renforcé + claymorphism (§9.2) — repli html.no-glass (§9.3)
+/* « Liquid glass » renforcé + glassmorphism + claymorphism (§9.2) — repli html.no-glass (§9.3)
 
-   Verre : fond plus transparent, flou et saturation plus forts, reflet diagonal
-   (background-image) et liseré lumineux en haut.
+   Verre : fond très transparent, flou et saturation forts, halo de lumière en haut à
+   gauche (background-image) et bordure de verre taillé (arêtes claires en haut / à gauche).
    Clay : volume « pâte à modeler » obtenu uniquement avec des ombres (aucun flou en plus) :
    grande ombre portée douce + lumière intérieure en haut à gauche + ombre intérieure
    en bas à droite. Les teintes ne touchent que background-color pour garder le reflet. */
@@ -35,13 +35,18 @@
 }
 
 .lg {
-  background-color: rgba(255,255,255,.28);
-  background-image: var(--glass-sheen);
-  -webkit-backdrop-filter: blur(28px) saturate(2) brightness(1.05);
-  backdrop-filter: blur(28px) saturate(2) brightness(1.05);
-  border: 1.5px solid rgba(255,255,255,.82);
+  background-color: rgba(255,255,255,.16);
+  background-image:
+    radial-gradient(120% 80% at 0% 0%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 55%),
+    linear-gradient(145deg, rgba(255,255,255,.25) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,.12) 100%);
+  -webkit-backdrop-filter: blur(36px) saturate(2.3) brightness(1.08);
+  backdrop-filter: blur(36px) saturate(2.3) brightness(1.08);
+  /* Verre taillé : arêtes éclairées en haut et à gauche */
+  border: 1.5px solid;
+  border-color: rgba(255,255,255,.95) rgba(255,255,255,.4) rgba(255,255,255,.28) rgba(255,255,255,.85);
   box-shadow: var(--clay-card);
 }
+.tabbar.lg { background-color: rgba(255,255,255,.20); }
 
 /* Bouton principal : bonbon framboise bombé */
 .lgb {
@@ -60,11 +65,12 @@
 
 /* Bouton secondaire / bouton rond */
 .lgg {
-  background-color: rgba(255,255,255,.34);
+  background-color: rgba(255,255,255,.22);
   background-image: var(--glass-sheen);
   -webkit-backdrop-filter: blur(18px) saturate(1.9);
   backdrop-filter: blur(18px) saturate(1.9);
-  border: 1.5px solid rgba(255,255,255,.92);
+  border: 1.5px solid;
+  border-color: rgba(255,255,255,.95) rgba(255,255,255,.4) rgba(255,255,255,.3) rgba(255,255,255,.85);
   box-shadow: var(--clay-small);
 }
 
@@ -85,11 +91,11 @@
 
 /* Teintes posées sur une carte .lg (classes plutôt que style en ligne,
    pour pouvoir les renforcer en mode sans verre). */
-.lg.t-rose     { background-color: rgba(246,211,218,.50); }
-.lg.t-rose-2   { background-color: rgba(252,228,235,.80); }
-.lg.t-lavande  { background-color: rgba(230,224,245,.58); }
-.lg.t-peche    { background-color: rgba(255,227,211,.58); }
-.lg.t-rose-6   { background-color: rgba(246,211,218,.55); }
+.lg.t-rose     { background-color: rgba(246,211,218,.30); }
+.lg.t-rose-2   { background-color: rgba(252,228,235,.55); }
+.lg.t-lavande  { background-color: rgba(230,224,245,.34); }
+.lg.t-peche    { background-color: rgba(255,227,211,.34); }
+.lg.t-rose-6   { background-color: rgba(246,211,218,.32); }
 
 /* Cartes translucides SANS flou : pour les longues listes (Historique), §9.3 */
 .lt {
