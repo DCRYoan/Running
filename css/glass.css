@@ -1,24 +1,33 @@
-/* « Liquid glass » renforcé + glassmorphism + claymorphism (§9.2) — repli html.no-glass (§9.3)
+/* Verre + claymorphism, finition « Premium » (§9.2) — repli html.no-glass (§9.3)
 
-   Verre : fond très transparent, flou et saturation forts, halo de lumière en haut à
+   Verre : fond nacré translucide, flou et saturation forts, halo de lumière en haut à
    gauche (background-image) et bordure de verre taillé (arêtes claires en haut / à gauche).
-   Clay : volume « pâte à modeler » obtenu uniquement avec des ombres (aucun flou en plus) :
-   grande ombre portée douce + lumière intérieure en haut à gauche + ombre intérieure
-   en bas à droite. Les teintes ne touchent que background-color pour garder le reflet. */
+   Clay : volume « pâte à modeler » obtenu uniquement avec des ombres (aucun flou en plus).
+   Premium : double liseré champagne sur les cartes, bouton baie profonde, barre d'onglets
+   en liquid glass (arêtes lumineuses, liseré irisé, onglet actif en lentille).
+   Les teintes ne touchent que background-color pour garder le reflet. */
 
 :root {
+  --berry: #A51E4D;
+  --berry-2: #E04A74;
+  --plum-ink: #4A2140;
+  --champagne: #F3D9B5;
+  --champagne-2: #FFF4E2;
+  --label-ink: #7A5C6E;
+
   /* Reflet du verre : lumière en haut à gauche, rebond léger en bas à droite */
   --glass-sheen: linear-gradient(145deg,
     rgba(255,255,255,.62) 0%, rgba(255,255,255,.18) 34%,
     rgba(255,255,255,0) 58%, rgba(255,255,255,.20) 100%);
 
-  /* Volume clay des cartes */
+  /* Volume clay des cartes, avec double liseré champagne */
   --clay-card:
-    0 24px 44px -14px rgba(122,58,98,.34),
-    0 6px 14px -4px rgba(122,58,98,.14),
-    inset 0 1.5px 0 rgba(255,255,255,.98),
-    inset 10px 12px 20px -8px rgba(255,255,255,.85),
-    inset -12px -16px 26px -10px rgba(168,78,122,.26);
+    inset 0 0 0 1px rgba(255,232,196,.95),
+    inset 0 0 0 2.5px rgba(255,255,255,.35),
+    0 30px 56px -20px rgba(74,33,64,.45),
+    0 6px 14px -6px rgba(74,33,64,.18),
+    inset 10px 12px 22px -8px rgba(255,255,255,.7),
+    inset -12px -16px 26px -10px rgba(140,60,110,.20);
 
   /* Volume clay des petits éléments (boutons secondaires, pastilles, visages) */
   --clay-small:
@@ -35,7 +44,7 @@
 }
 
 .lg {
-  background-color: rgba(255,255,255,.16);
+  background-color: rgba(255,249,243,.36);
   background-image:
     radial-gradient(120% 80% at 0% 0%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 55%),
     linear-gradient(145deg, rgba(255,255,255,.25) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,.12) 100%);
@@ -46,21 +55,62 @@
   border-color: rgba(255,255,255,.95) rgba(255,255,255,.4) rgba(255,255,255,.28) rgba(255,255,255,.85);
   box-shadow: var(--clay-card);
 }
-.tabbar.lg { background-color: rgba(255,255,255,.20); }
 
-/* Bouton principal : bonbon framboise bombé */
+/* ---------- Barre d'onglets : liquid glass ----------
+   Verre clair presque transparent (le contenu se voit dessous, flouté et éclairci),
+   biseau lumineux sur tout le pourtour, fin trait de réfraction, lueur champagne en bas. */
+.tabbar.lg {
+  background-color: rgba(255,255,255,.06);
+  background-image:
+    radial-gradient(140% 120% at 50% -30%, rgba(255,255,255,.38) 0%, rgba(255,255,255,0) 55%),
+    radial-gradient(90% 140% at 50% 140%, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 55%);
+  -webkit-backdrop-filter: blur(7px) saturate(1.5) brightness(1.1) contrast(1.1);
+  backdrop-filter: blur(7px) saturate(1.5) brightness(1.1) contrast(1.1);
+  border: 0;
+  box-shadow:
+    0 28px 48px -18px rgba(46,20,40,.55),
+    0 3px 8px rgba(46,20,40,.14),
+    inset 0 2px 1px -1px rgba(255,255,255,1),
+    inset 0 -2px 1px -1px rgba(255,255,255,.85),
+    inset 3px 0 6px -3px rgba(255,255,255,.9),
+    inset -3px 0 6px -3px rgba(255,255,255,.9),
+    inset 0 0 0 1.5px rgba(70,25,60,.16),
+    inset 0 0 0 5px rgba(255,255,255,.14),
+    inset 0 -14px 22px -14px rgba(255,236,210,.75),
+    inset 0 12px 20px -14px rgba(255,255,255,.7);
+}
+/* Reflets spéculaires : traînée en haut à gauche, point lumineux en bas à droite */
+.tabbar.lg::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background:
+    radial-gradient(38% 30% at 22% 8%, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(14% 22% at 88% 92%, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 100%);
+}
+/* Liseré irisé (rose → lavande → champagne) sur l'arête */
+.tabbar.lg::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; pointer-events: none;
+  background: conic-gradient(from 200deg,
+    rgba(255,255,255,.95), rgba(255,190,215,.85), rgba(200,185,255,.85), rgba(255,255,255,.95),
+    rgba(255,225,180,.85), rgba(255,255,255,.4), rgba(255,255,255,.95));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+/* Bouton principal : baie profonde, liseré lumineux, bombé */
 .lgb {
-  background-color: rgba(214,58,102,.92);
-  background-image: linear-gradient(160deg, rgba(255,255,255,.38) 0%, rgba(255,255,255,.08) 42%, rgba(255,255,255,0) 60%, rgba(120,10,50,.14) 100%);
+  background-color: var(--berry);
+  background-image:
+    linear-gradient(180deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 48%),
+    linear-gradient(160deg, var(--berry-2) 0%, var(--berry) 75%);
   -webkit-backdrop-filter: blur(16px) saturate(1.8);
   backdrop-filter: blur(16px) saturate(1.8);
-  border: 1.5px solid rgba(255,255,255,.55);
+  border: 1px solid rgba(255,220,230,.65);
   box-shadow:
-    0 18px 30px -10px rgba(214,58,102,.55),
-    0 4px 10px -2px rgba(150,30,70,.22),
-    inset 0 2px 0 rgba(255,255,255,.6),
-    inset 6px 8px 14px -6px rgba(255,190,210,.75),
-    inset -8px -10px 16px -8px rgba(120,10,50,.45);
+    0 20px 34px -12px rgba(165,30,77,.6),
+    0 3px 8px -2px rgba(110,10,50,.25),
+    inset 0 1px 0 rgba(255,255,255,.65),
+    inset 0 -6px 12px -6px rgba(90,0,40,.55);
 }
 
 /* Bouton secondaire / bouton rond */
@@ -91,9 +141,9 @@
 
 /* Teintes posées sur une carte .lg (classes plutôt que style en ligne,
    pour pouvoir les renforcer en mode sans verre). */
-.lg.t-rose     { background-color: rgba(246,211,218,.30); }
+.lg.t-rose     { background-color: rgba(250,226,232,.30); }
 .lg.t-rose-2   { background-color: rgba(252,228,235,.55); }
-.lg.t-lavande  { background-color: rgba(230,224,245,.34); }
+.lg.t-lavande  { background-color: rgba(236,230,248,.32); }
 .lg.t-peche    { background-color: rgba(255,227,211,.34); }
 .lg.t-rose-6   { background-color: rgba(246,211,218,.32); }
 
@@ -110,6 +160,7 @@
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
   background: linear-gradient(145deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,0) 30%);
   box-shadow:
+    inset 0 0 0 1px rgba(255,232,196,.9),
     inset 0 1.5px 0 rgba(255,255,255,.95),
     inset 10px 12px 20px -8px rgba(255,255,255,.7),
     inset -12px -16px 26px -10px rgba(168,78,122,.24);
@@ -123,10 +174,11 @@ html.no-glass .lgg {
   backdrop-filter: none;
 }
 html.no-glass .lg  { background-color: rgba(255,255,255,.84); }
-html.no-glass .lgb { background-color: rgb(214,58,102); }
+html.no-glass .lgb { background-color: var(--berry); }
 html.no-glass .lgg { background-color: rgba(255,255,255,.76); }
 html.no-glass .lgi { background: rgba(255,255,255,.88); }
 html.no-glass .lt  { background-color: rgba(255,255,255,.84); }
+html.no-glass .tabbar.lg { background-color: rgba(255,250,246,.92); }
 
 html.no-glass .lg.t-rose    { background-color: rgba(249,226,231,.95); }
 html.no-glass .lg.t-rose-2  { background-color: rgba(252,232,238,.96); }
