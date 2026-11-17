@@ -1,20 +1,23 @@
 // Effet verre : Auto / Activé / Désactivé (§9.3).
 // En mode Auto, on coupe le flou si le téléphone risque de ramer.
 
-export function staticGlassChecks() {
+export function staticGlassChecks(nav = globalThis.navigator ?? {}) {
   const reasons = [];
   const css = globalThis.CSS;
   const supported = css?.supports?.('backdrop-filter', 'blur(1px)') || css?.supports?.('-webkit-backdrop-filter', 'blur(1px)');
   if (!supported) reasons.push('backdrop-filter non pris en charge');
-  const mem = navigator.deviceMemory;
+  const mem = nav.deviceMemory;
   if (typeof mem === 'number' && mem <= 2) reasons.push(`mémoire faible (${mem} Go)`);
+  // Android d'entrée de gamme : 4 cœurs ou moins (l'iPhone n'est pas concerné, son chiffre n'est pas fiable)
+  const cores = nav.hardwareConcurrency;
+  if (/Android/i.test(nav.userAgent ?? '') && typeof cores === 'number' && cores <= 4) reasons.push(`processeur modeste (${cores} cœurs)`);
   if (globalThis.matchMedia?.('(prefers-reduced-transparency: reduce)').matches) reasons.push('transparence réduite demandée');
   return reasons;
 }
 
 // Mesure simple d'images par seconde via requestAnimationFrame.
 // On ignore les premières images (chargement), puis on compte pendant `duration` ms.
-export function measureFps({ warmup = 400, duration = 1000 } = {}) {
+export function measureFps({ warmup = 400, duration = 1500 } = {}) {
   return new Promise((resolve) => {
     if (document.visibilityState !== 'visible' || !globalThis.requestAnimationFrame) return resolve(null);
     const t0 = performance.now();
@@ -32,7 +35,8 @@ export function measureFps({ warmup = 400, duration = 1000 } = {}) {
   });
 }
 
-const LOW_FPS = 30;
+// Sous 45 images/s (écran à 60 Hz), le flou fait déjà ramer : on le coupe.
+export const LOW_FPS = 45;
 
 // Décide si le verre est actif. `fps` peut être null (pas encore mesuré).
 export function decideGlass(mode, { reasons = [], fps = null } = {}) {

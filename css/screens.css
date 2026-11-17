@@ -302,7 +302,7 @@ html.no-glass .suggestions { background: #fff; }
   -webkit-mask: radial-gradient(circle, #000 18%, transparent 68%);
   mask: radial-gradient(circle, #000 18%, transparent 68%);
   opacity: .9;
-  animation: medal-rays .9s ease-out .55s both, medal-spin 26s linear 1.45s infinite;
+  animation: medal-rays .9s ease-out .55s both, medal-spin 26s linear 1.45s 2; /* 2 tours puis arrêt */
 }
 .medal-gold .medal-rays { background: repeating-conic-gradient(from 0deg, rgba(255,214,102,.9) 0deg 7deg, rgba(255,255,255,0) 7deg 18deg); }
 /* Téléphone modeste (verre coupé) : pas de rotation continue */
@@ -859,12 +859,14 @@ html[data-time="soir"] .b-best { color: #F7A8C0; }
 .bento .stat-v { color: var(--plum-ink); }
 
 /* =====================================================================
-   Fond « cinéma » : zoom très lent de la photo (≈ 7 % en 20 s), aller-retour
-   Coupé sans effet verre (téléphone modeste) et avec « Réduire les animations ».
+   Fond « cinéma » : zoom très lent de la photo (≈ 6 % en 20 s), UN SEUL passage par ouverture
+   (classe .cinema relancée par app.js), puis la photo reste immobile : les cartes floutées
+   n'ont plus à recalculer leur flou en continu. Coupé sans effet verre et avec
+   « Réduire les animations ».
    ===================================================================== */
-#bg { animation: bg-cinema 20s ease-in-out infinite alternate; will-change: transform; }
+#bg.cinema { animation: bg-cinema 20s ease-out both; }
 @keyframes bg-cinema { from { transform: scale(1.01) translate(0, 0); } to { transform: scale(1.07) translate(-1.2%, -.8%); } }
-html.no-glass #bg { animation: none; will-change: auto; }
+html.no-glass #bg.cinema { animation: none; }
 @media (prefers-reduced-motion: reduce) { #bg { animation: none; } }
 
 /* =====================================================================
@@ -921,7 +923,7 @@ button.trophy { cursor: pointer; }
   box-shadow: 0 14px 22px -10px rgba(190,120,0,.6), inset 5px 6px 10px -5px rgba(255,255,255,.9), inset -6px -8px 12px -6px rgba(140,80,0,.5);
 }
 .trophy-face::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 1.5px dashed rgba(255,255,255,.6); }
-.trophy-face::after { content: ""; position: absolute; top: -30%; left: -80%; width: 45%; height: 160%; transform: rotate(22deg); background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.8), rgba(255,255,255,0)); animation: trophy-shine 5s ease-in-out infinite; }
+.trophy-face::after { content: ""; position: absolute; top: -30%; left: -80%; width: 45%; height: 160%; transform: rotate(22deg); background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.8), rgba(255,255,255,0)); animation: trophy-shine 6s ease-in-out 3; /* 3 reflets puis arrêt */ }
 .trophy:nth-child(2) .trophy-face::after { animation-delay: 1.6s; }
 .trophy:nth-child(3) .trophy-face::after { animation-delay: 3.2s; }
 @keyframes trophy-shine { 0%, 70% { left: -80%; } 100% { left: 140%; } }
@@ -944,7 +946,7 @@ html[data-time="soir"] .shelf::after { background: linear-gradient(180deg, rgba(
 @keyframes face-pop { 0% { transform: scale(.7); } 60% { transform: scale(1.22); } 100% { transform: scale(1); } }
 .pain-heart { margin-left: auto; display: inline-flex; opacity: .35; transition: opacity .3s; }
 .check input:checked ~ .pain-heart { opacity: 1; }
-.check input:checked ~ .pain-heart .gi { animation: heart-beat 1.1s ease-in-out infinite; transform-origin: center; }
+.check input:checked ~ .pain-heart .gi { animation: heart-beat 1.1s ease-in-out 4; transform-origin: center; }
 @keyframes heart-beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 30% { transform: scale(1); } 45% { transform: scale(1.12); } }
 
 /* =====================================================================
@@ -976,3 +978,39 @@ html[data-time="soir"] .frise-ic { background: rgba(255,255,255,.14); box-shadow
 .rows .row:has(.stepper) { flex-wrap: wrap; row-gap: 6px; padding: 8px 0; }
 .rows .row:has(.stepper) .stepper { margin-left: auto; }
 .row-k { min-width: 0; }
+
+/* =====================================================================
+   Lisibilité (avant envoi) : étiquettes ≥ 12 px ; celles posées sur la photo passent
+   à l'encre pleine, et les en-têtes en milieu d'écran reçoivent une pastille claire
+   (contraste ≥ 4,5:1 quelle que soit la photo). Le soir, les mêmes règles en clair.
+   ===================================================================== */
+.label, .tile-l, .triplet-l, .anecdote-label, .milestone-head > span:first-child { font-size: 12px; }
+.bento .stat-l { font-size: 12px; letter-spacing: .1em; }
+.cal-grid b { font-size: 11.5px; }
+.wp > span:last-child { font-size: 11.5px; }
+.trophy small { font-size: 12px; }
+.ring-u { font-size: 12px; }
+
+/* Étiquettes directement sur la photo : encre pleine + halo renforcé */
+.screen > .label,
+.section > .label,
+.screen > div > .label {
+  color: var(--ink) !important; font-weight: 900;
+  text-shadow: 0 0 10px rgba(255,244,232,1), 0 0 3px rgba(255,244,232,1), 0 0 1px rgba(255,244,232,1);
+}
+html[data-time="soir"] .screen > .label,
+html[data-time="soir"] .section > .label,
+html[data-time="soir"] .screen > div > .label {
+  color: var(--champagne) !important;
+  text-shadow: 0 0 10px rgba(30,10,26,1), 0 0 3px rgba(30,10,26,1);
+}
+
+/* En-têtes en milieu d'écran (semaines, médailles) : pastille claire derrière le texte */
+.week-h, .trophies-h {
+  margin: 4px 0 0; padding: 7px 12px; border-radius: 999px;
+  background: rgba(255,249,243,.72); box-shadow: inset 0 0 0 1px rgba(255,232,196,.9);
+}
+.week-h .label, .trophies-h .label { color: var(--ink) !important; font-weight: 900; }
+.week-h > span:last-child, .trophies-h > span:last-child { color: var(--ink); }
+html[data-time="soir"] .week-h, html[data-time="soir"] .trophies-h { background: rgba(42,18,38,.62); box-shadow: inset 0 0 0 1px rgba(243,217,181,.35); }
+html[data-time="soir"] .week-h .label, html[data-time="soir"] .trophies-h .label { color: var(--champagne) !important; }

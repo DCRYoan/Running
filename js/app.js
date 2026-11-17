@@ -374,6 +374,10 @@ async function onOpening({ cold }) {
   if (!app.backgrounds.length) app.backgrounds = await loadBackgroundList();
   app.background = pickBackground(await availableBackgrounds(app.backgrounds), app.state.ui.lastBackground);
   if (app.background) app.state.ui.lastBackground = app.background.id;
+  // Fond « cinéma » : un passage lent de 20 s à chaque ouverture, puis la photo s'immobilise.
+  $bg.classList.remove('cinema');
+  void $bg.offsetWidth;
+  $bg.classList.add('cinema');
   applyBackground($bg, app.background).then(async (ok) => {
     if (!ok && app.background) {
       // Image injoignable (réseau capricieux) : un fond déjà en cache plutôt que le fond de secours.
