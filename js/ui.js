@@ -63,16 +63,55 @@ export const milestoneBar = ({ next, remainingText, progress }) => `
     <div class="bar"><div class="bar-fill" style="width:${Math.max(3, Math.round(progress * 100))}%"></div></div>
   </div>`;
 
+// ---------- Icônes « bonbon verre » ----------
+// Formes pleines en dégradé (variables --ic-1 → --ic-2), reflet en haut à gauche, détails en
+// --ic-detail. Les couleurs viennent du CSS : baie par défaut, prune pour un onglet inactif,
+// champagne le soir (voir .gi dans screens.css). Pictogrammes sur une grille de 24.
+const GLOSSY = {
+  seance: { base: ['M3 19V10.6Q3 9 4.6 9H7Q8 11.6 10.5 10.6L11.5 7.6Q12 6.6 13 7L13.9 7.4Q14.6 7.8 14.3 8.6L13.6 11L17.6 13.2Q21 14.9 21 17.3V17.5Q21 19 19.5 19Z'],
+    details: ['M3.2 16.4H20.8', 'M12.2 12.3l2 1.1', 'M11.3 14.1l2 1.1'] },
+  historique: { base: ['M4 7a2.5 2.5 0 0 1 2.5-2.5h11A2.5 2.5 0 0 1 20 7v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 18Z'],
+    lines: ['M8.5 2.8v3.2M15.5 2.8v3.2'], details: ['M4 9.6h16', 'M9 14.6l2 2 4-4'] },
+  stats: { base: ['M4.5 15.8l4.2-4.6 3.6 2.8 6.7-7.2V19.5H4.5Z'],
+    lines: ['M4 19.5h16', 'M4.5 15.8l4.2-4.6 3.6 2.8 6.7-7.2'], dots: [[19, 6.8, 1.7]] },
+  reglages: { base: ['M9 5.1a2.6 2.6 0 1 0 0 5.2a2.6 2.6 0 1 0 0-5.2Z', 'M15 13.9a2.6 2.6 0 1 0 0 5.2a2.6 2.6 0 1 0 0-5.2Z'],
+    lines: ['M4 7.7h2.4M11.6 7.7H20M4 16.5h8.4M17.6 16.5H20'] },
+  coeur: { base: ['M12 20.5s-7-4.3-9.1-8.9C1.4 8.3 3.5 4.8 7 4.8c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.5 0 5.6 3.5 4.1 6.8C19 16.2 12 20.5 12 20.5Z'],
+    details: ['M7.4 8.3c-1 .2-1.8 1-2 2'] },
+  lune: { base: ['M19.6 14.6A8.2 8.2 0 1 1 9.4 4.4a6.3 6.3 0 0 0 10.2 10.2Z'],
+    sparkle: 'M17.4 3.6l.55 1.45 1.45.55-1.45.55-.55 1.45-.55-1.45-1.45-.55 1.45-.55Z' },
+  lieu: { base: ['M12 21s-6.8-6-6.8-10.8a6.8 6.8 0 0 1 13.6 0C18.8 15 12 21 12 21Z'],
+    details: ['M12 7.8a2.4 2.4 0 1 0 0 4.8a2.4 2.4 0 1 0 0-4.8Z'] },
+  valide: { base: ['M12 3.2a8.8 8.8 0 1 0 0 17.6a8.8 8.8 0 1 0 0-17.6Z'], details: ['M8 12.4l2.8 2.8L16.2 9.6'] },
+};
+let glossyUid = 0;
+
+export function glossyIcon(name, size = 24, cls = '') {
+  const ic = GLOSSY[name];
+  const id = `gi${glossyUid += 1}`;
+  const line = 'fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+  const parts = [
+    `<defs><linearGradient id="${id}g" x1="0" y1="0" x2=".7" y2="1"><stop offset="0" style="stop-color:var(--ic-1)"/><stop offset="1" style="stop-color:var(--ic-2)"/></linearGradient>`,
+    `<clipPath id="${id}c">${ic.base.map((d) => `<path d="${d}"/>`).join('')}</clipPath></defs>`,
+    ...(ic.lines || []).map((d) => `<path d="${d}" ${line} style="stroke:var(--ic-2)"/>`),
+    ...ic.base.map((d) => `<path d="${d}" fill="url(#${id}g)"/>`),
+    `<g clip-path="url(#${id}c)"><ellipse cx="8" cy="6.5" rx="7" ry="4" fill="#fff" opacity=".42" transform="rotate(-24 8 6.5)"/><path d="M3 20.5h18" stroke="#000" stroke-opacity=".12" stroke-width="3"/></g>`,
+    ...(ic.details || []).map((d) => `<path d="${d}" ${line} style="stroke:var(--ic-detail)"/>`),
+    ...(ic.dots || []).map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r + 0.5}" style="fill:var(--ic-2);stroke:var(--ic-detail)" stroke-width="1.2"/>`),
+    ic.sparkle ? `<path d="${ic.sparkle}" style="fill:var(--ic-2)"/>` : '',
+  ];
+  return `<svg class="gi ${cls}" width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true">${parts.join('')}</svg>`;
+}
+
 /** Icône ronde en verre (coche, cœur, lune…). */
 export const roundBadge = (svg, { size = 104, tint = 'rgba(255,255,255,.55)', extra = '' } = {}) =>
   `<div class="lg round-badge" style="width:${size}px;height:${size}px;background:${tint};${extra}">${svg}</div>`;
 
-export const HEART_SVG = '<svg width="50" height="50" viewBox="0 0 24 24" fill="#F6A5BA" stroke="#3A2E3F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.4-9.2-9.1C1.3 8.6 3.4 5 7 5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.6 0 5.7 3.6 4.2 6.9C19 16.6 12 21 12 21Z"/></svg>';
+export const HEART_SVG = glossyIcon('coeur', 54);
 export const CHECK_SVG = '<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#3A2E3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-export const MOON_SVG = '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#3A2E3F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>';
+export const MOON_SVG = glossyIcon('lune', 62);
 
 // ---------- Carte anecdote (§7.6) : image en fond, voile blanc à gauche, pastille de lieu ----------
-const PIN_PATH = 'M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z';
 // « Saint-Cyr-sur-Mer → Six-Fours-les-Plages » : chaque commune reste sur une ligne,
 // le retour à la ligne ne peut se faire qu'après la flèche.
 const placeHtml = (place) => String(place).split(' → ').map((p) => `<span class="nw">${esc(p)}</span>`).join(' → ');
@@ -86,7 +125,7 @@ export function anecdoteCard({ label = '', text, image, place, height = 166, tex
         ${label ? `<div class="label anecdote-label">${esc(label)}</div>` : ''}
         <p class="anecdote-text">${esc(text)}</p>
       </div>
-      ${place ? `<div class="lg anecdote-place"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B02A52" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${PIN_PATH}"/><circle cx="12" cy="10" r="2.4"/></svg><span>${placeHtml(place)}</span></div>` : ''}
+      ${place ? `<div class="lg anecdote-place">${glossyIcon('lieu', 17)}<span>${placeHtml(place)}</span></div>` : ''}
     </div>`;
 }
 
@@ -150,10 +189,10 @@ export function confirmDialog({ title, text, ok = 'Oui', cancel = 'Annuler' }) {
 
 // Onglets de la barre du bas (icônes reprises des maquettes).
 export const TABS = [
-  { route: 'seance', label: 'Séance', d: 'M5 21V4M5 4h11l-2.5 4L16 12H5' },
-  { route: 'historique', label: 'Historique', d: 'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18ZM12 7v5l3 2' },
-  { route: 'stats', label: 'Stats', d: 'M5 20V10M12 20V4M19 20v-7' },
-  { route: 'reglages', label: 'Réglages', d: 'M4 8h16M4 16h16M9 5v6M15 13v6' },
+  { route: 'seance', label: 'Séance', icon: 'seance' },
+  { route: 'historique', label: 'Historique', icon: 'historique' },
+  { route: 'stats', label: 'Stats', icon: 'stats' },
+  { route: 'reglages', label: 'Réglages', icon: 'reglages' },
 ];
 
 // ---------- Compteurs animés ----------

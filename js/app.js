@@ -10,7 +10,7 @@ import { pickAnecdote } from './anecdotes.js';
 import { resolveCity, isResolved } from './geo.js';
 import { staticGlassChecks, measureFps, decideGlass, applyGlass } from './glass.js';
 import { pickBackground, loadBackgroundList, applyBackground, preloadNext, availableBackgrounds } from './backgrounds.js';
-import { TABS, icon, frenchSpacing } from './ui.js';
+import { TABS, glossyIcon, frenchSpacing } from './ui.js';
 import { BUILD } from './version.js';
 import { createSync, mergeData } from './sync.js';
 import { generateCode } from './backup-code.js';
@@ -300,7 +300,7 @@ function guard(route) {
 function renderNav(active, { instant = false } = {}) {
   if (!$nav.querySelector('.tab-lens')) {
     $nav.innerHTML = `<span class="tab-lens" aria-hidden="true"><i></i></span>${TABS.map((t) => `
-      <a class="tab" href="#/${t.route}">${icon(t.d)}<span>${t.label}</span></a>`).join('')}`;
+      <a class="tab" href="#/${t.route}">${glossyIcon(t.icon, 24)}<span>${t.label}</span></a>`).join('')}`;
     instant = true;
   }
   const i = TABS.findIndex((t) => t.route === active);

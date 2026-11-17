@@ -809,3 +809,14 @@ html.no-glass[data-time="soir"] .anecdote .lg { background-color: rgba(255,249,2
 html[data-time="soir"] .palier-badge,
 html[data-time="soir"] .step-n.lav,
 html[data-time="soir"] .tag-lav { color: #473B73; }
+
+/* =====================================================================
+   Icônes « bonbon verre » (glossyIcon) : couleurs pilotées ici
+   ===================================================================== */
+.gi { --ic-1: #E04A74; --ic-2: #A51E4D; --ic-detail: #FFFFFF; flex: none; filter: drop-shadow(0 3px 3px rgba(74,33,64,.3)); overflow: visible; }
+.tab .gi { --ic-1: #6B2D58; --ic-2: #4A2140; transition: filter .3s; }
+.tab[aria-current="page"] .gi { --ic-1: #E04A74; --ic-2: #A51E4D; filter: drop-shadow(0 3px 4px rgba(165,30,77,.4)); }
+.anecdote-place .gi { filter: drop-shadow(0 1px 2px rgba(165,30,77,.35)); }
+/* Le soir, les onglets inactifs passent en champagne (lisibles sur le verre sombre) */
+html[data-time="soir"] .tab .gi { --ic-1: #FFF1DE; --ic-2: #E6C190; --ic-detail: #4A2140; filter: drop-shadow(0 2px 3px rgba(0,0,0,.45)); }
+html[data-time="soir"] .tab[aria-current="page"] .gi { --ic-1: #E04A74; --ic-2: #A51E4D; --ic-detail: #FFFFFF; }
