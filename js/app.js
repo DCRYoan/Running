@@ -409,7 +409,7 @@ async function registerServiceWorker() {
   });
 }
 
-// Test (Réglages > Diagnostic) : simule une nouvelle ouverture sans attendre 30 min.
+// Simule une nouvelle ouverture (tests manuels depuis la console : app.reopen()).
 app.reopen = () => onOpening({ cold: false });
 
 // ---------- Sauvegarde en ligne (§10.3) ----------

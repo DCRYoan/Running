@@ -142,7 +142,6 @@
 }
 
 /* ---------- Divers ---------- */
-.diag { font: 600 12px/1.45 ui-monospace, Consolas, monospace; color: var(--ink-3); white-space: pre-wrap; }
 .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
 .swatch { width: 36px; height: 36px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.9); }
 
@@ -346,8 +345,6 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; min-heigh
 .dot-wait { background: var(--yellow); }
 .dot-error { background: var(--coral); }
 .link-card { display: flex; align-items: center; justify-content: space-between; min-height: 60px; padding: 0 16px; }
-.diag-box { border-radius: 24px; padding: 10px 16px; }
-.diag-box summary { cursor: pointer; min-height: 32px; display: flex; align-items: center; }
 
 /* Mon programme */
 .paliers { border-radius: 26px; padding: 8px 14px; }
@@ -409,3 +406,6 @@ input[type="date"].input { -webkit-appearance: none; appearance: none; min-heigh
 .code-btn { flex: 1; height: 48px; color: var(--link-hover); font-size: 16px; padding: 0; }
 .note { border-radius: 22px; padding: 14px 16px; margin-top: 12px; font-size: 14px; line-height: 1.45; font-weight: 700; }
 .code-input { height: 62px; font-size: 24px; font-weight: 900; letter-spacing: 2px; text-align: center; text-transform: uppercase; }
+
+.app-version { text-align: center; font-size: 13px; font-weight: 800; color: var(--ink-2); margin-top: 4px; }
+.app-build { font-size: 11px; font-weight: 700; opacity: .7; margin-top: 2px; }

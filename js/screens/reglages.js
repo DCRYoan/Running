@@ -112,28 +112,15 @@ export default {
 
       <div class="section">
         <span class="label">Installation</span>
-        <div class="lg card"><p style="font-size:15px;line-height:1.4">${installHelp}</p></div>
+        <div class="lg card"><p style="font-size:15px;line-height:1.4">${standalone ? 'Running est installée sur ton téléphone : elle fonctionne aussi sans réseau.' : installHelp}</p></div>
       </div>
 
-      <details class="lt card diag-box">
-        <summary class="small">Diagnostic (temporaire)</summary>
-        <div class="diag">${esc([
-          `Mode affichage : ${standalone ? 'application installée' : 'onglet du navigateur'}`,
-          `backdrop-filter : ${g.reasons.includes('backdrop-filter non pris en charge') ? 'non' : 'oui'}`,
-          `Mémoire de l'appareil : ${navigator.deviceMemory ?? 'inconnue'} Go`,
-          `Images/s mesurées : ${g.fps ?? 'pas encore mesuré'}`,
-          `Service worker : ${navigator.serviceWorker?.controller ? 'actif' : 'pas encore actif'}`,
-          `Dernière ouverture : ${app.state.ui.lastOpenAt ?? '—'}`,
-          `Version installée : ${app.build}`,
-          `Fond affiché : ${app.background?.id ?? 'secours'} (${app.backgrounds.length} fonds disponibles)`,
-        ].join('\n'))}</div>
-        <button class="lgg btn btn-secondary" type="button" data-reopen style="height:46px;font-size:15px;margin-top:10px">Simuler une nouvelle ouverture</button>
-      </details>
-
-      <div style="text-align:center;font-size:13px;font-weight:800;color:var(--ink-2);margin-top:4px">Running · version ${app.version}</div>`;
+      <div class="app-version">
+        <div>Running · version ${app.version}</div>
+        <div class="app-build">réf. ${esc(app.build)}</div>
+      </div>`;
   },
   mount(root, app) {
-    root.querySelector('[data-reopen]')?.addEventListener('click', () => app.reopen());
     if (app.state.backup.code) bindCodeButtons(root, app.state.backup.code);
     root.querySelectorAll('[data-mode]').forEach((btn) => {
       btn.addEventListener('click', () => {
