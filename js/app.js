@@ -9,7 +9,7 @@ import { welcomeContext, pickWelcome, pickVariant } from './messages.js';
 import { pickAnecdote } from './anecdotes.js';
 import { resolveCity, isResolved } from './geo.js';
 import { staticGlassChecks, measureFps, decideGlass, applyGlass } from './glass.js';
-import { pickBackground, loadBackgroundList, applyBackground, preloadNext } from './backgrounds.js';
+import { pickBackground, loadBackgroundList, applyBackground, preloadNext, availableBackgrounds } from './backgrounds.js';
 import { TABS, icon, frenchSpacing } from './ui.js';
 import { BUILD } from './version.js';
 import { createSync, mergeData } from './sync.js';
@@ -327,9 +327,22 @@ async function onOpening({ cold }) {
 
   // Nouveau fond à chaque ouverture, jamais le même que le précédent.
   if (!app.backgrounds.length) app.backgrounds = await loadBackgroundList();
-  app.background = pickBackground(app.backgrounds, app.state.ui.lastBackground);
+  app.background = pickBackground(await availableBackgrounds(app.backgrounds), app.state.ui.lastBackground);
   if (app.background) app.state.ui.lastBackground = app.background.id;
-  applyBackground($bg, app.background).then(() => preloadNext(app.backgrounds, app.background?.id));
+  applyBackground($bg, app.background).then(async (ok) => {
+    if (!ok && app.background) {
+      // Image injoignable (réseau capricieux) : un fond déjà en cache plutôt que le fond de secours.
+      const cached = await availableBackgrounds(app.backgrounds, { online: false });
+      const alt = pickBackground(cached.filter((b) => b.id !== app.background.id), null);
+      if (alt && cached.length < app.backgrounds.length) {
+        app.background = alt;
+        app.state.ui.lastBackground = alt.id;
+        app.save();
+        await applyBackground($bg, alt);
+      }
+    }
+    preloadNext(app.backgrounds, app.background?.id);
+  });
 
   app.welcome = null; // retiré au prochain affichage de l'Accueil
   app.anecdote = null;

@@ -170,3 +170,16 @@ describe('fonds d\'écran (§8)', () => {
     assert.ok(bgs.filter((b) => !b.source.startsWith('cartes-motivation/')).every((b) => !b.veil));
   });
 });
+
+describe('fonds hors ligne (M6)', () => {
+  test('hors ligne : seulement les fonds en cache ; en ligne : tous ; rien en cache : tous', async () => {
+    const { availableBackgrounds } = await import('../js/backgrounds.js');
+    const cached = new Set([bgs[0].file, bgs[3].file]);
+    const cacheStorage = { match: async (f) => (cached.has(f) ? {} : undefined) };
+    const off = await availableBackgrounds(bgs, { online: false, cacheStorage });
+    assert.deepEqual(off.map((b) => b.id), [bgs[0].id, bgs[3].id]);
+    assert.equal((await availableBackgrounds(bgs, { online: true, cacheStorage })).length, bgs.length);
+    const none = { match: async () => undefined };
+    assert.equal((await availableBackgrounds(bgs, { online: false, cacheStorage: none })).length, bgs.length);
+  });
+});

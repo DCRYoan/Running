@@ -19,6 +19,19 @@ export async function loadBackgroundList() {
   }
 }
 
+/**
+ * Hors ligne : seulement les fonds déjà en cache (précachés ou déjà vus),
+ * pour ne jamais tirer une image introuvable. En ligne : tous.
+ */
+export async function availableBackgrounds(list, { online = navigator.onLine, cacheStorage = globalThis.caches } = {}) {
+  if (online || !cacheStorage) return list;
+  const cached = [];
+  for (const b of list) {
+    try { if (await cacheStorage.match(b.file, { ignoreSearch: true })) cached.push(b); } catch { /* cache indisponible */ }
+  }
+  return cached.length ? cached : list;
+}
+
 function showSecours(el) {
   el.classList.remove('veil-fort');
   el.classList.add('bg-secours');

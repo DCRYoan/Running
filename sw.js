@@ -5,7 +5,7 @@
 // - Requêtes vers d'autres domaines (Supabase, geo.api.gouv.fr) : jamais mises en cache.
 
 // <precache> — bloc généré par tools/build-sw.mjs, ne pas éditer à la main
-const VERSION = '866eddb4bd02';
+const VERSION = '9a6f578cf871';
 const PRECACHE = [
   "./",
   "assets/anecdotes/aller-retour-lune.svg",
@@ -171,16 +171,28 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Fichiers précachés : cache d'abord (versionné).
-  // Autres fichiers (fonds non précachés…) : stale-while-revalidate dans le cache d'exécution.
+  // Autres fichiers : cache d'exécution. Images (fonds non précachés) : cache d'abord,
+  // elles ne changent pas ; le reste : stale-while-revalidate.
   event.respondWith((async () => {
     const pre = await caches.match(req, { cacheName: CACHE, ignoreSearch: true });
     if (pre) return pre;
     const runtime = await caches.open(RUNTIME);
     const hit = await runtime.match(req, { ignoreSearch: true });
-    const network = fetch(req).then((res) => {
-      if (res.ok) runtime.put(req, res.clone());
+    if (hit && url.pathname.includes('/assets/')) return hit;
+    const network = fetch(req).then(async (res) => {
+      if (res.ok) {
+        await runtime.put(req, res.clone());
+        trimRuntime(runtime);
+      }
       return res;
-    }).catch(() => hit);
+    }).catch(() => hit || Response.error());
     return hit || network;
   })());
 });
+
+// Le cache d'exécution garde au plus RUNTIME_MAX fichiers (les plus anciens partent).
+const RUNTIME_MAX = 60;
+async function trimRuntime(cache) {
+  const keys = await cache.keys();
+  for (const k of keys.slice(0, Math.max(0, keys.length - RUNTIME_MAX))) await cache.delete(k);
+}
